@@ -26,7 +26,7 @@ body {
     font: var(--text);
     background: var(--bg);
     color: var(--text-primary);
-    touch-action: pan-x pan-y; /* Impede gestos de pinça para zoom */
+    touch-action: pan-x pan-y;
 }
 
 /* Layout Principal */
@@ -57,7 +57,22 @@ header p {
 
 header .btn-secondary {
     margin-top: 10px;
-    display: inline-block;
+    display: inline-flex;
+    background: #2d1a0f; 
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+    transition: background 0.2s, transform 0.2s;
+}
+
+header .btn-secondary:hover {
+    background: var(--brand-dark); 
+    transform: scale(1.05); /* Leve aumento para destacar */
 }
 
 /* Catálogo */
@@ -142,7 +157,7 @@ header .btn-secondary {
     color: var(--brand-light);
 }
 
-/* Grupo de Botões */
+/* Grupo de Botões (Catálogo) */
 .btn-group {
     display: flex;
     justify-content: center;
@@ -160,7 +175,7 @@ header .btn-secondary {
     font-size: 18px;
     cursor: pointer;
     transition: background 0.2s, transform 0.2s;
-    touch-action: manipulation; /* Garante que botões respondam apenas a cliques */
+    touch-action: manipulation;
 }
 
 .btn-add:hover,
@@ -199,12 +214,12 @@ header .btn-secondary {
     gap: 8px;
 }
 
-/* Itens do Carrinho (usado em sacola.html) */
+/* Itens do Carrinho (Sacola) */
 .cart-items {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    background: #fff;
-    border-radius: 12px;
+    background: var(--bg);
     padding: 16px;
     width: min(720px, 92vw);
     margin: 0 auto;
@@ -215,9 +230,10 @@ header .btn-secondary {
     grid-template-columns: 60px 1fr auto auto auto;
     align-items: center;
     gap: 12px;
-    border: 1px solid #eee;
+    border: 1px solid #e4d3be;
     border-radius: 10px;
-    padding: 8px;
+    padding: 12px;
+    background: var(--stroke);
 }
 
 .cart-item img {
@@ -226,28 +242,59 @@ header .btn-secondary {
     object-fit: contain;
 }
 
+.cart-item h2 {
+    font: var(--h2);
+    color: var(--text-primary);
+}
+
+.cart-item .details {
+    font: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+.cart-item .price {
+    font: 700 14px/1.4 var(--font-body);
+    color: var(--brand-light);
+}
+
+/* Botões da Sacola */
 .cart-qty {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 8px;
 }
 
 .cart-qty button {
-    background: #f3f3f3;
+    background: var(--brand-dark);
+    color: #fff;
     border: none;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    font-size: 16px;
     cursor: pointer;
-    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    touch-action: manipulation; /* Garante que botões respondam apenas a cliques */
+    transition: background 0.2s, transform 0.2s;
+    touch-action: manipulation;
 }
 
 .cart-qty button:hover {
-    background: #e6e6e6;
+    background: #2d1a0f;
+    transform: scale(1.1);
+}
+
+.cart-qty button:active {
+    transform: scale(0.9);
+}
+
+.cart-qty .quantity {
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 20px;
+    text-align: center;
 }
 
 .item-total {
@@ -261,8 +308,6 @@ header .btn-secondary {
     background: #f3f3f3;
     color: #111;
     border: none;
-    height: auto;
-    width: auto;
     padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
@@ -270,8 +315,7 @@ header .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
-    touch-action: manipulation; /* Garante que botões respondam apenas a cliques */
+    touch-action: manipulation;
 }
 
 .cart-remove:hover {
@@ -308,7 +352,7 @@ header .btn-secondary {
     border-radius: 10px;
     cursor: pointer;
     font-weight: 700;
-    touch-action: manipulation; /* Garante que botões respondam apenas a cliques */
+    touch-action: manipulation;
 }
 
 .btn-primary:disabled {
@@ -327,7 +371,7 @@ header .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    touch-action: manipulation; /* Garante que botões respondam apenas a cliques */
+    touch-action: manipulation;
 }
 
 .btn-secondary:hover {
@@ -385,29 +429,17 @@ footer {
         font-size: 11px;
     }
 
-    .btn-group {
-        gap: 20px; /* Aumentado o espaçamento entre os botões */
+    .btn-group,
+    .cart-qty {
+        gap: 12px;
     }
 
     .btn-add,
-    .btn-remove {
-        width: 40px; /* Aumentado o tamanho dos botões */
-        height: 40px; /* Aumentado o tamanho dos botões */
-        font-size: 18px; /* Tamanho da fonte mantido para visibilidade */
-        transition: background 0.2s;
-    }
-
-    .btn-add:hover,
-    .btn-remove:hover {
-        background: #2d1a0f;
-    }
-
-    header h1 {
+    .btn-remove,
+    .cart-qty button {
+        width: 32px;
+        height: 32px;
         font-size: 16px;
-    }
-
-    .item-total {
-        min-width: 60px;
     }
 
     .cart-item {
@@ -420,9 +452,17 @@ footer {
         height: 40px;
     }
 
-    .cart-qty button {
-        width: 24px;
-        height: 24px;
+    .cart-item h2 {
+        font-size: 12px;
+    }
+
+    .cart-item .details,
+    .cart-item .price {
+        font-size: 11px;
+    }
+
+    .item-total {
+        min-width: 60px;
     }
 
     .cart-remove {
@@ -450,5 +490,9 @@ footer {
 
     .item-total {
         display: none;
+    }
+
+    .cart-qty {
+        gap: 8px;
     }
 }
