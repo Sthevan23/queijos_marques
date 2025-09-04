@@ -1,4 +1,3 @@
-
 // ============================
 // UTILITÁRIOS
 // ============================
@@ -49,12 +48,12 @@ let cartTotalModalEl, checkoutBtn, checkoutBtnModal, clearCartBtn;
 document.addEventListener('DOMContentLoaded', () => {
   // Seleciona todos os elementos necessários
   itemsNodeList = document.querySelectorAll('.item');
-  cartCountEl = document.getElementById('cartCount');
-  cartTotalEl = document.getElementById('cartTotal');
+  cartCountEl = document.getElementById('cartcount'); // Atualizado para corresponder ao HTML
+  cartTotalEl = document.getElementById('carttotal'); // Atualizado para corresponder ao HTML
   cartItemsEl = document.getElementById('cartItems');
   cartEmptyEl = document.getElementById('cartEmpty');
   cartTotalModalEl = document.getElementById('cartTotalModal');
-  checkoutBtn = document.getElementById('checkoutBtn');
+  checkoutBtn = document.getElementById('checkoutbtn'); // Atualizado para corresponder ao HTML
   checkoutBtnModal = document.getElementById('checkoutBtnModal');
   clearCartBtn = document.getElementById('clearCart');
 
@@ -157,6 +156,13 @@ function renderCart() {
   }
   if (checkoutBtn) {
     checkoutBtn.disabled = totalItems === 0;
+  }
+
+  // Adiciona feedback visual na cart-bar
+  const cartBar = document.querySelector('.cart-bar');
+  if (cartBar) {
+    cartBar.classList.add('highlight');
+    setTimeout(() => cartBar.classList.remove('highlight'), 300); // Remove após 300ms
   }
 
   // Atualiza totais na interface (sacola.html)
