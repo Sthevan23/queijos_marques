@@ -1,3 +1,4 @@
+
 // ============================
 // UTILITÁRIOS
 // ============================
@@ -64,10 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const btnRemove = itemEl.querySelector('.btn-remove');
       const quantitySpan = itemEl.querySelector('.quantity');
 
-      // Clicar em "+" adiciona ao carrinho
-      btnAdd.addEventListener('click', () => handleQtyChange(itemEl, 1, quantitySpan));
-      // Clicar em "-" remove do carrinho
-      btnRemove.addEventListener('click', () => handleQtyChange(itemEl, -1, quantitySpan));
+      if (btnAdd && btnRemove && quantitySpan) {
+        // Clicar em "+" adiciona ao carrinho
+        btnAdd.addEventListener('click', () => handleQtyChange(itemEl, 1, quantitySpan));
+        // Clicar em "-" remove do carrinho
+        btnRemove.addEventListener('click', () => handleQtyChange(itemEl, -1, quantitySpan));
+      }
     });
   }
 
@@ -96,11 +99,14 @@ function handleQtyChange(itemEl, delta, span) {
 
 // Lê informações de um produto no HTML
 function readItemInfo(itemEl) {
+  const h2 = itemEl.querySelector('h2');
+  const priceEl = itemEl.querySelector('.price');
+  const img = itemEl.querySelector('img');
   return {
     id: itemEl.dataset.id, // atributo data-id
-    name: itemEl.querySelector('h2').textContent.trim(), // nome do produto
-    price: parseBRL(itemEl.querySelector('.price').textContent.trim()), // preço convertido
-    image: itemEl.querySelector('img').src // caminho da imagem
+    name: h2 ? h2.textContent.trim() : 'Produto sem nome', // fallback
+    price: priceEl ? parseBRL(priceEl.textContent.trim()) : 0, // fallback
+    image: img ? img.src : '' // fallback
   };
 }
 
@@ -122,7 +128,10 @@ const getQty = (id) => cart.get(id)?.qty || 0;
 function syncGrid() {
   if (itemsNodeList.length > 0) {
     itemsNodeList.forEach((el) => {
-      el.querySelector('.quantity').textContent = getQty(el.dataset.id);
+      const quantitySpan = el.querySelector('.quantity');
+      if (quantitySpan) {
+        quantitySpan.textContent = getQty(el.dataset.id);
+      }
     });
   }
 }
@@ -162,13 +171,13 @@ function renderCart() {
   if (cartItemsEl) {
     cartItemsEl.innerHTML = '';
     if (totalItems === 0) {
-      cartEmptyEl.classList.remove('hidden');
+      if (cartEmptyEl) cartEmptyEl.classList.remove('hidden');
       cartItemsEl.classList.add('hidden');
       return;
     }
 
     // Caso tenha itens, lista eles na sacola
-    cartEmptyEl.classList.add('hidden');
+    if (cartEmptyEl) cartEmptyEl.classList.add('hidden');
     cartItemsEl.classList.remove('hidden');
 
     cart.forEach((entry) => {
@@ -193,21 +202,31 @@ function renderCart() {
       `;
 
       // Eventos dos botões dentro da sacola
-      row.querySelector('[data-action="inc"]').addEventListener('click', () => {
-        updateCart(entry.id, entry.name, entry.price, entry.image, 1);
-        syncGrid();
-        renderCart();
-      });
-      row.querySelector('[data-action="dec"]').addEventListener('click', () => {
-        updateCart(entry.id, entry.name, entry.price, entry.image, -1);
-        syncGrid();
-        renderCart();
-      });
-      row.querySelector('.cart-remove').addEventListener('click', () => {
-        updateCart(entry.id, entry.name, entry.price, entry.image, -entry.qty);
-        syncGrid();
-        renderCart();
-      });
+      const incBtn = row.querySelector('[data-action="inc"]');
+      const decBtn = row.querySelector('[data-action="dec"]');
+      const removeBtn = row.querySelector('.cart-remove');
+
+      if (incBtn) {
+        incBtn.addEventListener('click', () => {
+          updateCart(entry.id, entry.name, entry.price, entry.image, 1);
+          syncGrid();
+          renderCart();
+        });
+      }
+      if (decBtn) {
+        decBtn.addEventListener('click', () => {
+          updateCart(entry.id, entry.name, entry.price, entry.image, -1);
+          syncGrid();
+          renderCart();
+        });
+      }
+      if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+          updateCart(entry.id, entry.name, entry.price, entry.image, -entry.qty);
+          syncGrid();
+          renderCart();
+        });
+      }
 
       cartItemsEl.appendChild(row);
     });
