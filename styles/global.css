@@ -460,20 +460,27 @@ footer {
 
     .btn-group,
     .cart-qty {
-        gap: 8px;
-        padding-left: 2.5rem;
-    }
-
-    .btn-remove {
-        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centraliza os botões horizontalmente */
+        gap: 12px; /* Aumenta o espaçamento para melhor legibilidade */
+        padding-left: 0; /* Remove o padding-left que estava desalinhando */
     }
 
     .btn-add,
+    .btn-remove,
     .cart-qty button {
-        width: 32px;
-        min-width: 32px;
-        height: 32px;
-        min-height: 32px;
+        width: 36px;
+        min-width: 36px;
+        height: 36px;
+        min-height: 36px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Garante que o conteúdo dos botões esteja centralizado */
+    }
+
+    .btn-remove {
         font-size: 16px;
     }
 
@@ -489,6 +496,7 @@ footer {
         grid-template-columns: 50px 1fr auto;
         gap: 12px;
         padding: 12px;
+        align-items: center;
     }
 
     .cart-item img {
@@ -512,18 +520,19 @@ footer {
     .cart-remove {
         padding: 4px 8px;
         font-size: 12px;
-        margin-left: 2.5rem;
         min-height: 30px;
+        margin-left: 0; /* Remove o margin-left que estava desalinhando */
     }
 
     .cart-actions-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    background: #f0f0f0; /* Para visualização */
-    padding: 10px;
-}
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background: #f0f0f0;
+        padding: 10px;
+    }
+
     .cart-bar {
         flex-direction: column;
         gap: 10px;
@@ -538,13 +547,13 @@ footer {
     header .btn-instagram {
         font-size: 14px;
         padding: 8px 12px;
-        text-decoration: none !important; /* Reforça para mobile */
+        text-decoration: none !important;
     }
 }
 
 @media (max-width: 480px) {
     .itens-grid {
-        grid-template-columns: repeat(2, 1fr); /* Mantém 2 colunas */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .cart-items {
@@ -554,9 +563,10 @@ footer {
     }
 
     .cart-item {
-        grid-template-columns: 45px 1fr;
+        grid-template-columns: 45px 1fr auto;
         gap: 10px;
         padding: 10px;
+        align-items: center;
     }
 
     .cart-item img {
@@ -576,16 +586,39 @@ footer {
     .cart-remove {
         padding: 4px 8px;
         font-size: 12px;
-        margin-left: 2.5rem;
         min-height: 30px;
+        margin-left: 0; /* Remove o margin-left */
     }
 
     .item-total {
         display: none;
     }
 
+    .btn-group,
     .cart-qty {
-        gap: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centraliza os botões */
+        gap: 10px; /* Ajusta o espaçamento */
+        padding-left: 0; /* Remove o padding-left */
+    }
+
+    .btn-add,
+    .btn-remove,
+    .cart-qty button {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+        min-height: 32px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cart-qty .quantity {
+        min-width: 20px;
+        text-align: center;
     }
 
     .cart-footer {
@@ -601,6 +634,6 @@ footer {
     header .btn-instagram {
         font-size: 12px;
         padding: 6px 10px;
-        text-decoration: none !important; /* Reforça para telas menores */
+        text-decoration: none !important;
     }
 }
