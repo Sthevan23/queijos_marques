@@ -386,7 +386,7 @@ header .btn-instagram svg {
 }
 
 .btn-secondary {
-    background: var(--brand-light);
+    background: var(--brand-dark);
     color: #fff;
     border: none;
     padding: 10px 14px;
