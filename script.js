@@ -334,7 +334,7 @@ const produtos = [
         nome: "Queijo canastra barreirinha", 
         detalhes: "1000g – Aroma intenso", 
         preco: 79.90, 
-        imagem: "assets/imagens/queijos_finos/foto7.jpeg" 
+        imagem: "assets/imagens/queijos_finos/foto7.png" 
     },
     { 
         id: 45, 
