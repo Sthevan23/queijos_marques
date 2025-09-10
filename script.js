@@ -58,14 +58,6 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto5.png"
         },
         {
-            id: 5,
-            categoria: "Queijos tradicionais",
-            nome: "Queijo provolone recheado com salame",
-            detalhes: "450g – Provolone artesanal recheado",
-            preco: 34.90,
-            imagem: "assets/imagens/tradicionais/foto6.png"
-        },
-        {
             id: 6,
             categoria: "Queijos tradicionais",
             nome: "Queijo trança",
@@ -227,6 +219,30 @@ class QueijoTrufado extends Produto {
     }
 
     static itens = [
+                {
+            id: 30,
+            categoria: "Queijos trufados",
+            nome: "Queijo recheado com goiabada",
+            detalhes: "500g – Goiabada cremosa",
+            preco: 44.90,
+            imagem: "assets/imagens/trufados/trufado7.png"
+        },
+        {
+            id: 31,
+            categoria: "Queijos trufados",
+            nome: "Queijo recheado com nutella",
+            detalhes: "500g – Nutella cremosa",
+            preco: 54.90,
+            imagem: "assets/imagens/trufados/trufado8.png"
+        },
+        {
+            id: 32,
+            categoria: "Queijos trufados",
+            nome: "Queijo recheado com doce de leite",
+            detalhes: "500g – Doce suave",
+            preco: 44.90,
+            imagem: "assets/imagens/trufados/trufado9.png"
+        },
         {
             id: 24,
             categoria: "Queijos trufados",
@@ -275,30 +291,7 @@ class QueijoTrufado extends Produto {
             preco: 39.90,
             imagem: "assets/imagens/trufados/trufado6.png"
         },
-        {
-            id: 30,
-            categoria: "Queijos trufados",
-            nome: "Queijo recheado com goiabada",
-            detalhes: "500g – Goiabada cremosa",
-            preco: 44.90,
-            imagem: "assets/imagens/trufados/trufado7.png"
-        },
-        {
-            id: 31,
-            categoria: "Queijos trufados",
-            nome: "Queijo recheado com nutella",
-            detalhes: "500g – Nutella cremosa",
-            preco: 54.90,
-            imagem: "assets/imagens/trufados/trufado8.png"
-        },
-        {
-            id: 32,
-            categoria: "Queijos trufados",
-            nome: "Queijo recheado com doce de leite",
-            detalhes: "500g – Doce suave",
-            preco: 44.90,
-            imagem: "assets/imagens/trufados/trufado9.png"
-        },
+
         {
             id: 33,
             categoria: "Queijos trufados",
@@ -604,7 +597,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite viçosa tradicional",
             detalhes: "800g – Cremoso e tradicional, com sabor marcante",
-            preco: 44.90,
+            preco: 54.90,
             imagem: "assets/imagens/doces/foto1.png"
         },
         {
@@ -612,8 +605,32 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite viçosa com café, chocolate e coco",
             detalhes: "400g – Variedade de sabores: café, chocolate e coco",
-            preco: 34.90,
+            preco: 44.90,
             imagem: "assets/imagens/doces/foto2.png"
+        },
+                {
+            id: 66,
+            categoria: "Doces",
+            nome: "Cocada de coco com geleia de morango",
+            detalhes: "620g – Cremoso e tradicional, com sabor marcante",
+            preco: 44.90,
+            imagem: "assets/imagens/doces/foto22.png"
+        },
+        {
+            id: 67,
+            categoria: "Doces",
+            nome: "Doce de leite com geleia de morango",
+            detalhes: "620g – Variedade de sabores: café, chocolate e coco",
+            preco: 44.90,
+            imagem: "assets/imagens/doces/foto23.png"
+        },
+        {
+            id: 67,
+            categoria: "Doces",
+            nome: "Doce de leite com geleia de maracuja",
+            detalhes: "620g – Variedade de sabores: café, chocolate e coco",
+            preco: 44.90,
+            imagem: "assets/imagens/doces/foto24.png"
         },
         {
             id: 68,
@@ -766,7 +783,8 @@ class Doce extends Produto {
             detalhes: "12un – Cocada artesanal, doce e saborosa",
             preco: 34.90,
             imagem: "assets/imagens/doces/foto21.png"
-        }
+        },
+
     ];
 }
 
