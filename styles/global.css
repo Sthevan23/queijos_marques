@@ -61,7 +61,7 @@ header .btn-instagram {
     justify-content: center;
     background: var(--brand-dark);
     color: #fff;
-    text-decoration: none !important; /* Remove sublinhado com alta prioridade */
+    text-decoration: none !important;
     font: 500 16px/150% var(--font-body);
     padding: 10px 16px;
     border-radius: 8px;
@@ -75,7 +75,7 @@ header .btn-instagram:visited,
 header .btn-instagram:active {
     background: #2d1a0f;
     color: #fff;
-    text-decoration: none !important; /* Garante que não haja sublinhado em nenhum estado */
+    text-decoration: none !important;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     outline: none;
@@ -101,10 +101,20 @@ header .btn-instagram svg {
 .secao-finos,
 .secao-especiarias,
 .secao-salaminhos,
-.secao-doces {
+.secao-doces,
+.secao-mais-vendidos {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.secao-mais-vendidos {
+    background: linear-gradient(135deg, #FAF4EF 0%, #EDE4DA 100%);
+    border: 2px solid var(--brand-light);
+    padding: 20px;
+    margin: 10px 20px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .secao-titulo {
@@ -112,6 +122,11 @@ header .btn-instagram svg {
     color: var(--text-primary);
     text-align: center;
     margin-bottom: 10px;
+}
+
+.secao-mais-vendidos .secao-titulo {
+    color: var(--brand-light);
+    margin-bottom: 15px;
 }
 
 .secao-divisor {
@@ -369,7 +384,6 @@ header .btn-instagram svg {
     font-weight: 700;
     transition: background 0.2s, transform 0.2s;
     touch-action: manipulation;
-    
 }
 
 .btn-primary:hover,
@@ -440,6 +454,19 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .secao-mais-vendidos {
+        padding: 15px;
+        margin: 0 15px 15px;
+    }
+
+    .secao-mais-vendidos .secao-titulo {
+        font-size: 20px;
+    }
+
+    .secao-mais-vendidos .itens-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .item {
         padding: 8px;
         gap: 6px;
@@ -462,9 +489,9 @@ footer {
     .cart-qty {
         display: flex;
         align-items: center;
-        justify-content: center; /* Centraliza os botões horizontalmente */
-        gap: 12px; /* Aumenta o espaçamento para melhor legibilidade */
-        padding-left: 0; /* Remove o padding-left que estava desalinhando */
+        justify-content: center;
+        gap: 12px;
+        padding-left: 0;
     }
 
     .btn-add,
@@ -477,7 +504,7 @@ footer {
         font-size: 16px;
         display: flex;
         align-items: center;
-        justify-content: center; /* Garante que o conteúdo dos botões esteja centralizado */
+        justify-content: center;
     }
 
     .btn-remove {
@@ -521,7 +548,7 @@ footer {
         padding: 4px 8px;
         font-size: 12px;
         min-height: 30px;
-        margin-left: 0; /* Remove o margin-left que estava desalinhando */
+        margin-left: 0;
     }
 
     .cart-actions-footer {
@@ -556,6 +583,19 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .secao-mais-vendidos {
+        padding: 10px;
+        margin: 0 10px 10px;
+    }
+
+    .secao-mais-vendidos .secao-titulo {
+        font-size: 18px;
+    }
+
+    .secao-mais-vendidos .itens-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .cart-items {
         padding: 10px;
         margin: 10px auto;
@@ -587,7 +627,7 @@ footer {
         padding: 4px 8px;
         font-size: 12px;
         min-height: 30px;
-        margin-left: 0; /* Remove o margin-left */
+        margin-left: 0;
     }
 
     .item-total {
@@ -598,9 +638,9 @@ footer {
     .cart-qty {
         display: flex;
         align-items: center;
-        justify-content: center; /* Centraliza os botões */
-        gap: 10px; /* Ajusta o espaçamento */
-        padding-left: 0; /* Remove o padding-left */
+        justify-content: center;
+        gap: 10px;
+        padding-left: 0;
     }
 
     .btn-add,

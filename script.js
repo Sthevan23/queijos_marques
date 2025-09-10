@@ -219,30 +219,6 @@ class QueijoTrufado extends Produto {
     }
 
     static itens = [
-                {
-            id: 30,
-            categoria: "Queijos trufados",
-            nome: "Queijo recheado com goiabada",
-            detalhes: "500g – Goiabada cremosa",
-            preco: 44.90,
-            imagem: "assets/imagens/trufados/trufado7.png"
-        },
-        {
-            id: 31,
-            categoria: "Queijos trufados",
-            nome: "Queijo recheado com nutella",
-            detalhes: "500g – Nutella cremosa",
-            preco: 54.90,
-            imagem: "assets/imagens/trufados/trufado8.png"
-        },
-        {
-            id: 32,
-            categoria: "Queijos trufados",
-            nome: "Queijo recheado com doce de leite",
-            detalhes: "500g – Doce suave",
-            preco: 44.90,
-            imagem: "assets/imagens/trufados/trufado9.png"
-        },
         {
             id: 24,
             categoria: "Queijos trufados",
@@ -291,7 +267,30 @@ class QueijoTrufado extends Produto {
             preco: 39.90,
             imagem: "assets/imagens/trufados/trufado6.png"
         },
-
+        {
+            id: 30,
+            categoria: "Queijos trufados",
+            nome: "Queijo recheado com goiabada",
+            detalhes: "500g – Goiabada cremosa",
+            preco: 44.90,
+            imagem: "assets/imagens/trufados/trufado7.png"
+        },
+        {
+            id: 31,
+            categoria: "Queijos trufados",
+            nome: "Queijo recheado com nutella",
+            detalhes: "500g – Nutella cremosa",
+            preco: 54.90,
+            imagem: "assets/imagens/trufados/trufado8.png"
+        },
+        {
+            id: 32,
+            categoria: "Queijos trufados",
+            nome: "Queijo recheado com doce de leite",
+            detalhes: "500g – Doce suave",
+            preco: 44.90,
+            imagem: "assets/imagens/trufados/trufado9.png"
+        },
         {
             id: 33,
             categoria: "Queijos trufados",
@@ -608,8 +607,8 @@ class Doce extends Produto {
             preco: 44.90,
             imagem: "assets/imagens/doces/foto2.png"
         },
-                {
-            id: 66,
+        {
+            id: 68,
             categoria: "Doces",
             nome: "Cocada de coco com geleia de morango",
             detalhes: "620g – Cremoso e tradicional, com sabor marcante",
@@ -617,7 +616,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto22.png"
         },
         {
-            id: 67,
+            id: 69,
             categoria: "Doces",
             nome: "Doce de leite com geleia de morango",
             detalhes: "620g – Variedade de sabores: café, chocolate e coco",
@@ -625,7 +624,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto23.png"
         },
         {
-            id: 67,
+            id: 70,
             categoria: "Doces",
             nome: "Doce de leite com geleia de maracuja",
             detalhes: "620g – Variedade de sabores: café, chocolate e coco",
@@ -633,7 +632,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto24.png"
         },
         {
-            id: 68,
+            id: 71,
             categoria: "Doces",
             nome: "Goiabada cascão vovó zélia",
             detalhes: "800g – Goiabada artesanal com textura rústica",
@@ -641,7 +640,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto3.png"
         },
         {
-            id: 69,
+            id: 72,
             categoria: "Doces",
             nome: "Goiabada cascão vovô olavo",
             detalhes: "600g – Goiabada tradicional com sabor intenso",
@@ -649,7 +648,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto4.png"
         },
         {
-            id: 70,
+            id: 73,
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "400g – Bananada cremosa e artesanal",
@@ -657,7 +656,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto5.png"
         },
         {
-            id: 71,
+            id: 74,
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "450g – Bananada tradicional com sabor marcante",
@@ -665,7 +664,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto6.png"
         },
         {
-            id: 72,
+            id: 75,
             categoria: "Doces",
             nome: "Goiabada tenere",
             detalhes: "1000g – Goiabada suave e cremosa",
@@ -673,7 +672,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto7.png"
         },
         {
-            id: 73,
+            id: 76,
             categoria: "Doces",
             nome: "Paçoca em barra delícia mineira",
             detalhes: "500g – Paçoca artesanal com textura única",
@@ -681,7 +680,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto8.png"
         },
         {
-            id: 74,
+            id: 77,
             categoria: "Doces",
             nome: "Bala de banana zero açúcar",
             detalhes: "500g – Sabor de banana sem açúcar",
@@ -689,7 +688,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto9.png"
         },
         {
-            id: 75,
+            id: 78,
             categoria: "Doces",
             nome: "Barrinha cremosa de banana",
             detalhes: "500g – Cremosa e doce, com sabor de banana",
@@ -697,7 +696,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto10.png"
         },
         {
-            id: 76,
+            id: 79,
             categoria: "Doces",
             nome: "Doce de leite vimilk",
             detalhes: "800g – Cremoso e tradicional, com sabor marcante",
@@ -705,7 +704,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto11.png"
         },
         {
-            id: 77,
+            id: 80,
             categoria: "Doces",
             nome: "Doce de leite c/morango la france",
             detalhes: "440g – Combinação de doce de leite com morango",
@@ -713,7 +712,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto12.png"
         },
         {
-            id: 78,
+            id: 81,
             categoria: "Doces",
             nome: "Doce de leite blu zero lactose",
             detalhes: "400g – Doce de leite sem lactose, cremoso",
@@ -721,7 +720,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto13.png"
         },
         {
-            id: 79,
+            id: 82,
             categoria: "Doces",
             nome: "Doce de leite rocca tradicional",
             detalhes: "450g – Doce de leite artesanal clássico",
@@ -729,7 +728,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto14.png"
         },
         {
-            id: 80,
+            id: 83,
             categoria: "Doces",
             nome: "Doce de leite rocca c/ café e coco",
             detalhes: "500g – Sabores de café e coco em doce de leite",
@@ -737,7 +736,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto15.png"
         },
         {
-            id: 81,
+            id: 84,
             categoria: "Doces",
             nome: "Doce de leite diet zero lactose fazenda",
             detalhes: "430g – Doce de leite diet sem lactose",
@@ -745,7 +744,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto16.png"
         },
         {
-            id: 82,
+            id: 85,
             categoria: "Doces",
             nome: "Doce de leite capitólio",
             detalhes: "500g – Doce de leite artesanal com sabor único",
@@ -753,7 +752,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto17.png"
         },
         {
-            id: 83,
+            id: 86,
             categoria: "Doces",
             nome: "Doce de leite vimilk",
             detalhes: "700g – Cremoso e tradicional, com sabor marcante",
@@ -761,7 +760,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto18.png"
         },
         {
-            id: 84,
+            id: 87,
             categoria: "Doces",
             nome: "Bala de doce de leite serra negra",
             detalhes: "400g – Balas de doce de leite artesanais",
@@ -769,7 +768,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto19.png"
         },
         {
-            id: 85,
+            id: 88,
             categoria: "Doces",
             nome: "Doce pingo de leite famoso pote",
             detalhes: "370g – Doce de leite em formato de pingo",
@@ -777,14 +776,13 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto20.png"
         },
         {
-            id: 86,
+            id: 89,
             categoria: "Doces",
             nome: "Cocada prove & aprove",
             detalhes: "12un – Cocada artesanal, doce e saborosa",
             preco: 34.90,
             imagem: "assets/imagens/doces/foto21.png"
-        },
-
+        }
     ];
 }
 
@@ -797,6 +795,18 @@ const produtos = [
     ...Especiaria.itens,
     ...Salaminho.itens,
     ...Doce.itens
+];
+
+// Lista de IDs dos produtos mais vendidos
+const maisVendidosIds = [
+    9,  // Queijo palito (Queijos tradicionais)
+    21, // Chips de provolone puro (Desidratados)
+    26, // Queijo recheado com cheddar (Queijos trufados)
+    34, // Queijo canastra meia-cura (Queijos finos)
+    54, // Presunto tenro bolinha juliatto (Especiarias)
+    58, // Lombo nobre defumado c/ pimenta biquinho (Salaminhos)
+    66, // Doce de leite viçosa tradicional (Doces)
+    69  // Doce de leite com morango
 ];
 
 // Estado do carrinho
@@ -848,6 +858,60 @@ function renderizarProdutos() {
     }
     catalogo.innerHTML = '';
 
+    // Seção Mais Vendidos
+    const secaoMaisVendidos = document.createElement('section');
+    secaoMaisVendidos.className = 'secao-mais-vendidos';
+
+    const tituloMaisVendidos = document.createElement('h2');
+    tituloMaisVendidos.className = 'secao-titulo';
+    tituloMaisVendidos.textContent = 'Mais Vendidos';
+    secaoMaisVendidos.appendChild(tituloMaisVendidos);
+
+    const gridMaisVendidos = document.createElement('div');
+    gridMaisVendidos.className = 'itens-grid';
+
+    produtos
+        .filter(produto => maisVendidosIds.includes(produto.id))
+        .forEach(produto => {
+            const artigo = document.createElement('article');
+            artigo.className = 'item';
+            artigo.dataset.id = produto.id;
+            artigo.innerHTML = `
+                <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.onerror=null; this.src='assets/imagens/placeholder.png'; console.error('Erro ao carregar imagem: ${produto.imagem}');">
+                <h2>${produto.nome}</h2>
+                <p class="details">${produto.detalhes}</p>
+                <p class="price">${formatBRL(produto.preco)}</p>
+                <div class="btn-group">
+                    <button class="btn-remove">-</button>
+                    <span class="quantity">${getQty(produto.id)}</span>
+                    <button class="btn-add">+</button>
+                </div>
+            `;
+            gridMaisVendidos.appendChild(artigo);
+
+            const btnAdd = artigo.querySelector('.btn-add');
+            const btnRemove = artigo.querySelector('.btn-remove');
+            const quantitySpan = artigo.querySelector('.quantity');
+
+            if (btnAdd && btnRemove && quantitySpan) {
+                btnAdd.addEventListener('click', () => {
+                    console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
+                    handleQtyChange(artigo, 1, quantitySpan);
+                });
+                btnRemove.addEventListener('click', () => {
+                    console.log(`Removendo item ${produto.id}: ${produto.nome}`);
+                    handleQtyChange(artigo, -1, quantitySpan);
+                });
+            } else {
+                console.error(`Erro: Botões ou span de quantidade não encontrados para o item ${produto.id}`);
+            }
+        });
+
+    secaoMaisVendidos.appendChild(gridMaisVendidos);
+    catalogo.appendChild(secaoMaisVendidos);
+    catalogo.appendChild(document.createElement('hr')).className = 'secao-divisor';
+
+    // Renderizar as demais categorias
     const categorias = [...new Set(produtos.map(produto => produto.categoria))];
 
     categorias.forEach(categoria => {
