@@ -110,7 +110,7 @@ header .btn-instagram svg {
 
 .secao-mais-vendidos {
     background: linear-gradient(135deg, #FAF4EF 0%, #EDE4DA 100%);
-    border: 2px solid var(--brand-light);
+    border: 2px solid var(--brand-dark);
     padding: 20px;
     margin: 10px 20px 20px;
     border-radius: 12px;

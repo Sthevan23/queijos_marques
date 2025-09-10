@@ -801,8 +801,8 @@ const produtos = [
 const maisVendidosIds = [
     9,  // Queijo palito (Queijos tradicionais)
     21, // Chips de provolone puro (Desidratados)
-    26, // Queijo recheado com cheddar (Queijos trufados)
-    34, // Queijo canastra meia-cura (Queijos finos)
+    32, // Queijo recheado com doce de leite (Queijos trufados)
+    31, // Queijo recheado com goiabada(Queijos trufados)
     54, // Presunto tenro bolinha juliatto (Especiarias)
     58, // Lombo nobre defumado c/ pimenta biquinho (Salaminhos)
     66, // Doce de leite viçosa tradicional (Doces)
@@ -810,7 +810,7 @@ const maisVendidosIds = [
 ];
 
 // Estado do carrinho
-let carrinho = new Map();
+let carrinho = new Map(); 
 
 // Seletores globais
 let itemsNodeList;
