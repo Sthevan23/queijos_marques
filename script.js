@@ -58,15 +58,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto5.png"
         },
         {
-            id: 6,
-            categoria: "Queijos tradicionais",
-            nome: "Queijo trança",
-            detalhes: "450g – Queijo trança artesanal",
-            preco: 34.90,
-            imagem: "assets/imagens/tradicionais/foto7.png"
-        },
-        {
-            id: 7,
+            id: 5,
             categoria: "Queijos tradicionais",
             nome: "Queijo provolone",
             detalhes: "450g – Provolone artesanal",
@@ -74,7 +66,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto8.png"
         },
         {
-            id: 8,
+            id: 6,
             categoria: "Queijos tradicionais",
             nome: "Kit provoleto",
             detalhes: "450g – Kit de provolones especiais",
@@ -82,7 +74,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto9.png"
         },
         {
-            id: 9,
+            id: 7,
             categoria: "Queijos tradicionais",
             nome: "Kit provolone c/ lombo",
             detalhes: "450g – Provolone com lombo defumado",
@@ -90,7 +82,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto10.png"
         },
         {
-            id: 10,
+            id: 8,
             categoria: "Queijos tradicionais",
             nome: "Kit quatro queijos",
             detalhes: "450g – Seleção de quatro queijos",
@@ -98,7 +90,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto11.png"
         },
         {
-            id: 11,
+            id: 9,
             categoria: "Queijos tradicionais",
             nome: "Queijo cabacinha",
             detalhes: "450g – Queijo cabacinha artesanal",
@@ -106,7 +98,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto12.png"
         },
         {
-            id: 12,
+            id: 10,
             categoria: "Queijos tradicionais",
             nome: "Queijo minas padrão",
             detalhes: "450g – Queijo minas padrão tradicional",
@@ -114,7 +106,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto13.png"
         },
         {
-            id: 13,
+            id: 11,
             categoria: "Queijos tradicionais",
             nome: "Queijo minas com goiabada",
             detalhes: "450g – Combinação clássica queijo e goiabada",
@@ -122,7 +114,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto14.png"
         },
         {
-            id: 14,
+            id: 12,
             categoria: "Queijos tradicionais",
             nome: "Queijo minas",
             detalhes: "450g – Queijo minas artesanal",
@@ -130,7 +122,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto15.png"
         },
         {
-            id: 15,
+            id: 13,
             categoria: "Queijos tradicionais",
             nome: "Queijo minas Frescal Buritis",
             detalhes: "400g – Versão light do minas frescal",
@@ -138,7 +130,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto16.png"
         },
         {
-            id: 16,
+            id: 14,
             categoria: "Queijos tradicionais",
             nome: "Queijo trança ao vinho",
             detalhes: "450g – Trança curada no vinho",
@@ -146,7 +138,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto17.png"
         },
         {
-            id: 17,
+            id: 15,
             categoria: "Queijos tradicionais",
             nome: "Queijo coalho barra",
             detalhes: "450g – Barra de coalho artesanal",
@@ -154,7 +146,7 @@ class QueijoTradicional extends Produto {
             imagem: "assets/imagens/tradicionais/foto18.png"
         },
         {
-            id: 18,
+            id: 16,
             categoria: "Queijos tradicionais",
             nome: "Requeijão em barra",
             detalhes: "450g – Requeijão em formato de barra",
@@ -799,18 +791,18 @@ const produtos = [
 
 // Lista de IDs dos produtos mais vendidos
 const maisVendidosIds = [
-    9,  // Queijo palito (Queijos tradicionais)
-    21, // Chips de provolone puro (Desidratados)
+    7,  // Kit provolone c/ lombo (Queijos tradicionais)
+    19, // Chips de provolone puro (Desidratados)
     32, // Queijo recheado com doce de leite (Queijos trufados)
-    31, // Queijo recheado com goiabada(Queijos trufados)
-    54, // Presunto tenro bolinha juliatto (Especiarias)
+    31, // Queijo recheado com nutella (Queijos trufados)
+    52, // Presunto tenro bolinha juliatto (Especiarias)
     58, // Lombo nobre defumado c/ pimenta biquinho (Salaminhos)
     66, // Doce de leite viçosa tradicional (Doces)
     69  // Doce de leite com morango
 ];
 
 // Estado do carrinho
-let carrinho = new Map(); 
+let carrinho = new Map();
 
 // Seletores globais
 let itemsNodeList;
@@ -847,6 +839,50 @@ const saveCart = (cart) => {
     } catch (e) {
         console.error('Erro ao salvar o carrinho no localStorage:', e);
     }
+};
+
+// Função para inicializar zoom nas imagens
+const initializeZoom = () => {
+    const zoomableImages = document.querySelectorAll('.item img, .cart-item img');
+    zoomableImages.forEach(img => {
+        let scale = 1;
+        let startX = 0;
+        let startY = 0;
+        let isZooming = false;
+
+        img.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                isZooming = true;
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                startX = (touch1.clientX + touch2.clientX) / 2;
+                startY = (touch1.clientY + touch2.clientY) / 2;
+                img.style.transformOrigin = `${startX - img.getBoundingClientRect().left}px ${startY - img.getBoundingClientRect().top}px`;
+            }
+        });
+
+        img.addEventListener('touchmove', (e) => {
+            if (isZooming && e.touches.length === 2) {
+                e.preventDefault();
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+                const startDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+                scale = Math.min(Math.max(1, scale * (currentDistance / startDistance)), 3);
+                img.style.transform = `scale(${scale})`;
+            }
+        });
+
+        img.addEventListener('touchend', () => {
+            isZooming = false;
+            if (scale > 1) {
+                setTimeout(() => {
+                    scale = 1;
+                    img.style.transform = `scale(${scale})`;
+                }, 200);
+            }
+        });
+    });
 };
 
 // Função para renderizar os produtos na página
@@ -969,6 +1005,7 @@ function renderizarProdutos() {
     });
 
     itemsNodeList = document.querySelectorAll('.item');
+    initializeZoom(); // Inicializa o zoom após renderizar
     console.log(`Itens renderizados: ${itemsNodeList.length}`);
 }
 
@@ -1118,6 +1155,7 @@ function renderCart() {
             cartItemsEl.appendChild(row);
         });
     }
+    initializeZoom(); // Inicializa zoom no carrinho
     console.log('Carrinho renderizado:', { totalItems, totalAmount });
 }
 
@@ -1166,12 +1204,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!cartCountEl) console.warn('Elemento #cartcount não encontrado no DOM');
     if (!cartTotalEl) console.warn('Elemento #carttotal não encontrado no DOM');
-    if (!cartItemsEl) console.warn('Elemento #cartItems não encontrado no DOM');
-    if (!cartEmptyEl) console.warn('Elemento #cartEmpty não encontrado no DOM');
-    if (!cartTotalModalEl) console.warn('Elemento #cartTotalModal não encontrado no DOM');
+    if (!cartItemsEl) console.warn('Elemento #cartItems não encontrado no DOM (verifique sacola.html)');
+    if (!cartEmptyEl) console.warn('Elemento #cartEmpty não encontrado no DOM (verifique sacola.html)');
+    if (!cartTotalModalEl) console.warn('Elemento #cartTotalModal não encontrado no DOM (verifique sacola.html)');
     if (!checkoutBtn) console.warn('Elemento #checkoutbtn não encontrado no DOM');
-    if (!checkoutBtnModal) console.warn('Elemento #checkoutBtnModal não encontrado no DOM');
-    if (!clearCartBtn) console.warn('Elemento #clearCart não encontrado no DOM');
+    if (!checkoutBtnModal) console.warn('Elemento #checkoutBtnModal não encontrado no DOM (verifique sacola.html)');
+    if (!clearCartBtn) console.warn('Elemento #clearCart não encontrado no DOM (verifique sacola.html)');
 
     renderizarProdutos();
 
