@@ -163,7 +163,7 @@ class Desidratado extends Produto {
 
     static itens = [
         {
-            id: 19,
+            id: 17,
             categoria: "Desidratados",
             nome: "Chips de provolone puro",
             detalhes: "180g – Crocante e saboroso",
@@ -171,7 +171,7 @@ class Desidratado extends Produto {
             imagem: "assets/imagens/chips_queijo/chips1.png"
         },
         {
-            id: 20,
+            id: 18,
             categoria: "Desidratados",
             nome: "Chips de provolone com chimichurri",
             detalhes: "180g – Sabor com tempero especial",
@@ -179,7 +179,7 @@ class Desidratado extends Produto {
             imagem: "assets/imagens/chips_queijo/chips2.png"
         },
         {
-            id: 21,
+            id: 19,
             categoria: "Desidratados",
             nome: "Chips de provolone recheado com goiabada",
             detalhes: "180g – Goiabada e queijo",
@@ -187,7 +187,7 @@ class Desidratado extends Produto {
             imagem: "assets/imagens/chips_queijo/chips3.png"
         },
         {
-            id: 22,
+            id: 20,
             categoria: "Desidratados",
             nome: "Chips tipo gouda",
             detalhes: "180g – Sabor suave e crocante",
@@ -195,7 +195,7 @@ class Desidratado extends Produto {
             imagem: "assets/imagens/chips_queijo/chips4.png"
         },
         {
-            id: 23,
+            id: 21,
             categoria: "Desidratados",
             nome: "Chips de queijo coalho",
             detalhes: "180g – Sabor clássico do nordeste",
@@ -212,7 +212,7 @@ class QueijoTrufado extends Produto {
 
     static itens = [
         {
-            id: 24,
+            id: 22,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão, damasco e avelã",
             detalhes: "700g – Doce e cremoso",
@@ -220,7 +220,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado1.png"
         },
         {
-            id: 25,
+            id: 23,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e tomate seco",
             detalhes: "500g – Leve e aromático",
@@ -228,7 +228,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado2.png"
         },
         {
-            id: 26,
+            id: 24,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com cheddar",
             detalhes: "500g – Sabor intenso",
@@ -236,7 +236,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado3.png"
         },
         {
-            id: 27,
+            id: 25,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e azeitona",
             detalhes: "800g – Salgado e marcante",
@@ -244,7 +244,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado4.png"
         },
         {
-            id: 28,
+            id: 26,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com cheddar e carne seca",
             detalhes: "500g – Robusto e saboroso",
@@ -252,7 +252,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado5.png"
         },
         {
-            id: 29,
+            id: 27,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão",
             detalhes: "500g – Leve e cremoso",
@@ -260,7 +260,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado6.png"
         },
         {
-            id: 30,
+            id: 28,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com goiabada",
             detalhes: "500g – Goiabada cremosa",
@@ -268,7 +268,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado7.png"
         },
         {
-            id: 31,
+            id: 29,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com nutella",
             detalhes: "500g – Nutella cremosa",
@@ -276,7 +276,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado8.png"
         },
         {
-            id: 32,
+            id: 30,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com doce de leite",
             detalhes: "500g – Doce suave",
@@ -284,7 +284,7 @@ class QueijoTrufado extends Produto {
             imagem: "assets/imagens/trufados/trufado9.png"
         },
         {
-            id: 33,
+            id: 31,
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e carne seca",
             detalhes: "500g – Sabor irresistível",
@@ -301,7 +301,7 @@ class QueijoFino extends Produto {
 
     static itens = [
         {
-            id: 34,
+            id: 32,
             categoria: "Queijos finos",
             nome: "Queijo canastra meia-cura",
             detalhes: "500g – Tradição mineira",
@@ -309,7 +309,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto1.png"
         },
         {
-            id: 35,
+            id: 33,
             categoria: "Queijos finos",
             nome: "Queijo parmesão cunha",
             detalhes: "400g – Toque marcante",
@@ -317,7 +317,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto2.png"
         },
         {
-            id: 36,
+            id: 34,
             categoria: "Queijos finos",
             nome: "Queijo canastra serjão",
             detalhes: "1100g – Doce mineiro",
@@ -325,7 +325,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto3.png"
         },
         {
-            id: 37,
+            id: 35,
             categoria: "Queijos finos",
             nome: "Kit parmesão artesanal (defumado, temperado, vinho e tradicional)",
             detalhes: "180g – Sabores variados",
@@ -333,7 +333,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto4.png"
         },
         {
-            id: 38,
+            id: 36,
             categoria: "Queijos finos",
             nome: "Queijo canastra moldura",
             detalhes: "1000g – Sabor autêntico da canastra",
@@ -341,7 +341,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto5.png"
         },
         {
-            id: 39,
+            id: 37,
             categoria: "Queijos finos",
             nome: "Queijo gorgonzola",
             detalhes: "125g – Aroma intenso",
@@ -349,7 +349,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto6.png"
         },
         {
-            id: 40,
+            id: 38,
             categoria: "Queijos finos",
             nome: "Queijo canastra barreirinha",
             detalhes: "1000g – Aroma intenso",
@@ -357,7 +357,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto7.png"
         },
         {
-            id: 41,
+            id: 39,
             categoria: "Queijos finos",
             nome: "Queijo brisa",
             detalhes: "450g – Sabor marcante, perfeito para molhos",
@@ -365,7 +365,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto8.png"
         },
         {
-            id: 42,
+            id: 40,
             categoria: "Queijos finos",
             nome: "Queijo canastra johnne premiado",
             detalhes: "1000g – Premiado e cheio de personalidade",
@@ -373,7 +373,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto9.png"
         },
         {
-            id: 43,
+            id: 41,
             categoria: "Queijos finos",
             nome: "Panela de queijo parmesão",
             detalhes: "600g – Ideal para receitas criativas",
@@ -381,7 +381,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto10.png"
         },
         {
-            id: 44,
+            id: 42,
             categoria: "Queijos finos",
             nome: "Queijo canastra reinaldo",
             detalhes: "1000g – Autêntico sabor mineiro",
@@ -389,7 +389,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto11.png"
         },
         {
-            id: 45,
+            id: 43,
             categoria: "Queijos finos",
             nome: "Kit parmesão (tradicional, capa preta, defumado e temperado)",
             detalhes: "500g – Variedade para todos os paladares",
@@ -397,7 +397,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto12.png"
         },
         {
-            id: 46,
+            id: 44,
             categoria: "Queijos finos",
             nome: "Burrata de búfala",
             detalhes: "300g – Cremosa e sofisticada",
@@ -405,7 +405,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto13.png"
         },
         {
-            id: 47,
+            id: 45,
             categoria: "Queijos finos",
             nome: "Queijo morbier",
             detalhes: "500g – Clássico francês de sabor único",
@@ -413,7 +413,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto14.png"
         },
         {
-            id: 48,
+            id: 46,
             categoria: "Queijos finos",
             nome: "Queijo tipo brie",
             detalhes: "180g – Delicado e saboroso",
@@ -421,7 +421,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto15.png"
         },
         {
-            id: 49,
+            id: 47,
             categoria: "Queijos finos",
             nome: "Queijo camembert",
             detalhes: "350g – Cremoso e sofisticado",
@@ -429,7 +429,7 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto16.png"
         },
         {
-            id: 50,
+            id: 48,
             categoria: "Queijos finos",
             nome: "Queijo mussarela de búfala em bolinha (tradicional, azeitona, damasco e cereja)",
             detalhes: "250g – Frescor e versatilidade em cada bolinha",
@@ -437,12 +437,20 @@ class QueijoFino extends Produto {
             imagem: "assets/imagens/queijos_finos/foto17.png"
         },
         {
-            id: 51,
+            id: 49,
             categoria: "Queijos finos",
             nome: "Queijo tipo grana",
             detalhes: "220g – Encorpado, ideal para massas",
             preco: 31.90,
             imagem: "assets/imagens/queijos_finos/foto18.png"
+        },
+        {
+            id: 50,
+            categoria: "Queijos finos",
+            nome: "Colonial Serra Da Abelha",
+            detalhes: "900g – Tradição tem nome",
+            preco: 62.90,
+            imagem: "assets/imagens/queijos_finos/foto19.jpeg"
         }
     ];
 }
@@ -454,7 +462,7 @@ class Especiaria extends Produto {
 
     static itens = [
         {
-            id: 52,
+            id: 51,
             categoria: "Especiarias",
             nome: "Presunto tenro bolinha juliatto",
             detalhes: "700g – Macio, defumado e sabor marcante",
@@ -462,7 +470,7 @@ class Especiaria extends Produto {
             imagem: "assets/imagens/especiarias/foto1.png"
         },
         {
-            id: 53,
+            id: 52,
             categoria: "Especiarias",
             nome: "Picanha suína",
             detalhes: "650g – Suculenta, com tempero especial",
@@ -470,7 +478,7 @@ class Especiaria extends Produto {
             imagem: "assets/imagens/especiarias/foto2.png"
         },
         {
-            id: 54,
+            id: 53,
             categoria: "Especiarias",
             nome: "Picanha com provolone",
             detalhes: "700g – Combinação irresistível de carne e queijo",
@@ -478,7 +486,7 @@ class Especiaria extends Produto {
             imagem: "assets/imagens/especiarias/foto3.png"
         },
         {
-            id: 55,
+            id: 54,
             categoria: "Especiarias",
             nome: "Carne na lata canastra",
             detalhes: "900g – Receita tradicional com sabor autêntico",
@@ -486,7 +494,7 @@ class Especiaria extends Produto {
             imagem: "assets/imagens/especiarias/foto4.png"
         },
         {
-            id: 56,
+            id: 55,
             categoria: "Especiarias",
             nome: "Ancho suíno",
             detalhes: "450g – Ancho suíno macio e suculento",
@@ -494,7 +502,7 @@ class Especiaria extends Produto {
             imagem: "assets/imagens/especiarias/foto5.png"
         },
         {
-            id: 57,
+            id: 56,
             categoria: "Especiarias",
             nome: "Géleias uai",
             detalhes: "200g – Pura, defumada, c/ abacaxi, c/hortelã, c/ damasco, c/ cereja, c/ limão, e c/ frutas vermelhas",
@@ -511,7 +519,7 @@ class Salaminho extends Produto {
 
     static itens = [
         {
-            id: 58,
+            id: 57,
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta biquinho",
             detalhes: "200g – Defumado artesanal, toque suave da pimenta biquinho",
@@ -519,7 +527,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto1.png"
         },
         {
-            id: 59,
+            id: 58,
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ alho",
             detalhes: "200g – Sabor marcante com o toque especial do alho",
@@ -527,7 +535,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto2.png"
         },
         {
-            id: 60,
+            id: 59,
             categoria: "Salaminhos",
             nome: "Salame italiano fatiado",
             detalhes: "200g – Receita clássica italiana, sabor intenso e equilibrado",
@@ -535,7 +543,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto3.png"
         },
         {
-            id: 61,
+            id: 60,
             categoria: "Salaminhos",
             nome: "Salaminho c/ azeitona",
             detalhes: "200g – Combinação saborosa de salame com azeitonas selecionadas",
@@ -543,7 +551,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto4.png"
         },
         {
-            id: 62,
+            id: 61,
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta calabresa",
             detalhes: "200g – Defumado intenso com o toque picante da calabresa",
@@ -551,7 +559,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto5.png"
         },
         {
-            id: 63,
+            id: 62,
             categoria: "Salaminhos",
             nome: "Salame frango c/ azeitona",
             detalhes: "200g – Leve, saboroso e realçado com azeitonas selecionadas",
@@ -559,7 +567,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto6.png"
         },
         {
-            id: 64,
+            id: 63,
             categoria: "Salaminhos",
             nome: "Salame frango c/ provolone",
             detalhes: "200g – Combinação única de frango suave e queijo provolone",
@@ -567,7 +575,7 @@ class Salaminho extends Produto {
             imagem: "assets/imagens/salaminhos/foto7.png"
         },
         {
-            id: 65,
+            id: 64,
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado",
             detalhes: "200g – Clássico e saboroso, defumado artesanalmente",
@@ -584,7 +592,7 @@ class Doce extends Produto {
 
     static itens = [
         {
-            id: 66,
+            id: 65,
             categoria: "Doces",
             nome: "Doce de leite viçosa tradicional",
             detalhes: "800g – Cremoso e tradicional, com sabor marcante",
@@ -592,7 +600,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto1.png"
         },
         {
-            id: 67,
+            id: 66,
             categoria: "Doces",
             nome: "Doce de leite viçosa com café, chocolate e coco",
             detalhes: "400g – Variedade de sabores: café, chocolate e coco",
@@ -600,7 +608,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto2.png"
         },
         {
-            id: 68,
+            id: 67,
             categoria: "Doces",
             nome: "Cocada de coco com geleia de morango",
             detalhes: "620g – Cremoso e tradicional, com sabor marcante",
@@ -608,7 +616,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto22.png"
         },
         {
-            id: 69,
+            id: 68,
             categoria: "Doces",
             nome: "Doce de leite com geleia de morango",
             detalhes: "620g – Variedade de sabores: café, chocolate e coco",
@@ -616,7 +624,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto23.png"
         },
         {
-            id: 70,
+            id: 69,
             categoria: "Doces",
             nome: "Doce de leite com geleia de maracuja",
             detalhes: "620g – Variedade de sabores: café, chocolate e coco",
@@ -624,7 +632,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto24.png"
         },
         {
-            id: 71,
+            id: 70,
             categoria: "Doces",
             nome: "Goiabada cascão vovó zélia",
             detalhes: "800g – Goiabada artesanal com textura rústica",
@@ -632,7 +640,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto3.png"
         },
         {
-            id: 72,
+            id: 71,
             categoria: "Doces",
             nome: "Goiabada cascão vovô olavo",
             detalhes: "600g – Goiabada tradicional com sabor intenso",
@@ -640,7 +648,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto4.png"
         },
         {
-            id: 73,
+            id: 72,
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "400g – Bananada cremosa e artesanal",
@@ -648,7 +656,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto5.png"
         },
         {
-            id: 74,
+            id: 73,
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "450g – Bananada tradicional com sabor marcante",
@@ -656,7 +664,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto6.png"
         },
         {
-            id: 75,
+            id: 74,
             categoria: "Doces",
             nome: "Goiabada tenere",
             detalhes: "1000g – Goiabada suave e cremosa",
@@ -664,7 +672,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto7.png"
         },
         {
-            id: 76,
+            id: 75,
             categoria: "Doces",
             nome: "Paçoca em barra delícia mineira",
             detalhes: "500g – Paçoca artesanal com textura única",
@@ -672,7 +680,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto8.png"
         },
         {
-            id: 77,
+            id: 76,
             categoria: "Doces",
             nome: "Bala de banana zero açúcar",
             detalhes: "500g – Sabor de banana sem açúcar",
@@ -680,7 +688,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto9.png"
         },
         {
-            id: 78,
+            id: 77,
             categoria: "Doces",
             nome: "Barrinha cremosa de banana",
             detalhes: "500g – Cremosa e doce, com sabor de banana",
@@ -688,7 +696,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto10.png"
         },
         {
-            id: 79,
+            id: 78,
             categoria: "Doces",
             nome: "Doce de leite vimilk",
             detalhes: "800g – Cremoso e tradicional, com sabor marcante",
@@ -696,7 +704,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto11.png"
         },
         {
-            id: 80,
+            id: 79,
             categoria: "Doces",
             nome: "Doce de leite c/morango la france",
             detalhes: "440g – Combinação de doce de leite com morango",
@@ -704,7 +712,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto12.png"
         },
         {
-            id: 81,
+            id: 80,
             categoria: "Doces",
             nome: "Doce de leite blu zero lactose",
             detalhes: "400g – Doce de leite sem lactose, cremoso",
@@ -712,7 +720,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto13.png"
         },
         {
-            id: 82,
+            id: 81,
             categoria: "Doces",
             nome: "Doce de leite rocca tradicional",
             detalhes: "450g – Doce de leite artesanal clássico",
@@ -720,7 +728,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto14.png"
         },
         {
-            id: 83,
+            id: 82,
             categoria: "Doces",
             nome: "Doce de leite rocca c/ café e coco",
             detalhes: "500g – Sabores de café e coco em doce de leite",
@@ -728,7 +736,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto15.png"
         },
         {
-            id: 84,
+            id: 83,
             categoria: "Doces",
             nome: "Doce de leite diet zero lactose fazenda",
             detalhes: "430g – Doce de leite diet sem lactose",
@@ -736,7 +744,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto16.png"
         },
         {
-            id: 85,
+            id: 84,
             categoria: "Doces",
             nome: "Doce de leite capitólio",
             detalhes: "500g – Doce de leite artesanal com sabor único",
@@ -744,7 +752,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto17.png"
         },
         {
-            id: 86,
+            id: 85,
             categoria: "Doces",
             nome: "Doce de leite vimilk",
             detalhes: "700g – Cremoso e tradicional, com sabor marcante",
@@ -752,7 +760,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto18.png"
         },
         {
-            id: 87,
+            id: 86,
             categoria: "Doces",
             nome: "Bala de doce de leite serra negra",
             detalhes: "400g – Balas de doce de leite artesanais",
@@ -760,7 +768,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto19.png"
         },
         {
-            id: 88,
+            id: 87,
             categoria: "Doces",
             nome: "Doce pingo de leite famoso pote",
             detalhes: "370g – Doce de leite em formato de pingo",
@@ -768,7 +776,7 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto20.png"
         },
         {
-            id: 89,
+            id: 88,
             categoria: "Doces",
             nome: "Cocada prove & aprove",
             detalhes: "12un – Cocada artesanal, doce e saborosa",
@@ -791,14 +799,14 @@ const produtos = [
 
 // Lista de IDs dos produtos mais vendidos
 const maisVendidosIds = [
-    7,  // Kit provolone c/ lombo (Queijos tradicionais)
-    19, // Chips de provolone puro (Desidratados)
-    32, // Queijo recheado com doce de leite (Queijos trufados)
-    31, // Queijo recheado com nutella (Queijos trufados)
-    52, // Presunto tenro bolinha juliatto (Especiarias)
-    58, // Lombo nobre defumado c/ pimenta biquinho (Salaminhos)
-    66, // Doce de leite viçosa tradicional (Doces)
-    69  // Doce de leite com morango
+    7,   // Kit provolone c/ lombo (Queijos tradicionais)
+    19,  // Chips de provolone recheado com goiabada (Desidratados)
+    30,  // Queijo recheado com doce de leite (Queijos trufados)
+    29,  // Queijo recheado com nutella (Queijos trufados)
+    53,  // Picanha com provolone (Especiarias)
+    57,  // Lombo nobre defumado c/ pimenta biquinho (Salaminhos)
+    65,  // Doce de leite viçosa tradicional (Doces)
+    87   // Doce pingo de leite famoso pote (Doces)
 ];
 
 // Estado do carrinho
@@ -812,22 +820,23 @@ let cartTotalModalEl, checkoutBtn, checkoutBtnModal, clearCartBtn;
 // Utilitários
 function parseBRL(str) {
     const n = String(str)
-        .replace(/\s|R\$/g, '')
-        .replace(/\./g, '')
-        .replace(',', '.')
+        .replace(/\s|R\$/g, "")
+        .replace(/\./g, "")
+        .replace(",", ".")
         .trim();
     const v = Number(n);
     return Number.isFinite(v) ? v : 0;
 }
 
-const formatBRL = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const formatBRL = (v) =>
+    v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 const loadCart = () => {
     try {
-        const cartData = localStorage.getItem('cart');
+        const cartData = localStorage.getItem("cart");
         return cartData ? new Map(JSON.parse(cartData)) : new Map();
     } catch (e) {
-        console.error('Erro ao carregar o carrinho do localStorage:', e);
+        console.error("Erro ao carregar o carrinho do localStorage:", e);
         return new Map();
     }
 };
@@ -835,22 +844,22 @@ const loadCart = () => {
 const saveCart = (cart) => {
     try {
         const cartData = JSON.stringify([...cart]);
-        localStorage.setItem('cart', cartData);
+        localStorage.setItem("cart", cartData);
     } catch (e) {
-        console.error('Erro ao salvar o carrinho no localStorage:', e);
+        console.error("Erro ao salvar o carrinho no localStorage:", e);
     }
 };
 
 // Função para inicializar zoom nas imagens
 const initializeZoom = () => {
-    const zoomableImages = document.querySelectorAll('.item img, .cart-item img');
-    zoomableImages.forEach(img => {
+    const zoomableImages = document.querySelectorAll(".item img, .cart-item img");
+    zoomableImages.forEach((img) => {
         let scale = 1;
         let startX = 0;
         let startY = 0;
         let isZooming = false;
 
-        img.addEventListener('touchstart', (e) => {
+        img.addEventListener("touchstart", (e) => {
             if (e.touches.length === 2) {
                 isZooming = true;
                 const touch1 = e.touches[0];
@@ -861,19 +870,25 @@ const initializeZoom = () => {
             }
         });
 
-        img.addEventListener('touchmove', (e) => {
+        img.addEventListener("touchmove", (e) => {
             if (isZooming && e.touches.length === 2) {
                 e.preventDefault();
                 const touch1 = e.touches[0];
                 const touch2 = e.touches[1];
-                const currentDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
-                const startDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+                const currentDistance = Math.hypot(
+                    touch2.clientX - touch1.clientX,
+                    touch2.clientY - touch1.clientY
+                );
+                const startDistance = Math.hypot(
+                    touch2.clientX - touch1.clientX,
+                    touch2.clientY - touch1.clientY
+                );
                 scale = Math.min(Math.max(1, scale * (currentDistance / startDistance)), 3);
                 img.style.transform = `scale(${scale})`;
             }
         });
 
-        img.addEventListener('touchend', () => {
+        img.addEventListener("touchend", () => {
             isZooming = false;
             if (scale > 1) {
                 setTimeout(() => {
@@ -887,30 +902,30 @@ const initializeZoom = () => {
 
 // Função para renderizar os produtos na página
 function renderizarProdutos() {
-    const catalogo = document.getElementById('catalogo');
+    const catalogo = document.getElementById("catalogo");
     if (!catalogo) {
-        console.error('Elemento #catalogo não encontrado no DOM');
+        console.error("Elemento #catalogo não encontrado no DOM");
         return;
     }
-    catalogo.innerHTML = '';
+    catalogo.innerHTML = "";
 
     // Seção Mais Vendidos
-    const secaoMaisVendidos = document.createElement('section');
-    secaoMaisVendidos.className = 'secao-mais-vendidos';
+    const secaoMaisVendidos = document.createElement("section");
+    secaoMaisVendidos.className = "secao-mais-vendidos";
 
-    const tituloMaisVendidos = document.createElement('h2');
-    tituloMaisVendidos.className = 'secao-titulo';
-    tituloMaisVendidos.textContent = 'Mais Vendidos';
+    const tituloMaisVendidos = document.createElement("h2");
+    tituloMaisVendidos.className = "secao-titulo";
+    tituloMaisVendidos.textContent = "Mais Vendidos";
     secaoMaisVendidos.appendChild(tituloMaisVendidos);
 
-    const gridMaisVendidos = document.createElement('div');
-    gridMaisVendidos.className = 'itens-grid';
+    const gridMaisVendidos = document.createElement("div");
+    gridMaisVendidos.className = "itens-grid";
 
     produtos
-        .filter(produto => maisVendidosIds.includes(produto.id))
-        .forEach(produto => {
-            const artigo = document.createElement('article');
-            artigo.className = 'item';
+        .filter((produto) => maisVendidosIds.includes(produto.id))
+        .forEach((produto) => {
+            const artigo = document.createElement("article");
+            artigo.className = "item";
             artigo.dataset.id = produto.id;
             artigo.innerHTML = `
                 <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.onerror=null; this.src='assets/imagens/placeholder.png'; console.error('Erro ao carregar imagem: ${produto.imagem}');">
@@ -925,48 +940,50 @@ function renderizarProdutos() {
             `;
             gridMaisVendidos.appendChild(artigo);
 
-            const btnAdd = artigo.querySelector('.btn-add');
-            const btnRemove = artigo.querySelector('.btn-remove');
-            const quantitySpan = artigo.querySelector('.quantity');
+            const btnAdd = artigo.querySelector(".btn-add");
+            const btnRemove = artigo.querySelector(".btn-remove");
+            const quantitySpan = artigo.querySelector(".quantity");
 
             if (btnAdd && btnRemove && quantitySpan) {
-                btnAdd.addEventListener('click', () => {
+                btnAdd.addEventListener("click", () => {
                     console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
                     handleQtyChange(artigo, 1, quantitySpan);
                 });
-                btnRemove.addEventListener('click', () => {
+                btnRemove.addEventListener("click", () => {
                     console.log(`Removendo item ${produto.id}: ${produto.nome}`);
                     handleQtyChange(artigo, -1, quantitySpan);
                 });
             } else {
-                console.error(`Erro: Botões ou span de quantidade não encontrados para o item ${produto.id}`);
+                console.error(
+                    `Erro: Botões ou span de quantidade não encontrados para o item ${produto.id}`
+                );
             }
         });
 
     secaoMaisVendidos.appendChild(gridMaisVendidos);
     catalogo.appendChild(secaoMaisVendidos);
-    catalogo.appendChild(document.createElement('hr')).className = 'secao-divisor';
+    catalogo.appendChild(document.createElement("hr")).className = "secao-divisor";
 
     // Renderizar as demais categorias
-    const categorias = [...new Set(produtos.map(produto => produto.categoria))];
+    const categorias = [...new Set(produtos.map((produto) => produto.categoria))];
 
-    categorias.forEach(categoria => {
-        const secao = document.createElement('section');
-        secao.className = `secao-${categoria.toLowerCase().replace(/\s/g, '-')}`;
+    categorias.forEach((categoria) => {
+        const secao = document.createElement("section");
+        secao.className = `secao-${categoria.toLowerCase().replace(/\s/g, "-")}`;
 
-        const titulo = document.createElement('h2');
-        titulo.className = 'secao-titulo';
+        const titulo = document.createElement("h2");
+        titulo.className = "secao-titulo";
         titulo.textContent = categoria;
         secao.appendChild(titulo);
 
-        const grid = document.createElement('div');
-        grid.className = 'itens-grid';
+        const grid = document.createElement("div");
+        grid.className = "itens-grid";
 
         produtos
-            .filter(produto => produto.categoria === categoria)
-            .forEach(produto => {
-                const artigo = document.createElement('article');
-                artigo.className = 'item';
+            .filter((produto) => produto.categoria === categoria)
+            .forEach((produto) => {
+                const artigo = document.createElement("article");
+                artigo.className = "item";
                 artigo.dataset.id = produto.id;
                 artigo.innerHTML = `
                     <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.onerror=null; this.src='assets/imagens/placeholder.png'; console.error('Erro ao carregar imagem: ${produto.imagem}');">
@@ -981,30 +998,32 @@ function renderizarProdutos() {
                 `;
                 grid.appendChild(artigo);
 
-                const btnAdd = artigo.querySelector('.btn-add');
-                const btnRemove = artigo.querySelector('.btn-remove');
-                const quantitySpan = artigo.querySelector('.quantity');
+                const btnAdd = artigo.querySelector(".btn-add");
+                const btnRemove = artigo.querySelector(".btn-remove");
+                const quantitySpan = artigo.querySelector(".quantity");
 
                 if (btnAdd && btnRemove && quantitySpan) {
-                    btnAdd.addEventListener('click', () => {
+                    btnAdd.addEventListener("click", () => {
                         console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
                         handleQtyChange(artigo, 1, quantitySpan);
                     });
-                    btnRemove.addEventListener('click', () => {
+                    btnRemove.addEventListener("click", () => {
                         console.log(`Removendo item ${produto.id}: ${produto.nome}`);
                         handleQtyChange(artigo, -1, quantitySpan);
                     });
                 } else {
-                    console.error(`Erro: Botões ou span de quantidade não encontrados para o item ${produto.id}`);
+                    console.error(
+                        `Erro: Botões ou span de quantidade não encontrados para o item ${produto.id}`
+                    );
                 }
             });
 
         secao.appendChild(grid);
         catalogo.appendChild(secao);
-        catalogo.appendChild(document.createElement('hr')).className = 'secao-divisor';
+        catalogo.appendChild(document.createElement("hr")).className = "secao-divisor";
     });
 
-    itemsNodeList = document.querySelectorAll('.item');
+    itemsNodeList = document.querySelectorAll(".item");
     initializeZoom(); // Inicializa o zoom após renderizar
     console.log(`Itens renderizados: ${itemsNodeList.length}`);
 }
@@ -1019,16 +1038,16 @@ function handleQtyChange(itemEl, delta, span) {
 }
 
 function readItemInfo(itemEl) {
-    const h2 = itemEl.querySelector('h2');
-    const priceEl = itemEl.querySelector('.price');
-    const img = itemEl.querySelector('img');
+    const h2 = itemEl.querySelector("h2");
+    const priceEl = itemEl.querySelector(".price");
+    const img = itemEl.querySelector("img");
     const info = {
         id: itemEl.dataset.id,
-        name: h2 ? h2.textContent.trim() : 'Produto sem nome',
+        name: h2 ? h2.textContent.trim() : "Produto sem nome",
         price: priceEl ? parseBRL(priceEl.textContent.trim()) : 0,
-        image: img ? img.src : ''
+        image: img ? img.src : ""
     };
-    console.log('Informações do item:', info);
+    console.log("Informações do item:", info);
     return info;
 }
 
@@ -1041,7 +1060,7 @@ function updateCart(id, name, price, image, delta) {
         carrinho.set(id, current);
     }
     saveCart(carrinho);
-    console.log('Carrinho atualizado:', [...carrinho]);
+    console.log("Carrinho atualizado:", [...carrinho]);
 }
 
 function getQty(id) {
@@ -1049,20 +1068,21 @@ function getQty(id) {
 }
 
 function syncGrid() {
-    itemsNodeList = document.querySelectorAll('.item');
+    itemsNodeList = document.querySelectorAll(".item");
     if (itemsNodeList.length > 0) {
         itemsNodeList.forEach((el) => {
-            const quantitySpan = el.querySelector('.quantity');
+            const quantitySpan = el.querySelector(".quantity");
             if (quantitySpan) {
                 quantitySpan.textContent = getQty(el.dataset.id);
             }
         });
     }
-    console.log('Grid sincronizado');
+    console.log("Grid sincronizado");
 }
 
 function renderCart() {
-    let totalItems = 0, totalAmount = 0;
+    let totalItems = 0;
+    let totalAmount = 0;
 
     carrinho.forEach(({ qty, price }) => {
         totalItems += qty;
@@ -1079,10 +1099,10 @@ function renderCart() {
         checkoutBtn.disabled = totalItems === 0;
     }
 
-    const cartBar = document.querySelector('.cart-bar');
+    const cartBar = document.querySelector(".cart-bar");
     if (cartBar) {
-        cartBar.classList.add('highlight');
-        setTimeout(() => cartBar.classList.remove('highlight'), 300);
+        cartBar.classList.add("highlight");
+        setTimeout(() => cartBar.classList.remove("highlight"), 300);
     }
 
     if (cartTotalModalEl) {
@@ -1093,19 +1113,19 @@ function renderCart() {
     }
 
     if (cartItemsEl) {
-        cartItemsEl.innerHTML = '';
+        cartItemsEl.innerHTML = "";
         if (totalItems === 0) {
-            if (cartEmptyEl) cartEmptyEl.classList.remove('hidden');
-            cartItemsEl.classList.add('hidden');
+            if (cartEmptyEl) cartEmptyEl.classList.remove("hidden");
+            cartItemsEl.classList.add("hidden");
             return;
         }
 
-        if (cartEmptyEl) cartEmptyEl.classList.add('hidden');
-        cartItemsEl.classList.remove('hidden');
+        if (cartEmptyEl) cartEmptyEl.classList.add("hidden");
+        cartItemsEl.classList.remove("hidden");
 
         carrinho.forEach((entry) => {
-            const row = document.createElement('div');
-            row.className = 'cart-item';
+            const row = document.createElement("div");
+            row.className = "cart-item";
             const totalItem = entry.price * entry.qty;
 
             row.innerHTML = `
@@ -1125,10 +1145,10 @@ function renderCart() {
 
             const incBtn = row.querySelector('[data-action="inc"]');
             const decBtn = row.querySelector('[data-action="dec"]');
-            const removeBtn = row.querySelector('.cart-remove');
+            const removeBtn = row.querySelector(".cart-remove");
 
             if (incBtn) {
-                incBtn.addEventListener('click', () => {
+                incBtn.addEventListener("click", () => {
                     console.log(`Incrementando item ${entry.id}: ${entry.name}`);
                     updateCart(entry.id, entry.name, entry.price, entry.image, 1);
                     syncGrid();
@@ -1136,7 +1156,7 @@ function renderCart() {
                 });
             }
             if (decBtn) {
-                decBtn.addEventListener('click', () => {
+                decBtn.addEventListener("click", () => {
                     console.log(`Decrementando item ${entry.id}: ${entry.name}`);
                     updateCart(entry.id, entry.name, entry.price, entry.image, -1);
                     syncGrid();
@@ -1144,7 +1164,7 @@ function renderCart() {
                 });
             }
             if (removeBtn) {
-                removeBtn.addEventListener('click', () => {
+                removeBtn.addEventListener("click", () => {
                     console.log(`Removendo item ${entry.id}: ${entry.name}`);
                     updateCart(entry.id, entry.name, entry.price, entry.image, -entry.qty);
                     syncGrid();
@@ -1156,7 +1176,7 @@ function renderCart() {
         });
     }
     initializeZoom(); // Inicializa zoom no carrinho
-    console.log('Carrinho renderizado:', { totalItems, totalAmount });
+    console.log("Carrinho renderizado:", { totalItems, totalAmount });
 }
 
 function clearCart() {
@@ -1168,7 +1188,7 @@ function clearCart() {
 
 function finalizeOrder() {
     if (carrinho.size === 0) return;
-    const lines = ['Olá! Quero fazer um pedido:\n'];
+    const lines = ["Olá! Quero fazer um pedido:\n"];
     let total = 0;
 
     carrinho.forEach(({ name, price, qty }) => {
@@ -1177,61 +1197,61 @@ function finalizeOrder() {
         lines.push(`- ${name} | ${formatBRL(price)} x ${qty} = ${formatBRL(subtotal)}`);
     });
 
-    lines.push('', `*Total do pedido: ${formatBRL(total)}*`);
+    lines.push("", `*Total do pedido: ${formatBRL(total)}*`);
 
-    const message = encodeURIComponent(lines.join('\n'));
-    const phone = '5537991243408';
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    const message = encodeURIComponent(lines.join("\n"));
+    const phone = "5537991243408";
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
     carrinho.clear();
     saveCart(carrinho);
     syncGrid();
     renderCart();
-    console.log('Pedido finalizado:', lines.join('\n'));
+    console.log("Pedido finalizado:", lines.join("\n"));
 }
 
 // Inicialização
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     carrinho = loadCart();
 
-    cartCountEl = document.getElementById('cartcount');
-    cartTotalEl = document.getElementById('carttotal');
-    cartItemsEl = document.getElementById('cartItems');
-    cartEmptyEl = document.getElementById('cartEmpty');
-    cartTotalModalEl = document.getElementById('cartTotalModal');
-    checkoutBtn = document.getElementById('checkoutbtn');
-    checkoutBtnModal = document.getElementById('checkoutBtnModal');
-    clearCartBtn = document.getElementById('clearCart');
+    cartCountEl = document.getElementById("cartcount");
+    cartTotalEl = document.getElementById("carttotal");
+    cartItemsEl = document.getElementById("cartItems");
+    cartEmptyEl = document.getElementById("cartEmpty");
+    cartTotalModalEl = document.getElementById("cartTotalModal");
+    checkoutBtn = document.getElementById("checkoutbtn");
+    checkoutBtnModal = document.getElementById("checkoutBtnModal");
+    clearCartBtn = document.getElementById("clearCart");
 
-    if (!cartCountEl) console.warn('Elemento #cartcount não encontrado no DOM');
-    if (!cartTotalEl) console.warn('Elemento #carttotal não encontrado no DOM');
-    if (!cartItemsEl) console.warn('Elemento #cartItems não encontrado no DOM (verifique sacola.html)');
-    if (!cartEmptyEl) console.warn('Elemento #cartEmpty não encontrado no DOM (verifique sacola.html)');
-    if (!cartTotalModalEl) console.warn('Elemento #cartTotalModal não encontrado no DOM (verifique sacola.html)');
-    if (!checkoutBtn) console.warn('Elemento #checkoutbtn não encontrado no DOM');
-    if (!checkoutBtnModal) console.warn('Elemento #checkoutBtnModal não encontrado no DOM (verifique sacola.html)');
-    if (!clearCartBtn) console.warn('Elemento #clearCart não encontrado no DOM (verifique sacola.html)');
+    if (!cartCountEl) console.warn("Elemento #cartcount não encontrado no DOM");
+    if (!cartTotalEl) console.warn("Elemento #carttotal não encontrado no DOM");
+    if (!cartItemsEl) console.warn("Elemento #cartItems não encontrado no DOM (verifique sacola.html)");
+    if (!cartEmptyEl) console.warn("Elemento #cartEmpty não encontrado no DOM (verifique sacola.html)");
+    if (!cartTotalModalEl) console.warn("Elemento #cartTotalModal não encontrado no DOM (verifique sacola.html)");
+    if (!checkoutBtn) console.warn("Elemento #checkoutbtn não encontrado no DOM");
+    if (!checkoutBtnModal) console.warn("Elemento #checkoutBtnModal não encontrado no DOM (verifique sacola.html)");
+    if (!clearCartBtn) console.warn("Elemento #clearCart não encontrado no DOM (verifique sacola.html)");
 
     renderizarProdutos();
 
     if (clearCartBtn) {
-        clearCartBtn.addEventListener('click', () => {
-            console.log('Limpando carrinho');
+        clearCartBtn.addEventListener("click", () => {
+            console.log("Limpando carrinho");
             clearCart();
         });
     }
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            console.log('Finalizando pedido (index.html)');
+        checkoutBtn.addEventListener("click", () => {
+            console.log("Finalizando pedido (index.html)");
             finalizeOrder();
         });
     }
     if (checkoutBtnModal) {
-        checkoutBtnModal.addEventListener('click', () => {
-            console.log('Finalizando pedido (sacola.html)');
+        checkoutBtnModal.addEventListener("click", () => {
+            console.log("Finalizando pedido (sacola.html)");
             finalizeOrder();
         });
     }
 
     renderCart();
-    console.log('Carrinho inicializado:', [...carrinho]);
+    console.log("Carrinho inicializado:", [...carrinho]);
 });
