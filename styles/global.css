@@ -245,9 +245,11 @@ header .btn-instagram svg {
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* botão | texto | botão */
     align-items: center;
+    justify-items: center; /* centraliza cada célula */
+    gap: 20px;
     padding: 12px 16px;
     background: #111;
     color: #fff;
@@ -255,9 +257,11 @@ header .btn-instagram svg {
 }
 
 .cart-actions {
-    display: flex;
-    gap: 8px;
+    display: contents; /* remove o bloco extra e solta os botões no grid */
 }
+
+
+
 
 /* Itens do Carrinho (Sacola) */
 .cart-items {
