@@ -1200,7 +1200,7 @@ function finalizeOrder() {
     lines.push("", `*Total do pedido: ${formatBRL(total)}*`);
 
     const message = encodeURIComponent(lines.join("\n"));
-    const phone = "5537991243408";
+    const phone = "5537993344973";
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
     carrinho.clear();
     saveCart(carrinho);
