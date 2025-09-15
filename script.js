@@ -1188,7 +1188,7 @@ function clearCart() {
 
 function finalizeOrder() {
     if (carrinho.size === 0) return;
-    const lines = ["Olá! Quero fazer um pedido:\n"];
+    const lines = ["🧀 *Novo Pedido - Catálogo de Queijos* 🧀\n"];
     let total = 0;
 
     carrinho.forEach(({ name, price, qty }) => {
@@ -1197,7 +1197,8 @@ function finalizeOrder() {
         lines.push(`- ${name} | ${formatBRL(price)} x ${qty} = ${formatBRL(subtotal)}`);
     });
 
-    lines.push("", `*Total do pedido: ${formatBRL(total)}*`);
+    lines.push("", `*Total do pedido: ${formatBRL(total)}*`, "\n*pedido finalizado*");
+    lines.push("\nPor favor, confirme o pedido e informe os detalhes de entrega.");
 
     const message = encodeURIComponent(lines.join("\n"));
     const phone = "5537999344973";
