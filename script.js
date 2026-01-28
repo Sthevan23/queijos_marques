@@ -22,7 +22,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo palito",
             detalhes: "450g – Queijo em palito artesanal",
-            preco: 34.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto1.png"
         },
         {
@@ -30,7 +30,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo trança",
             detalhes: "450g – Pura, defumada, alho ou temperada",
-            preco: 34.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto2.png"
         },
         {
@@ -38,7 +38,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo nozinho",
             detalhes: "450g – Tradicional artesanal",
-            preco: 34.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto3.png"
         },
         {
@@ -46,7 +46,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Kit trançinha",
             detalhes: "400g – Kit com tranças variadas",
-            preco: 31.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto4.png"
         },
         {
@@ -54,7 +54,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo tipo reino",
             detalhes: "450g – Queijo tipo reino tradicional",
-            preco: 41.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto5.png"
         },
         {
@@ -62,7 +62,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo provolone",
             detalhes: "450g – Provolone artesanal",
-            preco: 34.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto8.png"
         },
         {
@@ -70,7 +70,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Kit provoleto",
             detalhes: "450g – Kit de provolones especiais",
-            preco: 39.40,
+            preco: 85.00,
             imagem: "assets/imagens/tradicionais/foto9.png"
         },
         {
@@ -78,7 +78,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Kit provolone c/ lombo",
             detalhes: "450g – Provolone com lombo defumado",
-            preco: 41.90,
+            preco: 85.00,
             imagem: "assets/imagens/tradicionais/foto10.png"
         },
         {
@@ -86,7 +86,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Kit quatro queijos",
             detalhes: "450g – Seleção de quatro queijos",
-            preco: 41.90,
+            preco: 75.00,
             imagem: "assets/imagens/tradicionais/foto11.png"
         },
         {
@@ -94,7 +94,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo cabacinha",
             detalhes: "450g – Queijo cabacinha artesanal",
-            preco: 37.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto12.png"
         },
         {
@@ -102,7 +102,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo minas padrão",
             detalhes: "450g – Queijo minas padrão tradicional",
-            preco: 41.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto13.png"
         },
         {
@@ -110,7 +110,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo minas com goiabada",
             detalhes: "450g – Combinação clássica queijo e goiabada",
-            preco: 41.90,
+            preco: 85.00,
             imagem: "assets/imagens/tradicionais/foto14.png"
         },
         {
@@ -118,7 +118,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo minas",
             detalhes: "450g – Queijo minas artesanal",
-            preco: 41.90,
+            preco: 85.00,
             imagem: "assets/imagens/tradicionais/foto15.png"
         },
         {
@@ -126,7 +126,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo minas Frescal Buritis",
             detalhes: "400g – Versão light do minas frescal",
-            preco: 39.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto16.png"
         },
         {
@@ -134,7 +134,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo trança ao vinho",
             detalhes: "450g – Trança curada no vinho",
-            preco: 34.90,
+            preco: 75.00,
             imagem: "assets/imagens/tradicionais/foto17.png"
         },
         {
@@ -142,7 +142,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo coalho barra",
             detalhes: "450g – Barra de coalho artesanal",
-            preco: 29.90,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto18.png"
         },
         {
@@ -150,7 +150,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Requeijão em barra",
             detalhes: "450g – Requeijão em formato de barra",
-            preco: 29.90,
+            preco: 75.00,
             imagem: "assets/imagens/tradicionais/foto19.png"
         }
     ];
@@ -167,7 +167,7 @@ class Desidratado extends Produto {
             categoria: "Desidratados",
             nome: "Chips de provolone puro",
             detalhes: "180g – Crocante e saboroso",
-            preco: 29.90,
+            preco: 40.00,
             imagem: "assets/imagens/chips_queijo/chips1.png"
         },
         {
@@ -175,7 +175,7 @@ class Desidratado extends Produto {
             categoria: "Desidratados",
             nome: "Chips de provolone com chimichurri",
             detalhes: "180g – Sabor com tempero especial",
-            preco: 29.90,
+            preco: 40.00,
             imagem: "assets/imagens/chips_queijo/chips2.png"
         },
         {
@@ -183,7 +183,7 @@ class Desidratado extends Produto {
             categoria: "Desidratados",
             nome: "Chips de provolone recheado com goiabada",
             detalhes: "180g – Goiabada e queijo",
-            preco: 31.90,
+            preco: 50.00,
             imagem: "assets/imagens/chips_queijo/chips3.png"
         },
         {
@@ -191,7 +191,7 @@ class Desidratado extends Produto {
             categoria: "Desidratados",
             nome: "Chips tipo gouda",
             detalhes: "180g – Sabor suave e crocante",
-            preco: 29.90,
+            preco: 40.00,
             imagem: "assets/imagens/chips_queijo/chips4.png"
         },
         {
@@ -199,7 +199,7 @@ class Desidratado extends Produto {
             categoria: "Desidratados",
             nome: "Chips de queijo coalho",
             detalhes: "180g – Sabor clássico do nordeste",
-            preco: 29.90,
+            preco: 45.00,
             imagem: "assets/imagens/chips_queijo/chips5.png"
         }
     ];
@@ -216,7 +216,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão, damasco e avelã",
             detalhes: "700g – Doce e cremoso",
-            preco: 44.90,
+            preco: 65.00,
             imagem: "assets/imagens/trufados/trufado1.png"
         },
         {
@@ -224,7 +224,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e tomate seco",
             detalhes: "500g – Leve e aromático",
-            preco: 44.90,
+            preco: 60.00,
             imagem: "assets/imagens/trufados/trufado2.png"
         },
         {
@@ -232,7 +232,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com cheddar",
             detalhes: "500g – Sabor intenso",
-            preco: 59.90,
+            preco: 60.00,
             imagem: "assets/imagens/trufados/trufado3.png"
         },
         {
@@ -240,7 +240,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e azeitona",
             detalhes: "800g – Salgado e marcante",
-            preco: 44.90,
+            preco: 60.00,
             imagem: "assets/imagens/trufados/trufado4.png"
         },
         {
@@ -248,7 +248,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com cheddar e carne seca",
             detalhes: "500g – Robusto e saboroso",
-            preco: 59.90,
+            preco: 85.00,
             imagem: "assets/imagens/trufados/trufado5.png"
         },
         {
@@ -256,7 +256,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão",
             detalhes: "500g – Leve e cremoso",
-            preco: 39.90,
+            preco: 70.00,
             imagem: "assets/imagens/trufados/trufado6.png"
         },
         {
@@ -264,7 +264,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com goiabada",
             detalhes: "500g – Goiabada cremosa",
-            preco: 44.90,
+            preco: 75.00,
             imagem: "assets/imagens/trufados/trufado7.png"
         },
         {
@@ -272,7 +272,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com nutella",
             detalhes: "500g – Nutella cremosa",
-            preco: 54.90,
+            preco: 75.00,
             imagem: "assets/imagens/trufados/trufado8.png"
         },
         {
@@ -280,7 +280,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com doce de leite",
             detalhes: "500g – Doce suave",
-            preco: 44.90,
+            preco: 75.00,
             imagem: "assets/imagens/trufados/trufado9.png"
         },
         {
@@ -288,7 +288,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e carne seca",
             detalhes: "500g – Sabor irresistível",
-            preco: 47.90,
+            preco: 85.00,
             imagem: "assets/imagens/trufados/trufado11.png"
         }
     ];
@@ -305,7 +305,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra meia-cura",
             detalhes: "500g – Tradição mineira",
-            preco: 44.90,
+            preco: 145.00,
             imagem: "assets/imagens/queijos_finos/foto1.png"
         },
         {
@@ -313,7 +313,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo parmesão cunha",
             detalhes: "400g – Toque marcante",
-            preco: 34.90,
+            preco: 75.00,
             imagem: "assets/imagens/queijos_finos/foto2.png"
         },
         {
@@ -321,7 +321,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra serjão",
             detalhes: "1100g – Doce mineiro",
-            preco: 104.90,
+            preco: 195.00,
             imagem: "assets/imagens/queijos_finos/foto3.png"
         },
         {
@@ -329,7 +329,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Kit parmesão artesanal (defumado, temperado, vinho e tradicional)",
             detalhes: "180g – Sabores variados",
-            preco: 41.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto4.png"
         },
         {
@@ -337,7 +337,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra moldura",
             detalhes: "1000g – Sabor autêntico da canastra",
-            preco: 89.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto5.png"
         },
         {
@@ -345,7 +345,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo gorgonzola",
             detalhes: "125g – Aroma intenso",
-            preco: 29.90,
+            preco: 45.00,
             imagem: "assets/imagens/queijos_finos/foto6.png"
         },
         {
@@ -353,7 +353,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra barreirinha",
             detalhes: "1000g – Aroma intenso",
-            preco: 79.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto7.png"
         },
         {
@@ -361,7 +361,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo brisa",
             detalhes: "450g – Sabor marcante, perfeito para molhos",
-            preco: 54.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto8.png"
         },
         {
@@ -369,7 +369,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra johnne premiado",
             detalhes: "1000g – Premiado e cheio de personalidade",
-            preco: 99.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto9.png"
         },
         {
@@ -377,7 +377,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Panela de queijo parmesão",
             detalhes: "600g – Ideal para receitas criativas",
-            preco: 54.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto10.png"
         },
         {
@@ -385,7 +385,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra reinaldo",
             detalhes: "1000g – Autêntico sabor mineiro",
-            preco: 119.90,
+            preco: 195.00,
             imagem: "assets/imagens/queijos_finos/foto11.png"
         },
         {
@@ -393,7 +393,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Kit parmesão (tradicional, capa preta, defumado e temperado)",
             detalhes: "500g – Variedade para todos os paladares",
-            preco: 39.90,
+            preco: 85.00,
             imagem: "assets/imagens/queijos_finos/foto12.png"
         },
         {
@@ -401,7 +401,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Burrata de búfala",
             detalhes: "300g – Cremosa e sofisticada",
-            preco: 34.90,
+            preco: 45.00,
             imagem: "assets/imagens/queijos_finos/foto13.png"
         },
         {
@@ -409,7 +409,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo morbier",
             detalhes: "500g – Clássico francês de sabor único",
-            preco: 41.90,
+            preco: 75.00,
             imagem: "assets/imagens/queijos_finos/foto14.png"
         },
         {
@@ -417,7 +417,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo tipo brie",
             detalhes: "180g – Delicado e saboroso",
-            preco: 34.90,
+            preco: 45.00,
             imagem: "assets/imagens/queijos_finos/foto15.png"
         },
         {
@@ -425,7 +425,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo camembert",
             detalhes: "350g – Cremoso e sofisticado",
-            preco: 42.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/queijos_finos/foto16.png"
         },
         {
@@ -433,7 +433,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo mussarela de búfala em bolinha (tradicional, azeitona, damasco e cereja)",
             detalhes: "250g – Frescor e versatilidade em cada bolinha",
-            preco: 39.90,
+            preco: 45.00,
             imagem: "assets/imagens/queijos_finos/foto17.png"
         },
         {
@@ -441,7 +441,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo tipo grana",
             detalhes: "220g – Encorpado, ideal para massas",
-            preco: 31.90,
+            preco: 65.00,
             imagem: "assets/imagens/queijos_finos/foto18.png"
         },
         {
@@ -466,7 +466,7 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Presunto tenro bolinha juliatto",
             detalhes: "700g – Macio, defumado e sabor marcante",
-            preco: 69.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/especiarias/foto1.png"
         },
         {
@@ -474,7 +474,7 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Picanha suína",
             detalhes: "650g – Suculenta, com tempero especial",
-            preco: 44.90,
+            preco: 75.00,
             imagem: "assets/imagens/especiarias/foto2.png"
         },
         {
@@ -482,7 +482,7 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Picanha com provolone",
             detalhes: "700g – Combinação irresistível de carne e queijo",
-            preco: 49.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/especiarias/foto3.png"
         },
         {
@@ -490,15 +490,15 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Carne na lata canastra",
             detalhes: "900g – Receita tradicional com sabor autêntico",
-            preco: 59.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/especiarias/foto4.png"
         },
         {
             id: 55,
             categoria: "Especiarias",
-            nome: "Ancho suíno",
+            nome: "Costelinha com queijo",
             detalhes: "450g – Ancho suíno macio e suculento",
-            preco: 64.90,
+            preco: 115.00,
             imagem: "assets/imagens/especiarias/foto5.png"
         },
         {
@@ -506,7 +506,7 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Géleias uai",
             detalhes: "200g – Pura, defumada, c/ abacaxi, c/hortelã, c/ damasco, c/ cereja, c/ limão, e c/ frutas vermelhas",
-            preco: 19.90,
+            preco: 40.00,
             imagem: "assets/imagens/especiarias/foto6.png"
         }
     ];
@@ -523,7 +523,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta biquinho",
             detalhes: "200g – Defumado artesanal, toque suave da pimenta biquinho",
-            preco: 24.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto1.png"
         },
         {
@@ -531,7 +531,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ alho",
             detalhes: "200g – Sabor marcante com o toque especial do alho",
-            preco: 24.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto2.png"
         },
         {
@@ -539,7 +539,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame italiano fatiado",
             detalhes: "200g – Receita clássica italiana, sabor intenso e equilibrado",
-            preco: 24.90,
+            preco: 75.00,
             imagem: "assets/imagens/salaminhos/foto3.png"
         },
         {
@@ -547,7 +547,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salaminho c/ azeitona",
             detalhes: "200g – Combinação saborosa de salame com azeitonas selecionadas",
-            preco: 24.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto4.png"
         },
         {
@@ -555,7 +555,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta calabresa",
             detalhes: "200g – Defumado intenso com o toque picante da calabresa",
-            preco: 24.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto5.png"
         },
         {
@@ -563,7 +563,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame frango c/ azeitona",
             detalhes: "200g – Leve, saboroso e realçado com azeitonas selecionadas",
-            preco: 24.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto6.png"
         },
         {
@@ -571,7 +571,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame frango c/ provolone",
             detalhes: "200g – Combinação única de frango suave e queijo provolone",
-            preco: 24.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto7.png"
         },
         {
@@ -579,7 +579,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado",
             detalhes: "200g – Clássico e saboroso, defumado artesanalmente",
-            preco: 37.90,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto8.png"
         }
     ];
@@ -596,7 +596,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite viçosa tradicional",
             detalhes: "800g – Cremoso e tradicional, com sabor marcante",
-            preco: 54.90,
+            preco: 75.00,
             imagem: "assets/imagens/doces/foto1.png"
         },
         {
@@ -604,7 +604,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite viçosa com café, chocolate e coco",
             detalhes: "400g – Variedade de sabores: café, chocolate e coco",
-            preco: 44.90,
+            preco: 45.00,
             imagem: "assets/imagens/doces/foto2.png"
         },
         {
@@ -612,7 +612,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Cocada de coco com geleia de morango",
             detalhes: "620g – Cremoso e tradicional, com sabor marcante",
-            preco: 44.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto22.png"
         },
         {
@@ -620,7 +620,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite com geleia de morango",
             detalhes: "620g – Variedade de sabores: café, chocolate e coco",
-            preco: 44.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto23.png"
         },
         {
@@ -628,7 +628,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite com geleia de maracuja",
             detalhes: "620g – Variedade de sabores: café, chocolate e coco",
-            preco: 44.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto24.png"
         },
         {
@@ -636,7 +636,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Goiabada cascão vovó zélia",
             detalhes: "800g – Goiabada artesanal com textura rústica",
-            preco: 39.90,
+            preco: 65.00,
             imagem: "assets/imagens/doces/foto3.png"
         },
         {
@@ -644,7 +644,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Goiabada cascão vovô olavo",
             detalhes: "600g – Goiabada tradicional com sabor intenso",
-            preco: 29.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto4.png"
         },
         {
@@ -652,7 +652,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "400g – Bananada cremosa e artesanal",
-            preco: 24.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto5.png"
         },
         {
@@ -660,7 +660,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "450g – Bananada tradicional com sabor marcante",
-            preco: 24.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto6.png"
         },
         {
@@ -668,7 +668,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Goiabada tenere",
             detalhes: "1000g – Goiabada suave e cremosa",
-            preco: 34.90,
+            preco: 50.00,
             imagem: "assets/imagens/doces/foto7.png"
         },
         {
@@ -676,7 +676,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Paçoca em barra delícia mineira",
             detalhes: "500g – Paçoca artesanal com textura única",
-            preco: 21.90,
+            preco: 50.00,
             imagem: "assets/imagens/doces/foto8.png"
         },
         {
@@ -684,7 +684,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Bala de banana zero açúcar",
             detalhes: "500g – Sabor de banana sem açúcar",
-            preco: 31.90,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto9.png"
         },
         {
@@ -692,7 +692,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Barrinha cremosa de banana",
             detalhes: "500g – Cremosa e doce, com sabor de banana",
-            preco: 31.90,
+            preco: 70.00,
             imagem: "assets/imagens/doces/foto10.png"
         },
         {
@@ -700,7 +700,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite vimilk",
             detalhes: "800g – Cremoso e tradicional, com sabor marcante",
-            preco: 41.90,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto11.png"
         },
         {
@@ -708,7 +708,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite c/morango la france",
             detalhes: "440g – Combinação de doce de leite com morango",
-            preco: 29.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto12.png"
         },
         {
@@ -716,7 +716,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite blu zero lactose",
             detalhes: "400g – Doce de leite sem lactose, cremoso",
-            preco: 34.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto13.png"
         },
         {
@@ -724,7 +724,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite rocca tradicional",
             detalhes: "450g – Doce de leite artesanal clássico",
-            preco: 34.90,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto14.png"
         },
         {
@@ -732,7 +732,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite rocca c/ café e coco",
             detalhes: "500g – Sabores de café e coco em doce de leite",
-            preco: 34.90,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto15.png"
         },
         {
@@ -740,7 +740,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite diet zero lactose fazenda",
             detalhes: "430g – Doce de leite diet sem lactose",
-            preco: 37.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto16.png"
         },
         {
@@ -748,7 +748,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite capitólio",
             detalhes: "500g – Doce de leite artesanal com sabor único",
-            preco: 34.90,
+            preco: 60000.0000,
             imagem: "assets/imagens/doces/foto17.png"
         },
         {
@@ -756,7 +756,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite vimilk",
             detalhes: "700g – Cremoso e tradicional, com sabor marcante",
-            preco: 39.90,
+            preco: 50.00,
             imagem: "assets/imagens/doces/foto18.png"
         },
         {
@@ -764,7 +764,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Bala de doce de leite serra negra",
             detalhes: "400g – Balas de doce de leite artesanais",
-            preco: 39.90,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto19.png"
         },
         {
@@ -772,7 +772,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce pingo de leite famoso pote",
             detalhes: "370g – Doce de leite em formato de pingo",
-            preco: 21.90,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto20.png"
         },
         {
@@ -780,7 +780,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Cocada prove & aprove",
             detalhes: "12un – Cocada artesanal, doce e saborosa",
-            preco: 34.90,
+            preco: 60.00,
             imagem: "assets/imagens/doces/foto21.png"
         }
     ];
@@ -1201,7 +1201,7 @@ function finalizeOrder() {
     lines.push("\nPor favor, confirme o pedido e informe os detalhes de entrega.");
 
     const message = encodeURIComponent(lines.join("\n"));
-    const phone = "5537999344973";
+    const phone = "553799344973";
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
     carrinho.clear();
     saveCart(carrinho);
