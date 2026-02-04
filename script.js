@@ -841,9 +841,11 @@ function renderizarProdutos() {
             const quantitySpan = artigo.querySelector(".quantity");
 
             if (btnAdd && btnRemove && quantitySpan) {
-                btnAdd.addEventListener("click", () => {
+                btnAdd.addEventListener("click", (e) => {
                     console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
                     handleQtyChange(artigo, 1, quantitySpan);
+                    const img = artigo.querySelector("img");
+                    if (img) flyToCart(img);
                 });
                 btnRemove.addEventListener("click", () => {
                     console.log(`Removendo item ${produto.id}: ${produto.nome}`);
@@ -899,9 +901,12 @@ function renderizarProdutos() {
                 const quantitySpan = artigo.querySelector(".quantity");
 
                 if (btnAdd && btnRemove && quantitySpan) {
-                    btnAdd.addEventListener("click", () => {
+                    btnAdd.addEventListener("click", (e) => {
                         console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
                         handleQtyChange(artigo, 1, quantitySpan);
+                        // Animação de voar para o carrinho
+                        const img = artigo.querySelector("img");
+                        if (img) flyToCart(img);
                     });
                     btnRemove.addEventListener("click", () => {
                         console.log(`Removendo item ${produto.id}: ${produto.nome}`);
@@ -1178,4 +1183,47 @@ function showToast(message, type = 'success') {
             if (toast.parentElement) toast.remove();
         }, 300);
     }, 3000);
+}
+
+// Fly to Cart Animation
+function flyToCart(sourceImg) {
+    const cartTarget = document.querySelector('.cart-bar');
+    if (!cartTarget || !sourceImg) return;
+
+    const clone = sourceImg.cloneNode();
+    const rect = sourceImg.getBoundingClientRect();
+    const targetRect = cartTarget.getBoundingClientRect();
+
+    clone.style.position = 'fixed';
+    clone.style.left = `${rect.left}px`;
+    clone.style.top = `${rect.top}px`;
+    clone.style.width = `${rect.width}px`;
+    clone.style.height = `${rect.height}px`;
+    clone.style.zIndex = '9999';
+    clone.style.borderRadius = '50%';
+    clone.style.opacity = '0.8';
+    clone.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
+    clone.style.pointerEvents = 'none';
+
+    document.body.appendChild(clone);
+
+    // Force reflow
+    void clone.offsetWidth;
+
+    // target center
+    const targetX = targetRect.left + (targetRect.width / 2) - (rect.width / 4);
+    const targetY = targetRect.top + (targetRect.height / 2) - (rect.height / 4);
+
+    clone.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(0.1)`;
+    clone.style.opacity = '0';
+
+    setTimeout(() => {
+        clone.remove();
+        // Shake animation on cart
+        cartTarget.animate([
+            { transform: 'translateX(-50%) scale(1)' },
+            { transform: 'translateX(-50%) scale(1.1)' },
+            { transform: 'translateX(-50%) scale(1)' }
+        ], { duration: 200 });
+    }, 800);
 }
