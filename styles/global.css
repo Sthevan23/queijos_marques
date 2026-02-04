@@ -100,6 +100,11 @@ header p {
 
 /* Botão Instagram - Estilo Pill */
 header .btn-instagram {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    z-index: 101;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -115,7 +120,7 @@ header .btn-instagram {
 }
 
 header .btn-instagram:hover {
-    transform: translateY(-2px);
+    transform: translateY(calc(-50% - 2px));
     box-shadow: 0 6px 16px rgba(221, 42, 123, 0.3);
 }
 
@@ -231,14 +236,14 @@ header .btn-instagram:hover {
 
 /* Global Buttons */
 .btn-primary {
-    background: var(--brand-accent);
+    background: var(--success);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 25px;
     font-weight: 600;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
     transition: transform 0.2s, background 0.2s;
     text-decoration: none;
     display: inline-flex;
@@ -248,7 +253,7 @@ header .btn-instagram:hover {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    background: #d35400;
+    background: #219150;
 }
 
 .btn-primary:disabled {
@@ -409,20 +414,20 @@ header .btn-instagram:hover {
 }
 
 .cart-bar .btn-primary {
-    background: var(--brand-accent);
+    background: var(--success);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 25px;
     font-weight: 600;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
     transition: transform 0.2s, background 0.2s;
 }
 
 .cart-bar .btn-primary:hover {
     transform: translateY(-2px);
-    background: #d35400;
+    background: #219150;
 }
 
 .cart-bar .btn-primary:disabled {
@@ -662,8 +667,16 @@ footer {
     }
 
     header .btn-instagram {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        position: absolute;
+        top: 50%;
+        right: 0.75rem;
+        transform: translateY(-50%);
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    header .btn-instagram:hover {
+        transform: translateY(calc(-50% - 1px));
     }
 
     .catalogo {
@@ -750,11 +763,11 @@ footer {
     }
 
     .info-group strong {
-        font-size: 0.6rem;
+        font-size: 0.5rem;
     }
 
     .info-group span {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 
     .cart-bar .btn-secondary {
