@@ -843,9 +843,10 @@ function renderizarProdutos() {
             if (btnAdd && btnRemove && quantitySpan) {
                 btnAdd.addEventListener("click", (e) => {
                     console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
-                    handleQtyChange(artigo, 1, quantitySpan);
                     const img = artigo.querySelector("img");
-                    if (img) flyToCart(img);
+                    const willFly = !!img;
+                    handleQtyChange(artigo, 1, quantitySpan, !willFly);
+                    if (willFly) flyToCart(img);
                 });
                 btnRemove.addEventListener("click", () => {
                     console.log(`Removendo item ${produto.id}: ${produto.nome}`);
@@ -903,10 +904,11 @@ function renderizarProdutos() {
                 if (btnAdd && btnRemove && quantitySpan) {
                     btnAdd.addEventListener("click", (e) => {
                         console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
-                        handleQtyChange(artigo, 1, quantitySpan);
-                        // Animação de voar para o carrinho
                         const img = artigo.querySelector("img");
-                        if (img) flyToCart(img);
+                        const willFly = !!img;
+                        handleQtyChange(artigo, 1, quantitySpan, !willFly);
+                        // Animação de voar para o carrinho
+                        if (willFly) flyToCart(img);
                     });
                     btnRemove.addEventListener("click", () => {
                         console.log(`Removendo item ${produto.id}: ${produto.nome}`);
@@ -930,12 +932,12 @@ function renderizarProdutos() {
 }
 
 // Gerenciamento do carrinho
-function handleQtyChange(itemEl, delta, span) {
+function handleQtyChange(itemEl, delta, span, triggerHighlight = true) {
     const info = readItemInfo(itemEl);
     console.log(`Atualizando item ${info.id}: ${info.name}, delta: ${delta}`);
     updateCart(info.id, info.name, info.price, info.image, delta);
     span.textContent = getQty(info.id);
-    renderCart();
+    renderCart(triggerHighlight);
 
     if (delta > 0) {
         showToast(`${info.name} adicionado à sacola!`, 'success');
@@ -985,7 +987,7 @@ function syncGrid() {
     console.log("Grid sincronizado");
 }
 
-function renderCart() {
+function renderCart(triggerHighlight = true) {
     let totalItems = 0;
     let totalAmount = 0;
 
@@ -1005,7 +1007,7 @@ function renderCart() {
     }
 
     const cartBar = document.querySelector(".cart-bar");
-    if (cartBar) {
+    if (cartBar && triggerHighlight) {
         cartBar.classList.add("highlight");
         setTimeout(() => cartBar.classList.remove("highlight"), 300);
     }
@@ -1202,7 +1204,7 @@ function flyToCart(sourceImg) {
     clone.style.zIndex = '9999';
     clone.style.borderRadius = '50%';
     clone.style.opacity = '0.8';
-    clone.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
+    clone.style.transition = 'all 0.3s cubic-bezier(0.2, 1, 0.3, 1)';
     clone.style.pointerEvents = 'none';
 
     document.body.appendChild(clone);
@@ -1225,5 +1227,5 @@ function flyToCart(sourceImg) {
             { transform: 'translateX(-50%) scale(1.1)' },
             { transform: 'translateX(-50%) scale(1)' }
         ], { duration: 200 });
-    }, 800);
+    }, 300);
 }
