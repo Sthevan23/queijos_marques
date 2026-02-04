@@ -931,6 +931,10 @@ function handleQtyChange(itemEl, delta, span) {
     updateCart(info.id, info.name, info.price, info.image, delta);
     span.textContent = getQty(info.id);
     renderCart();
+
+    if (delta > 0) {
+        showToast(`${info.name} adicionado à sacola!`, 'success');
+    }
 }
 
 function readItemInfo(itemEl) {
@@ -1152,3 +1156,26 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCart();
     console.log("Carrinho inicializado:", [...carrinho]);
 });
+
+// Toast Notification System
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span>${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.3s forwards';
+        setTimeout(() => {
+            if (toast.parentElement) toast.remove();
+        }, 300);
+    }, 3000);
+}
