@@ -745,8 +745,16 @@ footer {
         /* Espalha Itens e Total */
         width: 100%;
         background: rgba(255, 255, 255, 0.1);
-        padding: 0.5rem;
+        padding: 0.3rem;
         border-radius: 12px;
+    }
+
+    .info-group strong {
+        font-size: 0.6rem;
+    }
+
+    .info-group span {
+        font-size: 0.85rem;
     }
 
     .cart-bar .btn-secondary {
@@ -787,4 +795,11 @@ footer {
         grid-area: total;
         text-align: right;
     }
+}
+
+/* Utilities (Fix) */
+.hidden,
+#cartEmpty.hidden {
+    display: none !important;
+    visibility: hidden !important;
 }
