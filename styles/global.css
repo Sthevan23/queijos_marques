@@ -643,18 +643,37 @@ footer {
 }
 
 /* Utilities */
-.hidden {
-    display: none !important;
-}
+/* Utilities */
 
 /* Responsividade */
 @media (max-width: 768px) {
     header {
-        padding: 1rem;
+        padding: 0.8rem;
     }
 
     header h1 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.1rem;
+    }
+
+    header p {
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+    }
+
+    header .btn-instagram {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .catalogo {
+        padding: 1rem 1rem 8rem;
+        /* Mais espaço embaixo para cart bar */
+    }
+
+    .secao-titulo {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
     }
 
     .itens-grid {
@@ -663,16 +682,42 @@ footer {
     }
 
     .item {
-        padding: 1rem;
+        padding: 0.8rem;
     }
 
     .item img {
-        height: 140px;
+        height: 150px;
+        /* Foto maior e mais atrativa */
+        margin-bottom: 0.5rem;
     }
 
     .item h2 {
         font-size: 0.95rem;
         min-height: auto;
+        line-height: 1.3;
+    }
+
+    .item .price {
+        font-size: 1.1rem;
+    }
+
+    /* Botões redondos e mais táteis no mobile */
+    .btn-add,
+    .btn-remove {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-add {
+        background: var(--brand-dark);
+        color: white;
+    }
+
+    .cart-qty .quantity {
+        font-size: 1.1rem;
     }
 
     /* Ajustes da barra de carrinho mobile */
@@ -681,9 +726,7 @@ footer {
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "info info"
-            /* Linha 1: Info ocupa tudo */
             "bag checkout";
-        /* Linha 2: Botões lado a lado */
         gap: 0.75rem;
         border-radius: 20px 20px 0 0;
         bottom: 0;
@@ -716,6 +759,7 @@ footer {
         width: 100%;
     }
 
+    /* Estilo Sacola Mobile */
     .cart-item {
         grid-template-columns: 60px 1fr;
         grid-template-areas:
