@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Queijos Marques</title>
+    <meta name="description"
+        content="Queijos Marques - O melhor do queijo mineiro artesanal, vinhos e doces. Da serra para sua mesa. Entrega rápida e qualidade garantida.">
+    <meta name="keywords" content="queijo, canastra, minas, artesanal, delivery, queijo mineiro, provolone, doces">
+    <meta name="theme-color" content="#A0522D">
+    <title>Queijos Delicias - Delivery Artesanal</title>
     <link rel="stylesheet" href="styles/index.css">
 </head>
+
 <body>
     <div class="bg-overlay">
         <header>
-            <h1>Queijos Marques</h1>
+            <h1>Queijos Delicias</h1>
             <p>Da serra para sua mesa</p>
-            <a href="https://www.instagram.com/marques.mineiro" 
-               target="_blank" 
-               class="btn-instagram">
-               <svg xmlns="http://www.w3.org/2000/svg" 
-                    width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                   <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.75-2.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-               </svg>
-               <span>Siga nossa página</span>
+            <a href="https://www.instagram.com/queijos_delicias?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.75-2.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg>
+                <span></span>
             </a>
         </header>
 
@@ -29,8 +33,12 @@
             <a href="sacola.html" class="btn-secondary">Ver sacola</a>
 
             <div class="cart-info">
-                <strong>Itens:</strong> <span id="cartcount">0</span>
-                <strong>Total:</strong> <span id="carttotal">R$ 0,00</span>
+                <div class="info-group">
+                    <strong>Itens:</strong> <span id="cartcount">0</span>
+                </div>
+                <div class="info-group">
+                    <strong>Total:</strong> <span id="carttotal">R$ 0,00</span>
+                </div>
             </div>
 
             <button id="checkoutbtn" class="btn-primary" disabled>Finalizar pedido</button>
@@ -40,6 +48,8 @@
             &copy; 2025 Catálogo de Queijos. Todos os direitos reservados.
         </footer>
     </div>
+    <div id="toast-container"></div>
     <script src="script.js"></script>
 </body>
+
 </html>

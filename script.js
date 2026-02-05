@@ -329,7 +329,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Kit parmesão artesanal (defumado, temperado, vinho e tradicional)",
             detalhes: "180g – Sabores variados",
-            preco: 60000.0000,
+            preco: 75.00,
             imagem: "assets/imagens/queijos_finos/foto4.png"
         },
         {
@@ -337,7 +337,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra moldura",
             detalhes: "1000g – Sabor autêntico da canastra",
-            preco: 60000.0000,
+            preco: 180.00,
             imagem: "assets/imagens/queijos_finos/foto5.png"
         },
         {
@@ -353,7 +353,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra barreirinha",
             detalhes: "1000g – Aroma intenso",
-            preco: 60000.0000,
+            preco: 150.00,
             imagem: "assets/imagens/queijos_finos/foto7.png"
         },
         {
@@ -361,7 +361,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo brisa",
             detalhes: "450g – Sabor marcante, perfeito para molhos",
-            preco: 60000.0000,
+            preco: 140.00,
             imagem: "assets/imagens/queijos_finos/foto8.png"
         },
         {
@@ -369,16 +369,8 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo canastra johnne premiado",
             detalhes: "1000g – Premiado e cheio de personalidade",
-            preco: 60000.0000,
+            preco: 180.00,
             imagem: "assets/imagens/queijos_finos/foto9.png"
-        },
-        {
-            id: 41,
-            categoria: "Queijos finos",
-            nome: "Panela de queijo parmesão",
-            detalhes: "600g – Ideal para receitas criativas",
-            preco: 60000.0000,
-            imagem: "assets/imagens/queijos_finos/foto10.png"
         },
         {
             id: 42,
@@ -425,7 +417,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo camembert",
             detalhes: "350g – Cremoso e sofisticado",
-            preco: 60000.0000,
+            preco: 85.00,
             imagem: "assets/imagens/queijos_finos/foto16.png"
         },
         {
@@ -449,7 +441,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Colonial Serra Da Abelha",
             detalhes: "900g – Tradição tem nome",
-            preco: 62.90,
+            preco: 140.00,
             imagem: "assets/imagens/queijos_finos/foto19.jpeg"
         }
     ];
@@ -466,7 +458,7 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Presunto tenro bolinha juliatto",
             detalhes: "700g – Macio, defumado e sabor marcante",
-            preco: 60000.0000,
+            preco: 85.00,
             imagem: "assets/imagens/especiarias/foto1.png"
         },
         {
@@ -474,24 +466,8 @@ class Especiaria extends Produto {
             categoria: "Especiarias",
             nome: "Picanha suína",
             detalhes: "650g – Suculenta, com tempero especial",
-            preco: 75.00,
+            preco: 65.00,
             imagem: "assets/imagens/especiarias/foto2.png"
-        },
-        {
-            id: 53,
-            categoria: "Especiarias",
-            nome: "Picanha com provolone",
-            detalhes: "700g – Combinação irresistível de carne e queijo",
-            preco: 60000.0000,
-            imagem: "assets/imagens/especiarias/foto3.png"
-        },
-        {
-            id: 54,
-            categoria: "Especiarias",
-            nome: "Carne na lata canastra",
-            detalhes: "900g – Receita tradicional com sabor autêntico",
-            preco: 60000.0000,
-            imagem: "assets/imagens/especiarias/foto4.png"
         },
         {
             id: 55,
@@ -608,30 +584,6 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto2.png"
         },
         {
-            id: 67,
-            categoria: "Doces",
-            nome: "Cocada de coco com geleia de morango",
-            detalhes: "620g – Cremoso e tradicional, com sabor marcante",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto22.png"
-        },
-        {
-            id: 68,
-            categoria: "Doces",
-            nome: "Doce de leite com geleia de morango",
-            detalhes: "620g – Variedade de sabores: café, chocolate e coco",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto23.png"
-        },
-        {
-            id: 69,
-            categoria: "Doces",
-            nome: "Doce de leite com geleia de maracuja",
-            detalhes: "620g – Variedade de sabores: café, chocolate e coco",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto24.png"
-        },
-        {
             id: 70,
             categoria: "Doces",
             nome: "Goiabada cascão vovó zélia",
@@ -640,36 +592,12 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto3.png"
         },
         {
-            id: 71,
-            categoria: "Doces",
-            nome: "Goiabada cascão vovô olavo",
-            detalhes: "600g – Goiabada tradicional com sabor intenso",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto4.png"
-        },
-        {
-            id: 72,
-            categoria: "Doces",
-            nome: "Bananada vovô olavo",
-            detalhes: "400g – Bananada cremosa e artesanal",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto5.png"
-        },
-        {
             id: 73,
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "450g – Bananada tradicional com sabor marcante",
-            preco: 60000.0000,
+            preco: 48.00,
             imagem: "assets/imagens/doces/foto6.png"
-        },
-        {
-            id: 74,
-            categoria: "Doces",
-            nome: "Goiabada tenere",
-            detalhes: "1000g – Goiabada suave e cremosa",
-            preco: 50.00,
-            imagem: "assets/imagens/doces/foto7.png"
         },
         {
             id: 75,
@@ -696,30 +624,6 @@ class Doce extends Produto {
             imagem: "assets/imagens/doces/foto10.png"
         },
         {
-            id: 78,
-            categoria: "Doces",
-            nome: "Doce de leite vimilk",
-            detalhes: "800g – Cremoso e tradicional, com sabor marcante",
-            preco: 48.00,
-            imagem: "assets/imagens/doces/foto11.png"
-        },
-        {
-            id: 79,
-            categoria: "Doces",
-            nome: "Doce de leite c/morango la france",
-            detalhes: "440g – Combinação de doce de leite com morango",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto12.png"
-        },
-        {
-            id: 80,
-            categoria: "Doces",
-            nome: "Doce de leite blu zero lactose",
-            detalhes: "400g – Doce de leite sem lactose, cremoso",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto13.png"
-        },
-        {
             id: 81,
             categoria: "Doces",
             nome: "Doce de leite rocca tradicional",
@@ -740,16 +644,8 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Doce de leite diet zero lactose fazenda",
             detalhes: "430g – Doce de leite diet sem lactose",
-            preco: 60000.0000,
+            preco: 60.00,
             imagem: "assets/imagens/doces/foto16.png"
-        },
-        {
-            id: 84,
-            categoria: "Doces",
-            nome: "Doce de leite capitólio",
-            detalhes: "500g – Doce de leite artesanal com sabor único",
-            preco: 60000.0000,
-            imagem: "assets/imagens/doces/foto17.png"
         },
         {
             id: 85,
@@ -945,9 +841,12 @@ function renderizarProdutos() {
             const quantitySpan = artigo.querySelector(".quantity");
 
             if (btnAdd && btnRemove && quantitySpan) {
-                btnAdd.addEventListener("click", () => {
+                btnAdd.addEventListener("click", (e) => {
                     console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
-                    handleQtyChange(artigo, 1, quantitySpan);
+                    const img = artigo.querySelector("img");
+                    const willFly = !!img;
+                    handleQtyChange(artigo, 1, quantitySpan, !willFly);
+                    if (willFly) flyToCart(img);
                 });
                 btnRemove.addEventListener("click", () => {
                     console.log(`Removendo item ${produto.id}: ${produto.nome}`);
@@ -1003,9 +902,13 @@ function renderizarProdutos() {
                 const quantitySpan = artigo.querySelector(".quantity");
 
                 if (btnAdd && btnRemove && quantitySpan) {
-                    btnAdd.addEventListener("click", () => {
+                    btnAdd.addEventListener("click", (e) => {
                         console.log(`Adicionando item ${produto.id}: ${produto.nome}`);
-                        handleQtyChange(artigo, 1, quantitySpan);
+                        const img = artigo.querySelector("img");
+                        const willFly = !!img;
+                        handleQtyChange(artigo, 1, quantitySpan, !willFly);
+                        // Animação de voar para o carrinho
+                        if (willFly) flyToCart(img);
                     });
                     btnRemove.addEventListener("click", () => {
                         console.log(`Removendo item ${produto.id}: ${produto.nome}`);
@@ -1029,12 +932,16 @@ function renderizarProdutos() {
 }
 
 // Gerenciamento do carrinho
-function handleQtyChange(itemEl, delta, span) {
+function handleQtyChange(itemEl, delta, span, triggerHighlight = true) {
     const info = readItemInfo(itemEl);
     console.log(`Atualizando item ${info.id}: ${info.name}, delta: ${delta}`);
     updateCart(info.id, info.name, info.price, info.image, delta);
     span.textContent = getQty(info.id);
-    renderCart();
+    renderCart(triggerHighlight);
+
+    if (delta > 0) {
+        showToast(`${info.name} adicionado à sacola!`, 'success');
+    }
 }
 
 function readItemInfo(itemEl) {
@@ -1080,7 +987,7 @@ function syncGrid() {
     console.log("Grid sincronizado");
 }
 
-function renderCart() {
+function renderCart(triggerHighlight = true) {
     let totalItems = 0;
     let totalAmount = 0;
 
@@ -1100,7 +1007,7 @@ function renderCart() {
     }
 
     const cartBar = document.querySelector(".cart-bar");
-    if (cartBar) {
+    if (cartBar && triggerHighlight) {
         cartBar.classList.add("highlight");
         setTimeout(() => cartBar.classList.remove("highlight"), 300);
     }
@@ -1185,30 +1092,49 @@ function clearCart() {
     syncGrid();
     renderCart();
 }
-
 function finalizeOrder() {
     if (carrinho.size === 0) return;
-    const lines = ["🧀 *Novo Pedido - Catálogo de Queijos* 🧀\n"];
+
+    // Helper to clean BRL non-breaking spaces and symbols
+    const cleanBRL = (val) => formatBRL(val).replace(/\u00a0/g, " ");
+
+    let msg = "PEDIDO RECEBIDO - MARQUES MINEIRO\r\n\r\n";
+    msg += "ITENS DO PEDIDO:\r\n\r\n";
+
     let total = 0;
 
     carrinho.forEach(({ name, price, qty }) => {
         const subtotal = price * qty;
         total += subtotal;
-        lines.push(`- ${name} | ${formatBRL(price)} x ${qty} = ${formatBRL(subtotal)}`);
+
+        msg += "• QUEIJO: " + name.toUpperCase() + "\r\n";
+        msg += "  Qtd: " + qty + " x " + cleanBRL(price) + "\r\n";
+        msg += "  Subtotal: " + cleanBRL(subtotal) + "\r\n";
+        msg += "--------------------------------\r\n\r\n";
     });
 
-    lines.push("", `*Total do pedido: ${formatBRL(total)}*`, "\n*pedido finalizado*");
-    lines.push("\nPor favor, confirme o pedido e informe os detalhes de entrega.");
+    msg += "--------------------------------\r\n";
+    msg += "TOTAL A PAGAR: " + cleanBRL(total) + "\r\n";
+    msg += "--------------------------------\r\n\r\n";
 
-    const message = encodeURIComponent(lines.join("\n"));
-    const phone = "553799344973";
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+    msg += "DADOS PARA PAGAMENTO (PIX):\r\n";
+    msg += "Chave CPF: 725.820.576-49\r\n";
+    msg += "Banco: Sicoob Credifor\r\n";
+    msg += "Nome: Onesio Marques\r\n\r\n";
+
+    msg += "Mande o comprovante aqui quando fizer!\r\n\r\n";
+    msg += "Obrigado pela preferência!";
+
+    const phone = "553798074484";
+    const url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+
     carrinho.clear();
     saveCart(carrinho);
     syncGrid();
     renderCart();
-    console.log("Pedido finalizado:", lines.join("\n"));
 }
+
 
 // Inicialização
 document.addEventListener("DOMContentLoaded", () => {
@@ -1256,3 +1182,69 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCart();
     console.log("Carrinho inicializado:", [...carrinho]);
 });
+
+// Toast Notification System
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span>${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.3s forwards';
+        setTimeout(() => {
+            if (toast.parentElement) toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Fly to Cart Animation
+function flyToCart(sourceImg) {
+    const cartTarget = document.querySelector('.cart-bar');
+    if (!cartTarget || !sourceImg) return;
+
+    const clone = sourceImg.cloneNode();
+    const rect = sourceImg.getBoundingClientRect();
+    const targetRect = cartTarget.getBoundingClientRect();
+
+    clone.style.position = 'fixed';
+    clone.style.left = `${rect.left}px`;
+    clone.style.top = `${rect.top}px`;
+    clone.style.width = `${rect.width}px`;
+    clone.style.height = `${rect.height}px`;
+    clone.style.zIndex = '9999';
+    clone.style.borderRadius = '50%';
+    clone.style.opacity = '0.8';
+    clone.style.transition = 'all 0.3s cubic-bezier(0.2, 1, 0.3, 1)';
+    clone.style.pointerEvents = 'none';
+
+    document.body.appendChild(clone);
+
+    // Force reflow
+    void clone.offsetWidth;
+
+    // target center
+    const targetX = targetRect.left + (targetRect.width / 2) - (rect.width / 4);
+    const targetY = targetRect.top + (targetRect.height / 2) - (rect.height / 4);
+
+    clone.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(0.1)`;
+    clone.style.opacity = '0';
+
+    setTimeout(() => {
+        clone.remove();
+        // Shake animation on cart
+        cartTarget.animate([
+            { transform: 'translateX(-50%) scale(1)' },
+            { transform: 'translateX(-50%) scale(1.1)' },
+            { transform: 'translateX(-50%) scale(1)' }
+        ], { duration: 200 });
+    }, 300);
+}
