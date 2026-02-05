@@ -548,7 +548,7 @@ class Diversos extends Produto {
             nome: "Presunto tenro bolinha juliatto",
             detalhes: "700g – Macio, defumado e sabor marcante",
             preco: 85.00,
-            imagem: "assets/imagens/Diversos/foto1.png"
+            imagem: "assets/imagens/diversos/foto1.png"
         },
         {
             id: 61,
@@ -556,7 +556,7 @@ class Diversos extends Produto {
             nome: "Picanha suína",
             detalhes: "650g – Suculenta, com tempero especial",
             preco: 65.00,
-            imagem: "assets/imagens/Diversos/foto2.png"
+            imagem: "assets/imagens/diversos/foto2.png"
         },
         {
             id: 62,
@@ -564,7 +564,7 @@ class Diversos extends Produto {
             nome: "Costelinha com queijo",
             detalhes: "450g – Ancho suíno macio e suculento",
             preco: 115.00,
-            imagem: "assets/imagens/Diversos/foto5.png"
+            imagem: "assets/imagens/diversos/foto5.png"
         },
         {
             id: 63,
@@ -572,7 +572,7 @@ class Diversos extends Produto {
             nome: "Géleias uai",
             detalhes: "200g – Pura, defumada, c/ abacaxi, c/ hortelã, c/ damasco, c/ cereja, c/ limão, e c/ frutas vermelhas",
             preco: 40.00,
-            imagem: "assets/imagens/Diversos/foto6.png"
+            imagem: "assets/imagens/diversos/foto6.png"
         },
         {
             id: 64,
@@ -580,7 +580,7 @@ class Diversos extends Produto {
             nome: "Manteiga de Leite caipira",
             detalhes: "200g – Cremosa e artesanal",
             preco: 40.00,
-            imagem: "assets/imagens/Diversos/foto7.png"
+            imagem: "assets/imagens/diversos/foto7.png"
         },
         {
             id: 65,
@@ -588,7 +588,7 @@ class Diversos extends Produto {
             nome: "Mel silvestre",
             detalhes: "250g – Mel puro e natural",
             preco: 48.00,
-            imagem: "assets/imagens/Diversos/foto8.png"
+            imagem: "assets/imagens/diversos/foto8.png"
         },
         {
             id: 66,
@@ -596,7 +596,7 @@ class Diversos extends Produto {
             nome: "Géleia de mostarda trem bão",
             detalhes: "Mostarda c/ Maracujá e Mostarda Picante",
             preco: 40.00,
-            imagem: "assets/imagens/Diversos/foto9.png"
+            imagem: "assets/imagens/diversos/foto9.png"
         },
         {
             id: 67,
@@ -604,7 +604,7 @@ class Diversos extends Produto {
             nome: "Mel silvestre",
             detalhes: "500g – Mel puro e natural",
             preco: 50.00,
-            imagem: "assets/imagens/Diversos/foto10.png"
+            imagem: "assets/imagens/diversos/foto10.png"
         },
         {
             id: 68,
@@ -612,7 +612,7 @@ class Diversos extends Produto {
             nome: "Mostarda jalapeño e manga defumada",
             detalhes: "200g – Sabor exótico e picante",
             preco: 40.00,
-            imagem: "assets/imagens/Diversos/foto11.png"
+            imagem: "assets/imagens/diversos/foto11.png"
         }
     ];
 }
