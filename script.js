@@ -1327,7 +1327,7 @@ function finalizeOrder() {
     msg += "Mande o comprovante aqui quando fizer!\r\n\r\n";
     msg += "Obrigado pela preferência!";
 
-    const phone = "553798074484";
+    const phone = "553799344973";
     const url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(msg);
     window.open(url, "_blank");
 
