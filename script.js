@@ -1281,6 +1281,16 @@ function clearCart() {
     renderCart();
 }
 
+function getPublicAssetUrl(path) {
+    if (!path) return "";
+
+    try {
+        return new URL(path, window.location.href).href;
+    } catch {
+        return path;
+    }
+}
+
 function finalizeOrder() {
     if (carrinho.size === 0) return;
 
@@ -1291,13 +1301,17 @@ function finalizeOrder() {
 
     let total = 0;
 
-    carrinho.forEach(({ name, price, qty }) => {
+    carrinho.forEach(({ name, price, qty, image }) => {
         const subtotal = price * qty;
         total += subtotal;
+
+        const imageUrl = getPublicAssetUrl(image);
+        const imageText = imageUrl ? "\r\nFoto do produto:\r\n" + imageUrl : "";
 
         msg += "• ITEM: " + name.toUpperCase() + "\r\n";
         msg += "  Qtd: " + qty + " x " + cleanBRL(price) + "\r\n";
         msg += "  Subtotal: " + cleanBRL(subtotal) + "\r\n";
+        msg += "  FOTO ESCOLHIDA:" + imageText + "\r\n";
         msg += "--------------------------------\r\n\r\n";
     });
 
