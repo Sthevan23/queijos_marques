@@ -10,7 +10,7 @@ return [
     'db_host' => 'localhost',
     'db_name' => 'u586160337_marquesmineiro',
     'db_user' => 'u586160337_marquesmineiro',
-    'db_pass' => 'Sh100901',
+    'db_pass' => 'icm2026',
     'db_charset' => 'utf8mb4',
     'admin_pin' => '2025',
     'cors_origin' => 'https://marquesmineiro.com.br',
