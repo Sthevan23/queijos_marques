@@ -418,7 +418,7 @@ header .btn-instagram:hover {
 }
 
 .cart-bar .btn-primary {
-    background: linear-gradient(135deg, var(--brand-accent), #e0b93a);
+    background: linear-gradient(135deg, var(--brand-accent), #f0a04a);
     color: var(--brand-dark);
     padding: 0.7rem 1.3rem;
     border-radius: 999px;
