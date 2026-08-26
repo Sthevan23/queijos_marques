@@ -1308,7 +1308,6 @@ function finalizeOrder() {
     const errorEl = document.getElementById("cart-error");
     const nome = document.getElementById("cart-nome")?.value.trim() || "";
     const phone = document.getElementById("cart-phone")?.value.trim() || "";
-    const address = document.getElementById("cart-address")?.value.trim() || "";
 
     if (isSacola) {
         if (errorEl) {
@@ -1331,14 +1330,6 @@ function finalizeOrder() {
             document.getElementById("cart-phone")?.focus();
             return;
         }
-        if (address.length < 8) {
-            if (errorEl) {
-                errorEl.hidden = false;
-                errorEl.textContent = "Informe o endereço completo para entrega.";
-            }
-            document.getElementById("cart-address")?.focus();
-            return;
-        }
     }
 
     const cleanBRL = (val) => formatBRL(val).replace(/\u00a0/g, " ");
@@ -1346,8 +1337,6 @@ function finalizeOrder() {
     let msg = "*PEDIDO — MARQUES MINEIRO*\n\n";
     if (nome) msg += `Cliente: *${nome}*\n`;
     if (phone) msg += `WhatsApp: ${phone}\n`;
-    msg += "Receber: *Entrega*\n";
-    if (address) msg += `Endereço: ${address}\n`;
     msg += "\nItens:\n\n";
 
     let total = 0;

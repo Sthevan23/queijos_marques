@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/global.css?v=9">
-    <link rel="stylesheet" href="styles/index.css?v=9">
+    <link rel="stylesheet" href="styles/global.css?v=10">
+    <link rel="stylesheet" href="styles/index.css?v=10">
 </head>
 
 <body class="cart-page">
@@ -23,7 +23,6 @@
 
     <main class="cart-page__main">
         <header class="cart-page__head">
-            <p class="cart-page__eyebrow">Seu pedido</p>
             <h1 class="cart-page__title">Carrinho</h1>
             <p class="cart-page__subtitle" id="cart-page-subtitle">Nenhum item ainda</p>
         </header>
@@ -40,40 +39,28 @@
 
             <aside class="cart-page__summary" id="cart-page-summary" hidden>
                 <div class="cart-summary">
-                    <h2 class="cart-summary__title">Resumo</h2>
-
-                    <div class="cart-summary__row">
-                        <span>Subtotal</span>
-                        <strong id="cartTotalModal">R$ 0,00</strong>
-                    </div>
-                    <div class="cart-summary__row cart-summary__row--total">
+                    <div class="cart-summary__total">
                         <span>Total</span>
                         <strong id="cart-page-total">R$ 0,00</strong>
                     </div>
+                    <span id="cartTotalModal" class="visually-hidden">R$ 0,00</span>
 
                     <div class="cart-checkout">
-                        <p class="cart-checkout__label">Seus dados</p>
-                        <div class="cart-checkout__fields">
-                            <label class="order-field">Nome *
-                                <input type="text" id="cart-nome" placeholder="Seu nome" autocomplete="name">
-                            </label>
-                        </div>
+                        <label class="order-field">Nome *
+                            <input type="text" id="cart-nome" placeholder="Seu nome" autocomplete="name">
+                        </label>
                         <label class="order-field">WhatsApp *
                             <input type="tel" id="cart-phone" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel" maxlength="15">
                         </label>
-                        <div class="cart-address" id="cart-address-wrap">
-                            <label class="order-field" for="cart-address">
-                                Endereço de entrega *
-                                <textarea id="cart-address" rows="3" maxlength="280" placeholder="Rua, número, bairro, referência…"></textarea>
-                            </label>
-                        </div>
 
                         <p class="cart-error" id="cart-error" hidden></p>
                         <button type="button" class="btn-primary cart-summary__cta" id="checkoutBtnModal" disabled>
                             Finalizar pelo WhatsApp
                         </button>
-                        <button type="button" class="btn-ghost" id="clearCart">Limpar carrinho</button>
-                        <a class="btn-ghost" href="index.html">Continuar comprando</a>
+                        <div class="cart-summary__actions">
+                            <button type="button" class="btn-ghost" id="clearCart">Limpar</button>
+                            <a class="btn-ghost" href="index.html">Continuar</a>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -81,8 +68,8 @@
     </main>
 
     <div id="toast-container"></div>
-    <script src="custos.js?v=9"></script>
-    <script src="script.js?v=9"></script>
+    <script src="custos.js?v=10"></script>
+    <script src="script.js?v=10"></script>
 </body>
 
 </html>
