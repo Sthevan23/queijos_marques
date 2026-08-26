@@ -1,24 +1,24 @@
 /* Marques Mineiro — Design System */
 :root {
-    --brand-dark: #13261f;
-    --brand-primary: #1f4d3a;
-    --brand-accent: #c9a227;
-    --brand-light: #eef2ef;
+    --brand-dark: #2C1810;
+    --brand-primary: #A0522D;
+    --brand-accent: #E67E22;
+    --brand-light: #FDFBF7;
 
-    --text-primary: #152019;
-    --text-secondary: #5a6b62;
-    --text-light: #8a9a90;
+    --text-primary: #1A1A1A;
+    --text-secondary: #595959;
+    --text-light: #8C8C8C;
 
-    --success: #2f8f5b;
-    --error: #b33a2b;
+    --success: #27AE60;
+    --error: #C0392B;
 
-    --surface-white: #fbfcfb;
-    --surface-hover: #e7efe9;
-    --stroke: #d5e0d8;
+    --surface-white: #FFFFFF;
+    --surface-hover: #FFF8F0;
+    --stroke: #E5E5E5;
 
-    --shadow-sm: 0 2px 10px rgba(19, 38, 31, 0.06);
-    --shadow-md: 0 10px 28px rgba(19, 38, 31, 0.1);
-    --shadow-lg: 0 18px 50px rgba(19, 38, 31, 0.14);
+    --shadow-sm: 0 2px 10px rgba(44, 24, 16, 0.06);
+    --shadow-md: 0 10px 28px rgba(44, 24, 16, 0.1);
+    --shadow-lg: 0 18px 50px rgba(44, 24, 16, 0.14);
 
     --font-title: "Fraunces", Georgia, serif;
     --font-body: "Outfit", system-ui, sans-serif;
@@ -43,9 +43,9 @@ html {
 
 body {
     background:
-        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(201, 162, 39, 0.16), transparent 55%),
-        radial-gradient(ellipse 70% 45% at 100% 0%, rgba(31, 77, 58, 0.12), transparent 50%),
-        linear-gradient(180deg, #f4f7f5 0%, var(--brand-light) 40%, #e8efe9 100%);
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(230, 126, 34, 0.14), transparent 55%),
+        radial-gradient(ellipse 70% 45% at 100% 0%, rgba(160, 82, 45, 0.1), transparent 50%),
+        linear-gradient(180deg, #fffdf9 0%, var(--brand-light) 40%, #f5ebe0 100%);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
@@ -61,7 +61,7 @@ body {
 
 header {
     background:
-        linear-gradient(135deg, rgba(19, 38, 31, 0.96), rgba(31, 77, 58, 0.92)),
+        linear-gradient(135deg, rgba(44, 24, 16, 0.96), rgba(160, 82, 45, 0.92)),
         var(--brand-dark);
     border-bottom: 3px solid var(--brand-accent);
     padding: 1.75rem 1.25rem 1.5rem;
@@ -115,10 +115,10 @@ header .btn-instagram {
 
 header .btn-instagram:hover {
     transform: translateY(-50%) translateY(-2px);
-    background: rgba(201, 162, 39, 0.95);
+    background: rgba(230, 126, 34, 0.95);
     border-color: var(--brand-accent);
-    color: var(--brand-dark);
-    box-shadow: 0 8px 20px rgba(201, 162, 39, 0.35);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.35);
 }
 
 .catalogo {
@@ -195,7 +195,7 @@ header .btn-instagram:hover {
 .item:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-md);
-    border-color: rgba(31, 77, 58, 0.28);
+    border-color: rgba(160, 82, 45, 0.28);
 }
 
 .item:hover::before {
@@ -209,7 +209,7 @@ header .btn-instagram:hover {
     mix-blend-mode: multiply;
     transition: transform 0.35s ease;
     border-radius: var(--radius-sm);
-    background: linear-gradient(160deg, #f3f7f4, #eaf0ec);
+    background: linear-gradient(160deg, #fff8f0, #f5ebe0);
 }
 
 .item:hover img {
@@ -242,14 +242,14 @@ header .btn-instagram:hover {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #2f8f5b, #1f4d3a);
+    background: linear-gradient(135deg, #E67E22, #A0522D);
     color: #fff;
     padding: 0.75rem 1.4rem;
     border-radius: 999px;
     font-weight: 600;
     border: none;
     cursor: pointer;
-    box-shadow: 0 6px 16px rgba(31, 77, 58, 0.28);
+    box-shadow: 0 6px 16px rgba(160, 82, 45, 0.28);
     transition: transform 0.2s ease, filter 0.2s ease;
     text-decoration: none;
     display: inline-flex;
@@ -264,7 +264,7 @@ header .btn-instagram:hover {
 }
 
 .btn-primary:disabled {
-    background: #9aa89f;
+    background: #c4b5a8;
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
@@ -316,7 +316,7 @@ header .btn-instagram:hover {
     font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(19, 38, 31, 0.08);
+    box-shadow: 0 2px 6px rgba(44, 24, 16, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,11 +328,11 @@ header .btn-instagram:hover {
 }
 
 .btn-add:hover {
-    background: #163d2e;
+    background: #7a3d1f;
 }
 
 .btn-remove:hover {
-    background: #e4ebe6;
+    background: #f0e6dc;
 }
 
 .quantity {
@@ -350,7 +350,7 @@ header .btn-instagram:hover {
     transform: translateX(-50%);
     width: 92%;
     max-width: 620px;
-    background: rgba(19, 38, 31, 0.94);
+    background: rgba(44, 24, 16, 0.94);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     color: #fff;
@@ -359,9 +359,9 @@ header .btn-instagram:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 12px 40px rgba(19, 38, 31, 0.35);
+    box-shadow: 0 12px 40px rgba(44, 24, 16, 0.35);
     z-index: 1000;
-    border: 1px solid rgba(201, 162, 39, 0.35);
+    border: 1px solid rgba(230, 126, 34, 0.35);
     animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transition: all 0.3s ease;
 }
@@ -425,7 +425,7 @@ header .btn-instagram:hover {
     font-weight: 700;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(201, 162, 39, 0.4);
+    box-shadow: 0 4px 14px rgba(230, 126, 34, 0.4);
     transition: transform 0.2s, filter 0.2s;
 }
 
@@ -435,7 +435,7 @@ header .btn-instagram:hover {
 }
 
 .cart-bar .btn-primary:disabled {
-    background: #6a7a70;
+    background: #a89080;
     color: rgba(255, 255, 255, 0.7);
     cursor: not-allowed;
     box-shadow: none;
@@ -628,12 +628,12 @@ header .btn-instagram:hover {
 }
 
 footer {
-    background: linear-gradient(180deg, #163528, var(--brand-dark));
+    background: linear-gradient(180deg, #3d2218, var(--brand-dark));
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
     padding: 2rem 1rem;
     margin-top: auto;
-    border-top: 2px solid rgba(201, 162, 39, 0.35);
+    border-top: 2px solid rgba(230, 126, 34, 0.35);
 }
 
 .admin-link {
