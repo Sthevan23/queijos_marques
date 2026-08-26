@@ -1162,6 +1162,9 @@ function renderCart(triggerHighlight = true) {
 
     if (cartCountEl) {
         cartCountEl.textContent = totalItems;
+        if (cartCountEl.classList.contains("btn-cart__badge")) {
+            cartCountEl.hidden = totalItems === 0;
+        }
     }
     if (cartTotalEl) {
         cartTotalEl.textContent = formatBRL(totalAmount);
@@ -1170,13 +1173,10 @@ function renderCart(triggerHighlight = true) {
         checkoutBtn.disabled = totalItems === 0;
     }
 
-    const cartBar = document.querySelector(".cart-bar");
-    if (cartBar) {
-        cartBar.classList.toggle("hidden", totalItems === 0);
-        if (triggerHighlight && totalItems > 0) {
-            cartBar.classList.add("highlight");
-            setTimeout(() => cartBar.classList.remove("highlight"), 300);
-        }
+    const headerCart = document.getElementById("header-cart");
+    if (headerCart && triggerHighlight && totalItems > 0) {
+        headerCart.classList.add("highlight");
+        setTimeout(() => headerCart.classList.remove("highlight"), 350);
     }
 
     if (cartTotalModalEl) {
@@ -1488,40 +1488,37 @@ function showToast(message, type = 'success') {
 
 // Fly to Cart Animation
 function flyToCart(sourceImg) {
-    const cartTarget = document.querySelector('.cart-bar');
+    const cartTarget = document.getElementById("header-cart") || document.querySelector(".btn-cart");
     if (!cartTarget || !sourceImg) return;
 
     const clone = sourceImg.cloneNode();
     const rect = sourceImg.getBoundingClientRect();
     const targetRect = cartTarget.getBoundingClientRect();
 
-    clone.style.position = 'fixed';
+    clone.style.position = "fixed";
     clone.style.left = `${rect.left}px`;
     clone.style.top = `${rect.top}px`;
     clone.style.width = `${rect.width}px`;
     clone.style.height = `${rect.height}px`;
-    clone.style.zIndex = '9999';
-    clone.style.borderRadius = '50%';
-    clone.style.opacity = '0.8';
-    clone.style.transition = 'all 0.3s cubic-bezier(0.2, 1, 0.3, 1)';
-    clone.style.pointerEvents = 'none';
+    clone.style.zIndex = "9999";
+    clone.style.borderRadius = "50%";
+    clone.style.opacity = "0.8";
+    clone.style.transition = "all 0.35s cubic-bezier(0.2, 1, 0.3, 1)";
+    clone.style.pointerEvents = "none";
 
     document.body.appendChild(clone);
 
     void clone.offsetWidth;
 
-    const targetX = targetRect.left + (targetRect.width / 2) - (rect.width / 4);
-    const targetY = targetRect.top + (targetRect.height / 2) - (rect.height / 4);
+    const targetX = targetRect.left + targetRect.width / 2 - rect.width / 4;
+    const targetY = targetRect.top + targetRect.height / 2 - rect.height / 4;
 
     clone.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(0.1)`;
-    clone.style.opacity = '0';
+    clone.style.opacity = "0";
 
     setTimeout(() => {
         clone.remove();
-        cartTarget.animate([
-            { transform: 'translateX(-50%) scale(1)' },
-            { transform: 'translateX(-50%) scale(1.1)' },
-            { transform: 'translateX(-50%) scale(1)' }
-        ], { duration: 200 });
-    }, 300);
+        cartTarget.classList.add("highlight");
+        setTimeout(() => cartTarget.classList.remove("highlight"), 350);
+    }, 350);
 }

@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/global.css?v=8">
-    <link rel="stylesheet" href="styles/index.css?v=8">
+    <link rel="stylesheet" href="styles/global.css?v=9">
+    <link rel="stylesheet" href="styles/index.css?v=9">
 </head>
 
 <body>
@@ -21,32 +21,34 @@
         <header>
             <h1>Marques Mineiro</h1>
             <p>Da serra para sua mesa</p>
-            <a href="https://www.instagram.com/marques.mineiro" target="_blank" class="btn-instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.75-2.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-                <span>Marques Mineiro</span>
-            </a>
+            <div class="header-actions">
+                <a href="https://www.instagram.com/marques.mineiro" target="_blank" class="btn-instagram" aria-label="Instagram Marques Mineiro">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.75-2.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </svg>
+                    <span>Marques Mineiro</span>
+                </a>
+                <a href="sacola.html" class="btn-cart" id="header-cart" aria-label="Abrir sacola">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                        <path d="M3 6h18" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span class="btn-cart__badge" id="cartcount" hidden>0</span>
+                </a>
+            </div>
         </header>
 
         <main class="catalogo" id="catalogo"></main>
-
-        <aside class="cart-bar hidden" id="cart-bar" aria-live="polite">
-            <a href="sacola.html" class="cart-bar__link">
-                <span class="cart-bar__badge" id="cartcount">0</span>
-                <span class="cart-bar__label">Ver sacola</span>
-                <strong class="cart-bar__total" id="carttotal">R$ 0,00</strong>
-            </a>
-        </aside>
 
         <footer>
             &copy; 2025 Marques Mineiro. Todos os direitos reservados.
             <a href="admin.html" class="admin-link" title="Painel admin">Admin</a>
         </footer>
     </div>
-    <script src="custos.js?v=8"></script>
-    <script src="script.js?v=8"></script>
+    <script src="custos.js?v=9"></script>
+    <script src="script.js?v=9"></script>
 </body>
 
 </html>
