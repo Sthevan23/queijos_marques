@@ -42,10 +42,7 @@ html {
 }
 
 body {
-    background:
-        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(230, 126, 34, 0.14), transparent 55%),
-        radial-gradient(ellipse 70% 45% at 100% 0%, rgba(160, 82, 45, 0.1), transparent 50%),
-        linear-gradient(180deg, #fffdf9 0%, var(--brand-light) 40%, #f5ebe0 100%);
+    background: var(--brand-light);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
@@ -60,17 +57,17 @@ body {
 }
 
 header {
-    background:
-        linear-gradient(135deg, rgba(44, 24, 16, 0.96), rgba(160, 82, 45, 0.92)),
-        var(--brand-dark);
-    border-bottom: 3px solid var(--brand-accent);
-    padding: 1.75rem 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--stroke);
+    padding: 1.5rem 1rem;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     text-align: center;
-    color: #fff;
+    color: var(--text-primary);
     animation: headerIn 0.6s ease-out;
 }
 
@@ -78,15 +75,15 @@ header h1 {
     font-family: var(--font-title);
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 2.75rem);
-    color: #fff;
+    color: var(--brand-dark);
     letter-spacing: -0.02em;
-    margin-bottom: 0.35rem;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.25rem;
+    text-shadow: none;
 }
 
 header p {
-    font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.82);
+    font-size: 1rem;
+    color: var(--text-secondary);
     font-weight: 400;
     max-width: 520px;
     margin: 0 auto 0.35rem;
@@ -101,24 +98,25 @@ header .btn-instagram {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.65rem 1.2rem;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    backdrop-filter: blur(8px);
+    padding: 0.6rem 1.25rem;
+    background: linear-gradient(135deg, #DD2A7B, #8134AF);
+    border: none;
+    backdrop-filter: none;
     color: #fff;
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 999px;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(221, 42, 123, 0.2);
 }
 
 header .btn-instagram:hover {
-    transform: translateY(-50%) translateY(-2px);
-    background: rgba(230, 126, 34, 0.95);
-    border-color: var(--brand-accent);
+    transform: translateY(calc(-50% - 2px));
+    background: linear-gradient(135deg, #DD2A7B, #8134AF);
+    border-color: transparent;
     color: #fff;
-    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.35);
+    box-shadow: 0 6px 16px rgba(221, 42, 123, 0.3);
 }
 
 .catalogo {
@@ -136,7 +134,7 @@ header .btn-instagram:hover {
 .secao-titulo {
     font-family: var(--font-title);
     font-size: 1.7rem;
-    color: var(--brand-primary);
+    color: var(--brand-dark);
     margin-bottom: 1.35rem;
     position: relative;
     display: inline-block;
