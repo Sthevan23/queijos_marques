@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/global.css?v=6">
-    <link rel="stylesheet" href="styles/index.css?v=6">
+    <link rel="stylesheet" href="styles/global.css?v=7">
+    <link rel="stylesheet" href="styles/index.css?v=7">
 </head>
 
 <body class="cart-page">
@@ -52,25 +52,7 @@
                     </div>
 
                     <div class="cart-checkout">
-                        <p class="cart-checkout__label">Como prefere receber?</p>
-                        <div class="fulfillment" role="radiogroup" aria-label="Entrega ou retirada">
-                            <label class="fulfillment__option">
-                                <input type="radio" name="cart-fulfillment" value="retirada" checked>
-                                <span>
-                                    <strong>Retirada</strong>
-                                    <small>Buscar no local</small>
-                                </span>
-                            </label>
-                            <label class="fulfillment__option">
-                                <input type="radio" name="cart-fulfillment" value="entrega">
-                                <span>
-                                    <strong>Entrega</strong>
-                                    <small>Informe o endereço</small>
-                                </span>
-                            </label>
-                        </div>
-
-                        <p class="cart-checkout__label cart-checkout__label--spaced">Seus dados</p>
+                        <p class="cart-checkout__label">Seus dados</p>
                         <div class="cart-checkout__fields">
                             <label class="order-field">Nome *
                                 <input type="text" id="cart-nome" placeholder="Seu nome" autocomplete="name">
@@ -79,28 +61,10 @@
                         <label class="order-field">WhatsApp *
                             <input type="tel" id="cart-phone" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel" maxlength="15">
                         </label>
-                        <div class="cart-address" id="cart-address-wrap" hidden>
+                        <div class="cart-address" id="cart-address-wrap">
                             <label class="order-field" for="cart-address">
                                 Endereço de entrega *
                                 <textarea id="cart-address" rows="3" maxlength="280" placeholder="Rua, número, bairro, referência…"></textarea>
-                            </label>
-                        </div>
-
-                        <p class="cart-checkout__label cart-checkout__label--spaced">Pagamento</p>
-                        <div class="payment" role="radiogroup" aria-label="Forma de pagamento">
-                            <label class="payment__option">
-                                <input type="radio" name="cart-payment" value="pix" checked>
-                                <span>
-                                    <strong>Pix</strong>
-                                    <small>Pagamento instantâneo</small>
-                                </span>
-                            </label>
-                            <label class="payment__option">
-                                <input type="radio" name="cart-payment" value="dinheiro">
-                                <span>
-                                    <strong>Dinheiro</strong>
-                                    <small>Na entrega ou retirada</small>
-                                </span>
                             </label>
                         </div>
 
@@ -117,8 +81,8 @@
     </main>
 
     <div id="toast-container"></div>
-    <script src="custos.js?v=6"></script>
-    <script src="script.js?v=6"></script>
+    <script src="custos.js?v=7"></script>
+    <script src="script.js?v=7"></script>
 </body>
 
 </html>

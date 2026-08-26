@@ -1309,9 +1309,6 @@ function finalizeOrder() {
     const errorEl = document.getElementById("cart-error");
     const nome = document.getElementById("cart-nome")?.value.trim() || "";
     const phone = document.getElementById("cart-phone")?.value.trim() || "";
-    const fulfillment =
-        document.querySelector('input[name="cart-fulfillment"]:checked')?.value || "retirada";
-    const payment = document.querySelector('input[name="cart-payment"]:checked')?.value || "pix";
     const address = document.getElementById("cart-address")?.value.trim() || "";
 
     if (isSacola) {
@@ -1335,7 +1332,7 @@ function finalizeOrder() {
             document.getElementById("cart-phone")?.focus();
             return;
         }
-        if (fulfillment === "entrega" && address.length < 8) {
+        if (address.length < 8) {
             if (errorEl) {
                 errorEl.hidden = false;
                 errorEl.textContent = "Informe o endereço completo para entrega.";
@@ -1350,10 +1347,9 @@ function finalizeOrder() {
     let msg = "*PEDIDO — MARQUES MINEIRO*\n\n";
     if (nome) msg += `Cliente: *${nome}*\n`;
     if (phone) msg += `WhatsApp: ${phone}\n`;
-    msg += `Receber: *${fulfillment === "entrega" ? "Entrega" : "Retirada"}*\n`;
-    if (fulfillment === "entrega" && address) msg += `Endereço: ${address}\n`;
-    msg += `Pagamento: *${payment === "dinheiro" ? "Dinheiro" : "Pix"}*\n\n`;
-    msg += "Itens:\n\n";
+    msg += "Receber: *Entrega*\n";
+    if (address) msg += `Endereço: ${address}\n`;
+    msg += "\nItens:\n\n";
 
     let total = 0;
     const itensVenda = [];
@@ -1377,16 +1373,11 @@ function finalizeOrder() {
     msg += "────────────────\n";
     msg += `*TOTAL: ${cleanBRL(total)}*\n`;
     msg += "────────────────\n\n";
-
-    if (payment === "pix") {
-        msg += "*PIX*\n";
-        msg += "CPF: 725.820.576-49\n";
-        msg += "Banco: Sicoob Credifor\n";
-        msg += "Nome: Onesio Marques\n\n";
-        msg += "Mando o comprovante assim que pagar.\n";
-    } else {
-        msg += "Pagamento em dinheiro na hora.\n";
-    }
+    msg += "*PIX*\n";
+    msg += "CPF: 725.820.576-49\n";
+    msg += "Banco: Sicoob Credifor\n";
+    msg += "Nome: Onesio Marques\n\n";
+    msg += "Mando o comprovante assim que pagar.\n";
     msg += "Obrigado!";
 
     if (typeof registrarVenda === "function") {
@@ -1458,16 +1449,6 @@ document.addEventListener("DOMContentLoaded", () => {
             finalizeOrder();
         });
     }
-
-    const syncFulfillmentUI = () => {
-        const mode = document.querySelector('input[name="cart-fulfillment"]:checked')?.value || "retirada";
-        const wrap = document.getElementById("cart-address-wrap");
-        if (wrap) wrap.hidden = mode !== "entrega";
-    };
-    document.querySelectorAll('input[name="cart-fulfillment"]').forEach((input) => {
-        input.addEventListener("change", syncFulfillmentUI);
-    });
-    syncFulfillmentUI();
 
     const phoneInput = document.getElementById("cart-phone");
     if (phoneInput) {
