@@ -1,0 +1,1537 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap");
+
+:root {
+    --bg: #f4f6f5;
+    --paper: #ffffff;
+    --ink: #1a2420;
+    --muted: #6b776f;
+    --line: #e2e8e4;
+    --green: #256347;
+    --green-soft: #e8f2ec;
+    --amber: #b8860b;
+    --danger: #c0392b;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(26, 36, 32, 0.04), 0 8px 24px rgba(26, 36, 32, 0.06);
+    --font: "Outfit", system-ui, sans-serif;
+    --display: "Fraunces", Georgia, serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+}
+
+input,
+select,
+textarea,
+button {
+    font-size: 16px; /* evita zoom no iOS */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Login */
+.login-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    background:
+        linear-gradient(180deg, var(--green-soft) 0%, var(--bg) 45%);
+}
+
+.login-card {
+    width: min(400px, 100%);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.login-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+}
+
+.login-card h1 {
+    font-family: var(--display);
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.login-hint,
+.toolbar-note {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.login-card input,
+.toolbar input,
+.toolbar select,
+.custo-input input {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    font: inherit;
+    color: var(--ink);
+}
+
+.login-card input:focus,
+.toolbar input:focus,
+.toolbar select:focus,
+.custo-input input:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(37, 99, 71, 0.12);
+}
+
+.login-error {
+    color: var(--danger);
+    font-size: 0.88rem;
+}
+
+.login-back {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.login-back:hover {
+    color: var(--green);
+}
+
+/* Buttons */
+.btn-admin,
+.btn-ghost {
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.75rem 1.15rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.btn-admin {
+    background: var(--green);
+    color: #fff;
+}
+
+.btn-admin:hover {
+    background: #1c4f37;
+}
+
+.btn-ghost {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+}
+
+.btn-ghost:hover {
+    background: var(--green-soft);
+    border-color: #c5d9cc;
+}
+
+.btn-ghost.danger {
+    color: var(--danger);
+    border-color: #f0c9c4;
+}
+
+.btn-ghost.danger:hover {
+    background: #fdf2f0;
+}
+
+/* App shell */
+.admin-app {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.admin-header h1 {
+    font-family: var(--display);
+    font-size: 1.75rem;
+    color: var(--ink);
+}
+
+.admin-header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+}
+
+.stat-card span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+.stat-card strong {
+    font-family: var(--display);
+    font-size: 1.45rem;
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.stat-card.accent {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.stat-card.accent span {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.stat-card.accent strong {
+    color: #fff;
+}
+
+/* Tabs */
+.admin-tabs {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 1.15rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.3rem;
+    width: fit-content;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.tab {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 9px;
+    padding: 0.55rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tab-short {
+    display: none;
+}
+
+.tab:hover {
+    color: var(--ink);
+    background: var(--bg);
+}
+
+.tab.active {
+    background: var(--green-soft);
+    color: var(--green);
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+}
+
+.toolbar input,
+.toolbar select {
+    width: auto;
+    min-width: 170px;
+    flex: 1;
+}
+
+.toolbar-note {
+    margin-bottom: 1rem;
+}
+
+.toolbar-note strong {
+    color: var(--green);
+}
+
+/* Table */
+.table-wrap {
+    overflow: auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+}
+
+.admin-table th {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: #fafbfa;
+    position: sticky;
+    top: 0;
+    font-weight: 700;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+    background: #f8fbf9;
+}
+
+.prod-nome {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.prod-detalhe {
+    color: var(--muted);
+    font-size: 0.84rem;
+    margin-top: 0.15rem;
+}
+
+.custo-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.preco-input input {
+    border-color: #c5d9cc;
+    background: #f7fbf8;
+}
+
+.positivo {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.negativo {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+/* Sales */
+.vendas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.venda-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+}
+
+.venda-card header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.venda-card header p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-top: 0.15rem;
+}
+
+.venda-totais {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 0.15rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.venda-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.venda-card li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.92rem;
+}
+
+.empty-state {
+    background: var(--paper);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 2.25rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+/* Rotas / a prazo */
+.panel-block {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.15rem 1.25rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+.panel-title {
+    font-size: 1.05rem;
+    margin: 0 0 0.35rem;
+    color: var(--ink);
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: end;
+    margin-bottom: 0.75rem;
+}
+
+.form-row label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    min-width: 140px;
+}
+
+.form-row label.grow {
+    flex: 1;
+    min-width: 200px;
+}
+
+.form-row input,
+.form-row select {
+    font: inherit;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fff;
+    min-width: 0;
+    width: 100%;
+}
+
+.cidades-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin: 0.85rem 0 1rem;
+}
+
+.cidades-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.cidades-grid input {
+    font: inherit;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fff;
+    width: 100%;
+}
+
+.rota-resumo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.25rem;
+    margin: 0.9rem 0 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--green-soft);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.rota-resumo strong {
+    color: var(--ink);
+}
+
+/* Nova viagem — fácil */
+.viagem-topo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.1rem;
+}
+
+.viagem-topo label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    min-width: 150px;
+}
+
+.viagem-topo label.grow {
+    flex: 1;
+    min-width: 220px;
+}
+
+.viagem-topo .opcional {
+    font-weight: 500;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.viagem-topo input {
+    font: inherit;
+    font-weight: 500;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.passo {
+    margin-bottom: 1.15rem;
+}
+
+.passo-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.55rem;
+}
+
+.cidade-chips {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+}
+
+.cidade-chip {
+    border: 2px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    font: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.cidade-chip:hover {
+    border-color: #b7d0c2;
+    background: #f7fbf8;
+}
+
+.cidade-chip.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+}
+
+.busca-grande,
+.select-grande {
+    width: 100%;
+    font: inherit;
+    font-size: 1.05rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ink);
+}
+
+.busca-grande {
+    margin-bottom: 0.55rem;
+}
+
+.lista-produtos-carga {
+    max-height: 520px;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.carga-cat {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.55rem 1rem;
+    background: #f3f7f4;
+    color: var(--green);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+}
+
+.carga-prod-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.carga-prod-row:last-child {
+    border-bottom: none;
+}
+
+.carga-prod-row.tem-qtd {
+    background: #f7fbf8;
+}
+
+.carga-prod-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.carga-prod-info strong {
+    font-size: 1rem;
+    color: var(--ink);
+}
+
+.carga-prod-info span {
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.cidade-chip small {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.venda-card.baixada {
+    border-color: #c5d9cc;
+}
+
+.baixa-modal {
+    width: min(720px, calc(100vw - 1.5rem));
+    max-height: calc(100vh - 2rem);
+    border: none;
+    border-radius: 16px;
+    padding: 0;
+    background: var(--paper);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.baixa-modal::backdrop {
+    background: rgba(20, 40, 30, 0.45);
+}
+
+.baixa-form {
+    padding: 1.15rem 1.25rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.baixa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.baixa-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.baixa-header p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.baixa-lista {
+    max-height: 42vh;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.baixa-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.baixa-row:last-child {
+    border-bottom: none;
+}
+
+.baixa-row p {
+    margin: 0.2rem 0 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.baixa-row label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--muted);
+    min-width: 110px;
+}
+
+.baixa-row input {
+    width: 110px;
+    font: inherit;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.select-grande {
+    min-height: 190px;
+    padding: 0.35rem;
+}
+
+.select-grande option {
+    padding: 0.7rem 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 0.15rem;
+}
+
+.passo-qtd {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.85rem;
+}
+
+.passo-qtd .passo-label {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.qtd-controle {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn-qtd {
+    width: 52px;
+    height: 52px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.btn-qtd:hover {
+    background: var(--green-soft);
+}
+
+.qtd-controle input {
+    width: 72px;
+    height: 52px;
+    text-align: center;
+    font: inherit;
+    font-size: 1.35rem;
+    font-weight: 700;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.btn-grande {
+    min-height: 52px;
+    padding: 0.9rem 1.4rem;
+    font-size: 1.05rem;
+}
+
+.btn-salvar-viagem {
+    width: 100%;
+    min-height: 58px;
+    font-size: 1.15rem;
+}
+
+.rota-resumo-grande {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.65rem;
+    padding: 1rem;
+}
+
+.rota-resumo-grande > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.rota-resumo-grande span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.rota-resumo-grande strong {
+    font-size: 1.15rem;
+}
+
+.carga-por-cidade {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.carga-vazia {
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 1.35rem 1rem;
+    text-align: center;
+    color: var(--muted);
+    background: #fafbfa;
+}
+
+.carga-cidade-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.carga-cidade-card header {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.85rem 1rem;
+    background: var(--green-soft);
+    border-bottom: 1px solid var(--line);
+}
+
+.carga-cidade-card header strong {
+    font-size: 1.05rem;
+    color: var(--green);
+}
+
+.carga-cidade-card header span {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.carga-cidade-card ul {
+    list-style: none;
+}
+
+.carga-cidade-card li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 1rem;
+}
+
+.carga-cidade-card li:last-child {
+    border-bottom: none;
+}
+
+.carga-linha-direita {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+}
+
+.btn-remover {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #f0c9c4;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--danger);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-remover:hover {
+    background: #fdf2f0;
+}
+
+.cidades-config summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--muted);
+    list-style: none;
+}
+
+.cidades-config summary::-webkit-details-marker {
+    display: none;
+}
+
+.cidades-config[open] summary {
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+}
+
+.cidade-bloco {
+    margin-top: 0.65rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--line);
+}
+
+.cidade-bloco .muted,
+.muted {
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 0.88rem;
+}
+
+.cidade-bloco ul {
+    list-style: none;
+    margin-top: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.cidade-bloco li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--line);
+}
+
+.venda-card.pago {
+    opacity: 0.72;
+}
+
+.viagem-sticky {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+}
+
+.viagem-sticky .rota-resumo {
+    margin: 0;
+}
+
+/* Financeiro */
+.financeiro-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.financeiro-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--muted);
+    min-width: 160px;
+}
+
+.financeiro-data input {
+    font: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    min-height: 48px;
+}
+
+.financeiro-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.fin-card {
+    background: #f7faf8;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.95rem 1rem;
+}
+
+.fin-card span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+}
+
+.fin-card strong {
+    font-family: var(--display);
+    font-size: 1.35rem;
+    color: var(--ink);
+}
+
+.fin-card.destaque {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.fin-card.destaque span {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.fin-card.destaque strong {
+    color: #fff;
+}
+
+.fin-card.alerta {
+    background: #fff8e8;
+    border-color: #f0e0b0;
+}
+
+.fin-baixa-card .btn-grande {
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+/* ——— Mobile ——— */
+@media (max-width: 800px) {
+    .admin-app {
+        padding: 1rem 0.85rem calc(1.25rem + env(safe-area-inset-bottom));
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.85rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .admin-header h1 {
+        font-size: 1.45rem;
+    }
+
+    .admin-header-actions {
+        width: 100%;
+    }
+
+    .admin-header-actions .btn-ghost {
+        flex: 1;
+        min-height: 44px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-card {
+        padding: 0.8rem 0.85rem;
+    }
+
+    .stat-card span {
+        font-size: 0.72rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-card strong {
+        font-size: 1.15rem;
+        word-break: break-word;
+    }
+
+    .admin-tabs {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0.25rem;
+        gap: 0.2rem;
+    }
+
+    .admin-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.88rem;
+    }
+
+    .tab-full {
+        display: none;
+    }
+
+    .tab-short {
+        display: inline;
+    }
+
+    .panel-block {
+        padding: 0.95rem 0.9rem;
+        margin-bottom: 0.85rem;
+        border-radius: 12px;
+    }
+
+    .panel-title {
+        font-size: 1.1rem;
+    }
+
+    .financeiro-topo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .financeiro-data {
+        width: 100%;
+    }
+
+    .financeiro-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem;
+    }
+
+    .fin-card {
+        padding: 0.8rem 0.85rem;
+    }
+
+    .fin-card strong {
+        font-size: 1.15rem;
+        word-break: break-word;
+    }
+
+    .toolbar {
+        gap: 0.5rem;
+    }
+
+    .toolbar input,
+    .toolbar select,
+    .btn-admin,
+    .btn-ghost {
+        min-height: 46px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+    }
+
+    .form-row label,
+    .form-row label.grow {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .form-row .btn-admin {
+        width: 100%;
+    }
+
+    .viagem-topo {
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    .viagem-topo label,
+    .viagem-topo label.grow {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .viagem-topo input {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 0.75rem 0.9rem;
+    }
+
+    .cidade-chips {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .cidade-chip {
+        padding: 0.85rem 0.5rem;
+        font-size: 0.95rem;
+        min-height: 64px;
+    }
+
+    .busca-grande {
+        min-height: 48px;
+        font-size: 16px;
+        margin-bottom: 0.5rem;
+    }
+
+    .lista-produtos-carga {
+        max-height: none;
+        border-radius: 12px;
+        /* espaço pro sticky do total */
+        margin-bottom: 0.25rem;
+    }
+
+    .carga-prod-row {
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 0.75rem;
+    }
+
+    .carga-prod-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .carga-prod-info strong {
+        font-size: 0.92rem;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .carga-prod-info span {
+        font-size: 0.8rem;
+    }
+
+    .qtd-controle {
+        flex-shrink: 0;
+        gap: 0.3rem;
+    }
+
+    .btn-qtd {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+        border-radius: 10px;
+        touch-action: manipulation;
+    }
+
+    .qtd-controle input {
+        width: 52px;
+        height: 44px;
+        font-size: 1.15rem;
+    }
+
+    .rota-resumo-grande {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.85rem;
+    }
+
+    .rota-resumo-grande span {
+        font-size: 0.7rem;
+    }
+
+    .rota-resumo-grande strong {
+        font-size: 1.05rem;
+    }
+
+    /* total + salvar fixos embaixo */
+    .viagem-sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 20;
+        margin: 0.75rem -0.9rem -0.95rem;
+        padding: 0.75rem 0.9rem calc(0.75rem + env(safe-area-inset-bottom));
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), #fff 30%);
+        border-top: 1px solid var(--line);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 -8px 24px rgba(26, 36, 32, 0.08);
+    }
+
+    .btn-salvar-viagem {
+        min-height: 52px;
+        font-size: 1.05rem;
+        touch-action: manipulation;
+    }
+
+    .venda-card {
+        padding: 0.9rem;
+    }
+
+    .venda-card header {
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    .venda-totais {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .cidade-bloco li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        font-size: 0.88rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .card-actions .btn-admin,
+    .card-actions .btn-ghost {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    .cidades-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-table {
+        min-width: 640px;
+        font-size: 0.88rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.7rem 0.75rem;
+    }
+
+    /* Modal baixa em quase tela cheia */
+    .baixa-modal {
+        width: 100vw;
+        max-width: 100vw;
+        height: 100dvh;
+        max-height: 100dvh;
+        margin: 0;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .baixa-form {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+        padding: 1rem 0.9rem calc(1rem + env(safe-area-inset-bottom));
+        gap: 0.75rem;
+        overflow: hidden;
+    }
+
+    .baixa-header {
+        align-items: center;
+        gap: 0.65rem;
+        flex-shrink: 0;
+    }
+
+    .baixa-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .baixa-lista {
+        flex: 1;
+        max-height: none;
+        min-height: 0;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .baixa-form .rota-resumo,
+    .baixa-form .btn-salvar-viagem {
+        flex-shrink: 0;
+    }
+
+    .baixa-row {
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.75rem 0.85rem;
+    }
+
+    .baixa-row > div {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .baixa-row strong {
+        font-size: 0.92rem;
+        line-height: 1.25;
+    }
+
+    .baixa-row p {
+        font-size: 0.78rem;
+    }
+
+    .baixa-row label {
+        min-width: 88px;
+    }
+
+    .baixa-row input {
+        width: 88px;
+        min-height: 46px;
+        font-size: 1.1rem;
+    }
+
+    .passo-qtd .btn-grande {
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .login-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .cidade-chips {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cidade-chip {
+        font-size: 0.88rem;
+        padding: 0.75rem 0.4rem;
+    }
+
+    .cidades-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 2 colunas ainda melhor que 1 no celular estreito */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 360px) {
+    .cidade-chips {
+        grid-template-columns: 1fr;
+    }
+
+    .carga-prod-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .qtd-controle {
+        justify-content: flex-end;
+    }
+}

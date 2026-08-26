@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1a4635">
+    <title>Painel Admin - Marques Mineiro</title>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+
+<body>
+    <div id="login-screen" class="login-screen">
+        <form id="login-form" class="login-card">
+            <p class="login-eyebrow">Marques Mineiro</p>
+            <h1>Painel Admin</h1>
+            <p class="login-hint">Digite o PIN para ver custos e lucros.</p>
+            <input type="password" id="admin-pin" placeholder="PIN" maxlength="8" autocomplete="current-password" required>
+            <button type="submit" class="btn-admin">Entrar</button>
+            <p id="login-error" class="login-error hidden">PIN incorreto</p>
+            <a href="index.html" class="login-back">← Voltar ao catálogo</a>
+        </form>
+    </div>
+
+    <div id="admin-app" class="admin-app hidden">
+        <header class="admin-header">
+            <div>
+                <p class="login-eyebrow">Marques Mineiro</p>
+                <h1>Painel Admin</h1>
+            </div>
+            <div class="admin-header-actions">
+                <a href="index.html" class="btn-ghost">Catálogo</a>
+                <button type="button" id="btn-logout" class="btn-ghost">Sair</button>
+            </div>
+        </header>
+
+        <section class="stats-grid" id="stats-grid">
+            <article class="stat-card accent">
+                <span>Faturado hoje</span>
+                <strong id="stat-faturado-hoje">R$ 0,00</strong>
+            </article>
+            <article class="stat-card">
+                <span>Lucro hoje</span>
+                <strong id="stat-lucro-hoje">R$ 0,00</strong>
+            </article>
+            <article class="stat-card">
+                <span>A receber (a prazo)</span>
+                <strong id="stat-aprazo">R$ 0,00</strong>
+            </article>
+            <article class="stat-card">
+                <span>Cargas sem baixa</span>
+                <strong id="stat-sem-baixa">0</strong>
+            </article>
+        </section>
+
+        <nav class="admin-tabs">
+            <button type="button" class="tab active" data-tab="financeiro">Financeiro</button>
+            <button type="button" class="tab" data-tab="rotas">Rotas</button>
+            <button type="button" class="tab" data-tab="aprazo">A prazo</button>
+            <button type="button" class="tab" data-tab="produtos">
+                <span class="tab-full">Produtos & margens</span>
+                <span class="tab-short">Produtos</span>
+            </button>
+            <button type="button" class="tab" data-tab="planilha">Planilha</button>
+            <button type="button" class="tab" data-tab="vendas">
+                <span class="tab-full">Vendas site</span>
+                <span class="tab-short">Site</span>
+            </button>
+        </nav>
+
+        <section id="tab-financeiro" class="tab-panel">
+            <div class="panel-block">
+                <div class="financeiro-topo">
+                    <div>
+                        <h2 class="panel-title">Financeiro do dia</h2>
+                        <p class="toolbar-note" style="margin: 0;">De noite, dê baixa na carga vendida pra ver o faturamento.</p>
+                    </div>
+                    <label class="financeiro-data">
+                        Dia
+                        <input type="date" id="financeiro-data">
+                    </label>
+                </div>
+
+                <div class="financeiro-grid" id="financeiro-resumo">
+                    <article class="fin-card destaque">
+                        <span>Faturado no dia</span>
+                        <strong id="fin-faturado">R$ 0,00</strong>
+                    </article>
+                    <article class="fin-card">
+                        <span>Lucro do dia</span>
+                        <strong id="fin-lucro" class="positivo">R$ 0,00</strong>
+                    </article>
+                    <article class="fin-card">
+                        <span>Peças vendidas</span>
+                        <strong id="fin-pecas">0</strong>
+                    </article>
+                    <article class="fin-card alerta">
+                        <span>Ainda sem baixa</span>
+                        <strong id="fin-pendentes">0</strong>
+                    </article>
+                </div>
+            </div>
+
+            <div class="panel-block">
+                <h2 class="panel-title">Dar baixa à noite</h2>
+                <p class="toolbar-note">Cargas do dia que ainda precisam da baixa do que vendeu.</p>
+                <div id="financeiro-pendentes" class="vendas-lista"></div>
+            </div>
+
+            <div class="panel-block">
+                <h2 class="panel-title">Já faturado neste dia</h2>
+                <p class="toolbar-note">Baixas e vendas que entraram no faturamento do dia.</p>
+                <div id="financeiro-baixadas" class="vendas-lista"></div>
+            </div>
+        </section>
+
+        <section id="tab-rotas" class="tab-panel hidden">
+            <div class="panel-block viagem-panel">
+                <h2 class="panel-title">Nova viagem</h2>
+                <p class="toolbar-note">Escolha a cidade e coloque a quantidade ao lado de cada produto. No final aparece o valor total da carga.</p>
+
+                <div class="viagem-topo">
+                    <label>
+                        Data
+                        <input type="date" id="rota-data">
+                    </label>
+                    <label class="grow">
+                        Observação <span class="opcional">(opcional)</span>
+                        <input type="text" id="rota-obs" placeholder="Ex.: saída de manhã">
+                    </label>
+                </div>
+
+                <div class="passo">
+                    <p class="passo-label">Cidade</p>
+                    <div class="cidade-chips" id="cidade-chips"></div>
+                    <select id="carga-cidade" class="hidden" aria-hidden="true"></select>
+                </div>
+
+                <div class="passo">
+                    <input type="search" id="carga-busca" class="busca-grande" placeholder="Buscar produto...">
+                    <div id="lista-produtos-carga" class="lista-produtos-carga"></div>
+                </div>
+
+                <div class="viagem-sticky" id="rota-resumo">
+                    <div class="rota-resumo rota-resumo-grande">
+                        <div><span>Peças</span><strong id="draft-pecas">0</strong></div>
+                        <div><span>Valor carga</span><strong id="draft-receita">R$ 0,00</strong></div>
+                        <div><span>Custo</span><strong id="draft-custo">R$ 0,00</strong></div>
+                        <div><span>Se vender tudo</span><strong class="positivo" id="draft-lucro">R$ 0,00</strong></div>
+                    </div>
+                    <button type="button" id="btn-salvar-rota" class="btn-admin btn-grande btn-salvar-viagem">Salvar viagem</button>
+                </div>
+            </div>
+
+            <details class="panel-block cidades-config">
+                <summary>Alterar nomes das 4 cidades</summary>
+                <div class="cidades-grid" id="cidades-grid"></div>
+                <button type="button" id="btn-salvar-cidades" class="btn-admin">Salvar cidades</button>
+            </details>
+
+            <div class="panel-block">
+                <h2 class="panel-title">Viagens</h2>
+                <p class="toolbar-note">Depois da viagem, clique em <strong>Dar baixa</strong> e informe quanto vendeu pra ver o lucro real.</p>
+                <div id="rotas-lista" class="vendas-lista"></div>
+            </div>
+        </section>
+
+        <dialog id="baixa-modal" class="baixa-modal">
+            <form method="dialog" id="baixa-form" class="baixa-form">
+                <header class="baixa-header">
+                    <div>
+                        <h2>Dar baixa da viagem</h2>
+                        <p id="baixa-subtitulo">Informe quanto vendeu de cada item.</p>
+                    </div>
+                    <button type="button" id="btn-fechar-baixa" class="btn-ghost">Fechar</button>
+                </header>
+                <div id="baixa-lista" class="baixa-lista"></div>
+                <div class="rota-resumo rota-resumo-grande">
+                    <div><span>Vendeu</span><strong id="baixa-pecas">0</strong></div>
+                    <div><span>Receita</span><strong id="baixa-receita">R$ 0,00</strong></div>
+                    <div><span>Custo vendido</span><strong id="baixa-custo">R$ 0,00</strong></div>
+                    <div><span>Lucro real</span><strong class="positivo" id="baixa-lucro">R$ 0,00</strong></div>
+                </div>
+                <button type="submit" id="btn-confirmar-baixa" class="btn-admin btn-grande btn-salvar-viagem">Confirmar baixa</button>
+            </form>
+        </dialog>
+
+        <section id="tab-aprazo" class="tab-panel hidden">
+            <div class="panel-block">
+                <h2 class="panel-title">Nova venda a prazo</h2>
+                <p class="toolbar-note">Registre quem ficou para pagar depois.</p>
+                <div class="form-row">
+                    <label class="grow">
+                        Cliente
+                        <input type="text" id="aprazo-cliente" placeholder="Nome do cliente">
+                    </label>
+                    <label>
+                        Cidade
+                        <select id="aprazo-cidade"></select>
+                    </label>
+                    <label>
+                        Valor (R$)
+                        <input type="number" id="aprazo-valor" min="0" step="0.01" placeholder="0,00">
+                    </label>
+                </div>
+                <div class="form-row">
+                    <label>
+                        Data
+                        <input type="date" id="aprazo-data">
+                    </label>
+                    <label>
+                        Vencimento
+                        <input type="date" id="aprazo-vencimento">
+                    </label>
+                    <label class="grow">
+                        Observação
+                        <input type="text" id="aprazo-obs" placeholder="Opcional">
+                    </label>
+                    <button type="button" id="btn-salvar-aprazo" class="btn-admin">Salvar a prazo</button>
+                </div>
+            </div>
+
+            <div class="panel-block">
+                <div class="toolbar" style="justify-content: space-between; align-items: center;">
+                    <h2 class="panel-title" style="margin: 0;">Contas a receber</h2>
+                    <strong class="positivo" id="aprazo-total-pendente">R$ 0,00</strong>
+                </div>
+                <div id="aprazo-lista" class="vendas-lista"></div>
+            </div>
+        </section>
+
+        <section id="tab-produtos" class="tab-panel hidden">
+            <div class="toolbar">
+                <input type="search" id="busca-produto" placeholder="Buscar produto...">
+                <select id="filtro-categoria">
+                    <option value="">Todas as categorias</option>
+                </select>
+                <button type="button" id="btn-salvar-custos" class="btn-admin">Salvar preços e custos</button>
+                <button type="button" id="btn-reset-precos" class="btn-ghost">Restaurar preços</button>
+                <button type="button" id="btn-reset-custos" class="btn-ghost">Restaurar custos PDF</button>
+            </div>
+            <p class="toolbar-note">Altere o <strong>preço de venda</strong> (aparece no site) e o <strong>custo</strong>. Lucro = venda − custo.</p>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Categoria</th>
+                            <th>Custo</th>
+                            <th>Venda (site)</th>
+                            <th>Lucro / un.</th>
+                            <th>Margem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="produtos-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="tab-planilha" class="tab-panel hidden">
+            <div class="toolbar">
+                <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
+            </div>
+            <p class="toolbar-note">Dados da planilha <strong>Custo Queijo</strong> — colunas Custo e Atacado.</p>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Produto</th>
+                            <th>Custo</th>
+                            <th>Atacado</th>
+                            <th>Diferença</th>
+                        </tr>
+                    </thead>
+                    <tbody id="planilha-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="tab-vendas" class="tab-panel hidden">
+            <div class="toolbar">
+                <button type="button" id="btn-limpar-vendas" class="btn-ghost danger">Limpar histórico</button>
+            </div>
+            <p class="toolbar-note">As vendas entram aqui quando o cliente finaliza o pedido no WhatsApp.</p>
+            <div id="vendas-lista" class="vendas-lista"></div>
+        </section>
+    </div>
+
+    <script src="custos.js"></script>
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

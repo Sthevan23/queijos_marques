@@ -1,43 +1,33 @@
-/* Variáveis Globais & Design System */
+/* Marques Mineiro — Design System */
 :root {
-    /* Paleta de Cores Premium */
-    --brand-dark: #2C1810;
-    /* Marrom Café Profundo */
-    --brand-primary: #A0522D;
-    /* Sienna (Cor da marca original, mantida mas ajustada) */
-    --brand-accent: #E67E22;
-    /* Laranja Queijo Vibrante */
-    --brand-light: #FDFBF7;
-    /* Cream/Off-white fundo principal */
+    --brand-dark: #13261f;
+    --brand-primary: #1f4d3a;
+    --brand-accent: #c9a227;
+    --brand-light: #eef2ef;
 
-    --text-primary: #1A1A1A;
-    --text-secondary: #595959;
-    --text-light: #8C8C8C;
+    --text-primary: #152019;
+    --text-secondary: #5a6b62;
+    --text-light: #8a9a90;
 
-    --success: #27AE60;
-    --error: #C0392B;
+    --success: #2f8f5b;
+    --error: #b33a2b;
 
-    /* Superfícies */
-    --surface-white: #FFFFFF;
-    --surface-hover: #FFF8F0;
-    --stroke: #E5E5E5;
+    --surface-white: #fbfcfb;
+    --surface-hover: #e7efe9;
+    --stroke: #d5e0d8;
 
-    /* Sombras (Elevation) */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+    --shadow-sm: 0 2px 10px rgba(19, 38, 31, 0.06);
+    --shadow-md: 0 10px 28px rgba(19, 38, 31, 0.1);
+    --shadow-lg: 0 18px 50px rgba(19, 38, 31, 0.14);
 
-    /* Tipografia */
-    --font-title: 'Poppins', sans-serif;
-    --font-body: 'Roboto', sans-serif;
+    --font-title: "Fraunces", Georgia, serif;
+    --font-body: "Outfit", system-ui, sans-serif;
 
-    /* Spacing & Radius */
-    --radius-sm: 8px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
+    --radius-sm: 10px;
+    --radius-md: 18px;
+    --radius-lg: 28px;
 }
 
-/* Reset Moderno */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -52,53 +42,56 @@ html {
 }
 
 body {
-    background-color: var(--brand-light);
+    background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(201, 162, 39, 0.16), transparent 55%),
+        radial-gradient(ellipse 70% 45% at 100% 0%, rgba(31, 77, 58, 0.12), transparent 50%),
+        linear-gradient(180deg, #f4f7f5 0%, var(--brand-light) 40%, #e8efe9 100%);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* Layout Principal */
 .bg-overlay {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Cabeçalho Premium */
 header {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--stroke);
-    padding: 1.5rem 1rem;
+    background:
+        linear-gradient(135deg, rgba(19, 38, 31, 0.96), rgba(31, 77, 58, 0.92)),
+        var(--brand-dark);
+    border-bottom: 3px solid var(--brand-accent);
+    padding: 1.75rem 1.25rem 1.5rem;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
     text-align: center;
-    transition: all 0.3s ease;
+    color: #fff;
+    animation: headerIn 0.6s ease-out;
 }
 
 header h1 {
     font-family: var(--font-title);
     font-weight: 700;
-    font-size: 2rem;
-    color: var(--brand-dark);
-    letter-spacing: -0.5px;
-    margin-bottom: 0.25rem;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
 }
 
 header p {
-    font-size: 1rem;
-    color: var(--text-secondary);
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.82);
     font-weight: 400;
-    max-width: 600px;
-    margin: 0 auto 1rem;
+    max-width: 520px;
+    margin: 0 auto 0.35rem;
 }
 
-/* Botão Instagram - Estilo Pill */
 header .btn-instagram {
     position: absolute;
     top: 50%;
@@ -108,91 +101,105 @@ header .btn-instagram {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
-    background: linear-gradient(135deg, #DD2A7B, #8134AF);
-    color: white;
-    font-weight: 500;
-    border-radius: 50px;
+    padding: 0.65rem 1.2rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 12px rgba(221, 42, 123, 0.2);
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 header .btn-instagram:hover {
-    transform: translateY(calc(-50% - 2px));
-    box-shadow: 0 6px 16px rgba(221, 42, 123, 0.3);
+    transform: translateY(-50%) translateY(-2px);
+    background: rgba(201, 162, 39, 0.95);
+    border-color: var(--brand-accent);
+    color: var(--brand-dark);
+    box-shadow: 0 8px 20px rgba(201, 162, 39, 0.35);
 }
 
-/* Catálogo & Seções */
 .catalogo {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
     padding: 2rem 1.5rem 6rem;
-    /* Padding bottom extra para o carrinho */
 }
 
 .secao {
     margin-bottom: 3rem;
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.55s ease-out both;
 }
 
 .secao-titulo {
     font-family: var(--font-title);
-    font-size: 1.75rem;
-    color: var(--brand-dark);
-    margin-bottom: 1.5rem;
+    font-size: 1.7rem;
+    color: var(--brand-primary);
+    margin-bottom: 1.35rem;
     position: relative;
     display: inline-block;
 }
 
 .secao-titulo::after {
-    content: '';
+    content: "";
     position: absolute;
-    bottom: -4px;
+    bottom: -6px;
     left: 0;
-    width: 40px;
+    width: 52px;
     height: 3px;
-    background: var(--brand-primary);
+    background: linear-gradient(90deg, var(--brand-accent), transparent);
     border-radius: 2px;
 }
 
 .secao-divisor {
     border: 0;
     height: 1px;
-    background: var(--stroke);
-    margin: 3rem auto;
-    width: 80%;
-    opacity: 0.5;
+    background: linear-gradient(90deg, transparent, var(--stroke), transparent);
+    margin: 2.5rem auto;
+    width: 85%;
+    opacity: 0.9;
 }
 
-/* Grid de Produtos */
 .itens-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.35rem;
 }
 
-/* Card de Produto - Premium */
 .item {
     background: var(--surface-white);
-    border: 1px solid transparent;
+    border: 1px solid rgba(213, 224, 216, 0.8);
     border-radius: var(--radius-md);
-    padding: 1.5rem;
+    padding: 1.1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    gap: 0.65rem;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
 }
 
+.item::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 .item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-md);
-    border-color: rgba(160, 82, 45, 0.2);
+    border-color: rgba(31, 77, 58, 0.28);
+}
+
+.item:hover::before {
+    opacity: 1;
 }
 
 .item img {
@@ -200,22 +207,23 @@ header .btn-instagram:hover {
     height: 180px;
     object-fit: contain;
     mix-blend-mode: multiply;
-    /* Melhor integração com fundo branco */
-    transition: transform 0.3s ease;
+    transition: transform 0.35s ease;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(160deg, #f3f7f4, #eaf0ec);
 }
 
 .item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .item h2 {
     font-family: var(--font-title);
-    font-size: 1.1rem;
+    font-size: 1.12rem;
     color: var(--brand-dark);
     font-weight: 600;
-    min-height: 40px;
-    /* Alinhamento para títulos de 2 linhas */
-    margin-top: 0.5rem;
+    min-height: 2.6em;
+    line-height: 1.3;
+    margin-top: 0.15rem;
 }
 
 .item .details {
@@ -223,155 +231,152 @@ header .btn-instagram:hover {
     color: var(--text-secondary);
     line-height: 1.4;
     flex-grow: 1;
-    /* Empurra o preço e botões para baixo */
 }
 
 .item .price {
     font-family: var(--font-title);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     color: var(--brand-primary);
     font-weight: 700;
-    margin-top: 0.5rem;
+    margin-top: 0.15rem;
 }
 
-/* Global Buttons */
 .btn-primary {
-    background: var(--success);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
+    background: linear-gradient(135deg, #2f8f5b, #1f4d3a);
+    color: #fff;
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
     font-weight: 600;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
-    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 6px 16px rgba(31, 77, 58, 0.28);
+    transition: transform 0.2s ease, filter 0.2s ease;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-body);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    background: #219150;
+    filter: brightness(1.08);
 }
 
 .btn-primary:disabled {
-    background: #555;
+    background: #9aa89f;
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
     opacity: 0.7;
+    filter: none;
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--brand-dark);
-    border: 2px solid var(--stroke);
-    padding: 0.6rem 1.2rem;
-    border-radius: 25px;
+    border: 1.5px solid var(--stroke);
+    padding: 0.65rem 1.15rem;
+    border-radius: 999px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-body);
 }
 
 .btn-secondary:hover {
     background: var(--surface-hover);
-    border-color: var(--brand-dark);
+    border-color: var(--brand-primary);
     transform: translateY(-1px);
 }
 
-/* Botões do Card */
 .btn-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Espalha botões e qtd */
     background: var(--surface-hover);
-    padding: 0.25rem;
+    padding: 0.3rem;
     border-radius: var(--radius-sm);
-    margin-top: 0.5rem;
+    margin-top: 0.35rem;
 }
 
 .btn-add,
 .btn-remove {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border: none;
-    border-radius: 6px;
-    background: white;
+    border-radius: 50%;
+    background: #fff;
     color: var(--brand-dark);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(19, 38, 31, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .btn-add {
-    background: var(--brand-dark);
-    color: white;
+    background: var(--brand-primary);
+    color: #fff;
 }
 
 .btn-add:hover {
-    background: #42261b;
+    background: #163d2e;
 }
 
 .btn-remove:hover {
-    background: #e0e0e0;
+    background: #e4ebe6;
 }
 
 .quantity {
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.05rem;
     color: var(--brand-dark);
-    min-width: 30px;
+    min-width: 32px;
     text-align: center;
 }
 
-/* Barra de Carrinho Flutuante - Glassmorphism */
 .cart-bar {
     position: fixed;
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    max-width: 600px;
-    background: rgba(44, 24, 16, 0.95);
-    /* Brand dark com transparência */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 50px;
+    width: 92%;
+    max-width: 620px;
+    background: rgba(19, 38, 31, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: #fff;
+    padding: 0.95rem 1.35rem;
+    border-radius: 999px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 12px 40px rgba(19, 38, 31, 0.35);
     z-index: 1000;
+    border: 1px solid rgba(201, 162, 39, 0.35);
     animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transition: all 0.3s ease;
 }
 
 .cart-bar.hidden {
     transform: translate(-50%, 150%);
-    /* Esconde para baixo */
 }
 
 .cart-bar.highlight {
-    transform: translateX(-50%) scale(1.05);
+    transform: translateX(-50%) scale(1.03);
 }
 
 .cart-info {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.35rem;
     align-items: center;
     justify-content: flex-end;
 }
@@ -380,30 +385,29 @@ header .btn-instagram:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    /* Alinha "Total" à direita */
     line-height: 1.2;
 }
 
 .info-group strong {
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.06em;
 }
 
 .info-group span {
     font-weight: 700;
     font-size: 1.1rem;
-    color: white;
+    color: #fff;
 }
 
 .cart-bar .btn-secondary {
     background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
     text-decoration: none;
     font-size: 0.9rem;
     transition: background 0.2s;
@@ -414,48 +418,50 @@ header .btn-instagram:hover {
 }
 
 .cart-bar .btn-primary {
-    background: var(--success);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
-    font-weight: 600;
+    background: linear-gradient(135deg, var(--brand-accent), #e0b93a);
+    color: var(--brand-dark);
+    padding: 0.7rem 1.3rem;
+    border-radius: 999px;
+    font-weight: 700;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
-    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 4px 14px rgba(201, 162, 39, 0.4);
+    transition: transform 0.2s, filter 0.2s;
 }
 
 .cart-bar .btn-primary:hover {
-    transform: translateY(-2px);
-    background: #219150;
+    transform: translateY(-1px);
+    filter: brightness(1.05);
 }
 
 .cart-bar .btn-primary:disabled {
-    background: #555;
+    background: #6a7a70;
+    color: rgba(255, 255, 255, 0.7);
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
-    opacity: 0.7;
+    opacity: 0.75;
+    filter: none;
 }
 
-/* Página Sacola */
 .cart-items {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     background: var(--surface-white);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--stroke);
 }
 
 .cart-item {
     display: grid;
     grid-template-columns: 80px 1fr auto auto;
-    gap: 1.5rem;
+    gap: 1.1rem;
     align-items: center;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.1rem;
     border-bottom: 1px solid var(--stroke);
 }
 
@@ -473,7 +479,7 @@ header .btn-instagram:hover {
 }
 
 .cart-item .item-name {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--brand-dark);
 }
 
@@ -491,20 +497,18 @@ header .btn-instagram:hover {
     color: var(--error);
     border: 1px solid var(--error);
     padding: 0.4rem 0.8rem;
-    border-radius: 20px;
+    border-radius: 999px;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.85rem;
     transition: all 0.2s;
     margin-left: auto;
-    /* Empurra para direita se flex */
 }
 
 .cart-remove:hover {
     background: var(--error);
-    color: white;
+    color: #fff;
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(192, 57, 43, 0.2);
 }
 
 #cartEmpty {
@@ -520,18 +524,19 @@ header .btn-instagram:hover {
     background: var(--surface-white);
     border-radius: var(--radius-md);
     width: min(720px, 92vw);
-    margin: 20px auto;
+    margin: 2rem auto;
     box-shadow: var(--shadow-sm);
+    border: 1px dashed var(--stroke);
 }
 
 #cartEmpty svg {
     stroke: var(--text-light);
-    opacity: 0.5;
+    opacity: 0.55;
 }
 
 #cartEmpty p {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--brand-dark);
 }
 
@@ -544,11 +549,11 @@ header .btn-instagram:hover {
     width: 30px;
     height: 30px;
     border: none;
-    background: white;
-    border-radius: 4px;
+    background: #fff;
+    border-radius: 50%;
     cursor: pointer;
     font-weight: 700;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cart-footer {
@@ -556,12 +561,14 @@ header .btn-instagram:hover {
     justify-content: space-between;
     align-items: center;
     background: var(--surface-white);
-    padding: 2rem;
+    padding: 1.25rem;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
+    border: 1px solid var(--stroke);
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
-/* Toast Notification */
 #toast-container {
     position: fixed;
     top: 20px;
@@ -574,19 +581,20 @@ header .btn-instagram:hover {
 
 .toast {
     background: var(--brand-dark);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
+    color: #fff;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
     box-shadow: var(--shadow-lg);
     display: flex;
     align-items: center;
     gap: 10px;
-    animation: slideLeft 0.3s ease-out forwards;
-    min-width: 300px;
+    animation: slideLeft 0.35s ease-out forwards;
+    min-width: 280px;
+    border-left: 4px solid var(--brand-accent);
 }
 
 .toast.success {
-    border-left: 4px solid var(--success);
+    border-left-color: var(--success);
 }
 
 .toast svg {
@@ -596,112 +604,104 @@ header .btn-instagram:hover {
 }
 
 @keyframes slideLeft {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes fadeOut {
-    to {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
+    to { opacity: 0; transform: translateY(-10px); }
 }
 
 @keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translate(-50%, 100%);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
+    from { opacity: 0; transform: translate(-50%, 100%); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Footer */
+@keyframes headerIn {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 footer {
-    background: var(--brand-dark);
-    color: white;
+    background: linear-gradient(180deg, #163528, var(--brand-dark));
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 1rem;
     margin-top: auto;
+    border-top: 2px solid rgba(201, 162, 39, 0.35);
 }
 
-/* Utilities */
-/* Utilities */
+.admin-link {
+    display: inline-block;
+    margin-left: 0.75rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    font-size: 0.85em;
+}
 
-/* Responsividade */
+.admin-link:hover {
+    color: var(--brand-accent);
+}
+
+.hidden,
+#cartEmpty.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
 @media (max-width: 768px) {
     header {
-        padding: 0.8rem;
+        padding: 1.15rem 0.85rem 1.25rem;
     }
 
     header h1 {
-        font-size: 1.3rem;
-        margin-bottom: 0.1rem;
+        font-size: 1.55rem;
+        margin-bottom: 0.2rem;
     }
 
     header p {
-        font-size: 0.85rem;
-        margin-bottom: 0.8rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
     }
 
     header .btn-instagram {
-        position: absolute;
-        top: 50%;
-        right: 0.75rem;
-        transform: translateY(-50%);
-        padding: 0.4rem 0.8rem;
-        font-size: 0.75rem;
+        position: static;
+        transform: none;
+        margin: 0.5rem auto 0;
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
     }
 
     header .btn-instagram:hover {
-        transform: translateY(calc(-50% - 1px));
+        transform: translateY(-1px);
     }
 
     .catalogo {
-        padding: 1rem 1rem 8rem;
-        /* Mais espaço embaixo para cart bar */
+        padding: 1.25rem 1rem 5.5rem;
     }
 
     .secao-titulo {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         margin-bottom: 1rem;
     }
 
     .itens-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+        gap: 0.8rem;
     }
 
     .item {
-        padding: 0.8rem;
+        padding: 0.75rem;
     }
 
     .item img {
-        height: 150px;
-        /* Foto maior e mais atrativa */
-        margin-bottom: 0.5rem;
+        height: 120px;
+        margin-bottom: 0.2rem;
     }
 
     .item h2 {
@@ -714,60 +714,50 @@ footer {
         font-size: 1.1rem;
     }
 
-    /* Botões redondos e mais táteis no mobile */
     .btn-add,
     .btn-remove {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        font-size: 1.2rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-add {
-        background: var(--brand-dark);
-        color: white;
+        font-size: 1.15rem;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     }
 
     .cart-qty .quantity {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
     }
 
-    /* Ajustes da barra de carrinho mobile */
     .cart-bar {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "info info"
             "bag checkout";
-        gap: 0.75rem;
-        border-radius: 20px 20px 0 0;
+        gap: 0.7rem;
+        border-radius: 22px 22px 0 0;
         bottom: 0;
         width: 100%;
         max-width: 100%;
         padding: 1rem;
-        padding-bottom: 1.5rem;
-        /* Espaço seguro para iOS */
+        padding-bottom: 1.15rem;
     }
 
-    /* Mapeando áreas do grid */
     .cart-bar .cart-info {
         grid-area: info;
         display: flex;
         justify-content: space-around;
-        /* Espalha Itens e Total */
         width: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0.3rem;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 0.4rem;
         border-radius: 12px;
     }
 
     .info-group strong {
-        font-size: 0.5rem;
+        font-size: 0.65rem;
     }
 
     .info-group span {
-        font-size: 0.75rem;
+        font-size: 0.9rem;
     }
 
     .cart-bar .btn-secondary {
@@ -780,13 +770,12 @@ footer {
         width: 100%;
     }
 
-    /* Estilo Sacola Mobile */
     .cart-item {
         grid-template-columns: 60px 1fr;
         grid-template-areas:
             "img info"
             "qty total";
-        gap: 0.75rem;
+        gap: 0.7rem;
     }
 
     .cart-item img {
@@ -795,7 +784,7 @@ footer {
         height: 60px;
     }
 
-    .cart-item>div:nth-child(2) {
+    .cart-item > div:nth-child(2) {
         grid-area: info;
     }
 
@@ -808,11 +797,4 @@ footer {
         grid-area: total;
         text-align: right;
     }
-}
-
-/* Utilities (Fix) */
-.hidden,
-#cartEmpty.hidden {
-    display: none !important;
-    visibility: hidden !important;
 }
