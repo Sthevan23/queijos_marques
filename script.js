@@ -1202,20 +1202,22 @@ function renderCart(triggerHighlight = true) {
             const row = document.createElement("div");
             row.className = "cart-item";
             const totalItem = entry.price * entry.qty;
+            const imgSrc = getPublicAssetUrl(entry.image) || entry.image || "assets/imagens/placeholder.png";
 
             row.innerHTML = `
-                <img src="${entry.image}" alt="${entry.name}" onerror="this.onerror=null; this.src='assets/imagens/placeholder.png'; console.error('Erro ao carregar imagem: ${entry.image}');">
-                <div>
+                <img src="${imgSrc}" alt="${entry.name}" loading="lazy" onerror="this.onerror=null; this.src='assets/imagens/placeholder.png';">
+                <div class="cart-item-info">
                     <div class="item-name">${entry.name}</div>
                     <div class="item-price">${formatBRL(entry.price)} / un.</div>
+                    <div class="item-total-mobile">${formatBRL(totalItem)}</div>
                 </div>
                 <div class="cart-qty">
-                    <button data-action="dec" aria-label="Diminuir">-</button>
+                    <button type="button" data-action="dec" aria-label="Diminuir">−</button>
                     <span>${entry.qty}</span>
-                    <button data-action="inc" aria-label="Aumentar">+</button>
+                    <button type="button" data-action="inc" aria-label="Aumentar">+</button>
                 </div>
                 <div class="item-total">${formatBRL(totalItem)}</div>
-                <button class="cart-remove" aria-label="Remover">Remover</button>
+                <button type="button" class="cart-remove" aria-label="Remover">×</button>
             `;
 
             const incBtn = row.querySelector('[data-action="inc"]');
@@ -1265,7 +1267,21 @@ function getPublicAssetUrl(path) {
     if (!path) return "";
 
     try {
-        return new URL(path, window.location.href).href;
+        // Se já for URL absoluta, usa ela (trocando localhost pela URL do site)
+        if (/^https?:\/\//i.test(path)) {
+            const u = new URL(path);
+            if (u.hostname === "localhost" || u.hostname === "127.0.0.1") {
+                return "https://marquesmineiro.com.br" + u.pathname + u.search;
+            }
+            return u.href;
+        }
+
+        const origin =
+            window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+                ? "https://marquesmineiro.com.br"
+                : window.location.origin;
+
+        return new URL(String(path).replace(/^\//, ""), origin + "/").href;
     } catch {
         return path;
     }
@@ -1276,11 +1292,12 @@ function finalizeOrder() {
 
     const cleanBRL = (val) => formatBRL(val).replace(/\u00a0/g, " ");
 
-    let msg = "PEDIDO RECEBIDO - MARQUES MINEIRO\r\n\r\n";
-    msg += "ITENS DO PEDIDO:\r\n\r\n";
+    let msg = "*PEDIDO — MARQUES MINEIRO*\n\n";
+    msg += "Olá! Quero finalizar este pedido:\n\n";
 
     let total = 0;
     const itensVenda = [];
+    let n = 1;
 
     carrinho.forEach(({ id, name, price, qty, image }) => {
         const subtotal = price * qty;
@@ -1288,26 +1305,26 @@ function finalizeOrder() {
         itensVenda.push({ id, name, price, qty });
 
         const imageUrl = getPublicAssetUrl(image);
-        const imageText = imageUrl ? "\r\nFoto do produto:\r\n" + imageUrl : "";
 
-        msg += "• ITEM: " + name.toUpperCase() + "\r\n";
-        msg += "  Qtd: " + qty + " x " + cleanBRL(price) + "\r\n";
-        msg += "  Subtotal: " + cleanBRL(subtotal) + "\r\n";
-        msg += "  FOTO ESCOLHIDA:" + imageText + "\r\n";
-        msg += "--------------------------------\r\n\r\n";
+        msg += `*${n}) ${name}*\n`;
+        msg += `Qtd: ${qty} × ${cleanBRL(price)}\n`;
+        msg += `Subtotal: ${cleanBRL(subtotal)}\n`;
+        if (imageUrl) {
+            msg += `Foto: ${imageUrl}\n`;
+        }
+        msg += `\n`;
+        n += 1;
     });
 
-    msg += "--------------------------------\r\n";
-    msg += "TOTAL A PAGAR: " + cleanBRL(total) + "\r\n";
-    msg += "--------------------------------\r\n\r\n";
-
-    msg += "DADOS PARA PAGAMENTO (PIX):\r\n";
-    msg += "Chave CPF: 725.820.576-49\r\n";
-    msg += "Banco: Sicoob Credifor\r\n";
-    msg += "Nome: Onesio Marques\r\n\r\n";
-
-    msg += "Mande o comprovante aqui quando fizer!\r\n\r\n";
-    msg += "Obrigado pela preferência!";
+    msg += "────────────────\n";
+    msg += `*TOTAL: ${cleanBRL(total)}*\n`;
+    msg += "────────────────\n\n";
+    msg += "*PIX*\n";
+    msg += "CPF: 725.820.576-49\n";
+    msg += "Banco: Sicoob Credifor\n";
+    msg += "Nome: Onesio Marques\n\n";
+    msg += "Mando o comprovante assim que pagar.\n";
+    msg += "Obrigado!";
 
     if (typeof registrarVenda === "function") {
         try {
@@ -1340,6 +1357,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (produto) {
             item.price = produto.preco;
             item.name = produto.nome;
+            item.image = produto.imagem;
             carrinho.set(key, item);
         }
     });
