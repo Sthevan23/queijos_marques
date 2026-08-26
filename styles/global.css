@@ -343,33 +343,80 @@ header .btn-instagram:hover {
 
 .cart-bar {
     position: fixed;
-    bottom: 24px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 92%;
-    max-width: 620px;
-    background: rgba(44, 24, 16, 0.94);
+    width: auto;
+    max-width: calc(100% - 2rem);
+    background: rgba(44, 24, 16, 0.96);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     color: #fff;
-    padding: 0.95rem 1.35rem;
+    padding: 0;
     border-radius: 999px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 12px 40px rgba(44, 24, 16, 0.35);
+    display: block;
+    box-shadow: 0 12px 36px rgba(44, 24, 16, 0.4);
     z-index: 1000;
-    border: 1px solid rgba(230, 126, 34, 0.35);
-    animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: all 0.3s ease;
+    border: 1px solid rgba(230, 126, 34, 0.4);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
 }
 
 .cart-bar.hidden {
-    transform: translate(-50%, 150%);
+    transform: translate(-50%, 140%);
+    opacity: 0;
+    pointer-events: none;
 }
 
-.cart-bar.highlight {
-    transform: translateX(-50%) scale(1.03);
+.cart-bar.highlight:not(.hidden) {
+    transform: translateX(-50%) scale(1.04);
+}
+
+.cart-bar__link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.65rem 0.75rem 0.65rem 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    min-width: min(320px, 88vw);
+}
+
+.cart-bar__badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.1rem;
+    height: 2.1rem;
+    padding: 0 0.45rem;
+    border-radius: 999px;
+    background: var(--brand-accent);
+    color: var(--brand-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+}
+
+.cart-bar__label {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.cart-bar__total {
+    flex-shrink: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    white-space: nowrap;
+}
+
+.cart-bar__link:hover .cart-bar__total {
+    background: rgba(255, 255, 255, 0.18);
 }
 
 .cart-info {
@@ -398,48 +445,6 @@ header .btn-instagram:hover {
     font-weight: 700;
     font-size: 1.1rem;
     color: #fff;
-}
-
-.cart-bar .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    padding: 0.55rem 1rem;
-    border-radius: 999px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: background 0.2s;
-}
-
-.cart-bar .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.cart-bar .btn-primary {
-    background: linear-gradient(135deg, var(--brand-accent), #f0a04a);
-    color: var(--brand-dark);
-    padding: 0.7rem 1.3rem;
-    border-radius: 999px;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(230, 126, 34, 0.4);
-    transition: transform 0.2s, filter 0.2s;
-}
-
-.cart-bar .btn-primary:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
-}
-
-.cart-bar .btn-primary:disabled {
-    background: #a89080;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-    opacity: 0.75;
-    filter: none;
 }
 
 .cart-items {
@@ -826,46 +831,25 @@ footer {
     }
 
     .cart-bar {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "info info"
-            "bag checkout";
+        bottom: 14px;
+        width: calc(100% - 1.5rem);
+        max-width: none;
+    }
+
+    .cart-bar__link {
+        min-width: 0;
+        width: 100%;
         gap: 0.7rem;
-        border-radius: 22px 22px 0 0;
-        bottom: 0;
-        width: 100%;
-        max-width: 100%;
-        padding: 1rem;
-        padding-bottom: 1.15rem;
+        padding: 0.55rem 0.6rem 0.55rem 0.65rem;
     }
 
-    .cart-bar .cart-info {
-        grid-area: info;
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.08);
-        padding: 0.4rem;
-        border-radius: 12px;
-    }
-
-    .info-group strong {
-        font-size: 0.65rem;
-    }
-
-    .info-group span {
+    .cart-bar__label {
         font-size: 0.9rem;
     }
 
-    .cart-bar .btn-secondary {
-        grid-area: bag;
-        width: 100%;
-    }
-
-    .cart-bar .btn-primary {
-        grid-area: checkout;
-        width: 100%;
+    .cart-bar__total {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.85rem;
     }
 
     .cart-item {

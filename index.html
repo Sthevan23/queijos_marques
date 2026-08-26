@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/global.css?v=6">
-    <link rel="stylesheet" href="styles/index.css?v=6">
+    <link rel="stylesheet" href="styles/global.css?v=8">
+    <link rel="stylesheet" href="styles/index.css?v=8">
 </head>
 
 <body>
@@ -32,20 +32,12 @@
 
         <main class="catalogo" id="catalogo"></main>
 
-        <!-- Barra do carrinho com 3 colunas -->
-        <aside class="cart-bar">
-            <a href="sacola.html" class="btn-secondary">Ver sacola</a>
-
-            <div class="cart-info">
-                <div class="info-group">
-                    <strong>Itens:</strong> <span id="cartcount">0</span>
-                </div>
-                <div class="info-group">
-                    <strong>Total:</strong> <span id="carttotal">R$ 0,00</span>
-                </div>
-            </div>
-
-            <button id="checkoutbtn" class="btn-primary" disabled>Finalizar pedido</button>
+        <aside class="cart-bar hidden" id="cart-bar" aria-live="polite">
+            <a href="sacola.html" class="cart-bar__link">
+                <span class="cart-bar__badge" id="cartcount">0</span>
+                <span class="cart-bar__label">Ver sacola</span>
+                <strong class="cart-bar__total" id="carttotal">R$ 0,00</strong>
+            </a>
         </aside>
 
         <footer>
@@ -53,9 +45,8 @@
             <a href="admin.html" class="admin-link" title="Painel admin">Admin</a>
         </footer>
     </div>
-    <div id="toast-container"></div>
-    <script src="custos.js?v=6"></script>
-    <script src="script.js?v=6"></script>
+    <script src="custos.js?v=8"></script>
+    <script src="script.js?v=8"></script>
 </body>
 
 </html>

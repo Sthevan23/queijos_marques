@@ -1106,10 +1106,6 @@ function handleQtyChange(itemEl, delta, span, triggerHighlight = true) {
     updateCart(info.id, info.name, info.price, info.image, delta);
     span.textContent = getQty(info.id);
     renderCart(triggerHighlight);
-
-    if (delta > 0) {
-        showToast(`${info.name} adicionado à sacola!`, 'success');
-    }
 }
 
 function readItemInfo(itemEl) {
@@ -1175,9 +1171,12 @@ function renderCart(triggerHighlight = true) {
     }
 
     const cartBar = document.querySelector(".cart-bar");
-    if (cartBar && triggerHighlight) {
-        cartBar.classList.add("highlight");
-        setTimeout(() => cartBar.classList.remove("highlight"), 300);
+    if (cartBar) {
+        cartBar.classList.toggle("hidden", totalItems === 0);
+        if (triggerHighlight && totalItems > 0) {
+            cartBar.classList.add("highlight");
+            setTimeout(() => cartBar.classList.remove("highlight"), 300);
+        }
     }
 
     if (cartTotalModalEl) {
