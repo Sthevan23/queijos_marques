@@ -3,51 +3,122 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Finalize seu pedido de queijos artesanais. Marques Mineiro - tradição e sabor.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Sua sacola — Marques Mineiro">
     <meta name="theme-color" content="#A0522D">
     <title>Sacola - Marques Mineiro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/global.css?v=5">
-    <link rel="stylesheet" href="styles/index.css?v=5">
+    <link rel="stylesheet" href="styles/global.css?v=6">
+    <link rel="stylesheet" href="styles/index.css?v=6">
 </head>
 
-<body>
-    <div class="bg-overlay">
-        <header>
-            <h1>Carrinho</h1>
-            <p>Revise os itens selecionados e finalize seu pedido</p>
-            <a href="index.html" class="btn-secondary">Voltar ao Catálogo</a>
+<body class="cart-page">
+    <header class="cart-topbar">
+        <a class="cart-page__back" href="index.html">← Catálogo</a>
+        <strong class="cart-topbar__brand">Marques Mineiro</strong>
+        <span class="cart-topbar__spacer"></span>
+    </header>
+
+    <main class="cart-page__main">
+        <header class="cart-page__head">
+            <p class="cart-page__eyebrow">Seu pedido</p>
+            <h1 class="cart-page__title">Carrinho</h1>
+            <p class="cart-page__subtitle" id="cart-page-subtitle">Nenhum item ainda</p>
         </header>
-        <main class="catalogo">
-            <section class="cart-items" id="cartItems"></section>
-            <div id="cartEmpty" class="hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <p>Sua sacola está vazia</p>
-                <span>Adicione alguns queijos deliciosos!</span>
-            </div>
-            <div class="cart-footer">
-                <button id="clearCart" class="btn-secondary">Limpar Carrinho</button>
-                <div class="cart-info-total">
-                    <strong>Total:</strong> <span id="cartTotalModal">R$ 0,00</span>
+
+        <div class="cart-page__layout">
+            <section class="cart-page__list" aria-label="Itens do carrinho">
+                <div id="cartItems"></div>
+                <div class="cart-page__empty hidden" id="cartEmpty">
+                    <h2>Carrinho vazio</h2>
+                    <p>Escolha seus queijos no catálogo e adicione aqui.</p>
+                    <a class="btn-primary" href="index.html">Ver catálogo</a>
                 </div>
-                <button id="checkoutBtnModal" class="btn-primary" disabled>Finalizar pedido</button>
-            </div>
-        </main>
-        <footer>
-            &copy; 2025 Marques Mineiro. Todos os direitos reservados.
-        </footer>
-    </div>
+            </section>
+
+            <aside class="cart-page__summary" id="cart-page-summary" hidden>
+                <div class="cart-summary">
+                    <h2 class="cart-summary__title">Resumo</h2>
+
+                    <div class="cart-summary__row">
+                        <span>Subtotal</span>
+                        <strong id="cartTotalModal">R$ 0,00</strong>
+                    </div>
+                    <div class="cart-summary__row cart-summary__row--total">
+                        <span>Total</span>
+                        <strong id="cart-page-total">R$ 0,00</strong>
+                    </div>
+
+                    <div class="cart-checkout">
+                        <p class="cart-checkout__label">Como prefere receber?</p>
+                        <div class="fulfillment" role="radiogroup" aria-label="Entrega ou retirada">
+                            <label class="fulfillment__option">
+                                <input type="radio" name="cart-fulfillment" value="retirada" checked>
+                                <span>
+                                    <strong>Retirada</strong>
+                                    <small>Buscar no local</small>
+                                </span>
+                            </label>
+                            <label class="fulfillment__option">
+                                <input type="radio" name="cart-fulfillment" value="entrega">
+                                <span>
+                                    <strong>Entrega</strong>
+                                    <small>Informe o endereço</small>
+                                </span>
+                            </label>
+                        </div>
+
+                        <p class="cart-checkout__label cart-checkout__label--spaced">Seus dados</p>
+                        <div class="cart-checkout__fields">
+                            <label class="order-field">Nome *
+                                <input type="text" id="cart-nome" placeholder="Seu nome" autocomplete="name">
+                            </label>
+                        </div>
+                        <label class="order-field">WhatsApp *
+                            <input type="tel" id="cart-phone" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel" maxlength="15">
+                        </label>
+                        <div class="cart-address" id="cart-address-wrap" hidden>
+                            <label class="order-field" for="cart-address">
+                                Endereço de entrega *
+                                <textarea id="cart-address" rows="3" maxlength="280" placeholder="Rua, número, bairro, referência…"></textarea>
+                            </label>
+                        </div>
+
+                        <p class="cart-checkout__label cart-checkout__label--spaced">Pagamento</p>
+                        <div class="payment" role="radiogroup" aria-label="Forma de pagamento">
+                            <label class="payment__option">
+                                <input type="radio" name="cart-payment" value="pix" checked>
+                                <span>
+                                    <strong>Pix</strong>
+                                    <small>Pagamento instantâneo</small>
+                                </span>
+                            </label>
+                            <label class="payment__option">
+                                <input type="radio" name="cart-payment" value="dinheiro">
+                                <span>
+                                    <strong>Dinheiro</strong>
+                                    <small>Na entrega ou retirada</small>
+                                </span>
+                            </label>
+                        </div>
+
+                        <p class="cart-error" id="cart-error" hidden></p>
+                        <button type="button" class="btn-primary cart-summary__cta" id="checkoutBtnModal" disabled>
+                            Finalizar pelo WhatsApp
+                        </button>
+                        <button type="button" class="btn-ghost" id="clearCart">Limpar carrinho</button>
+                        <a class="btn-ghost" href="index.html">Continuar comprando</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
     <div id="toast-container"></div>
-    <script src="custos.js?v=5"></script>
-    <script src="script.js?v=5"></script>
+    <script src="custos.js?v=6"></script>
+    <script src="script.js?v=6"></script>
 </body>
 
 </html>

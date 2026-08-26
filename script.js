@@ -1183,6 +1183,19 @@ function renderCart(triggerHighlight = true) {
     if (cartTotalModalEl) {
         cartTotalModalEl.textContent = formatBRL(totalAmount);
     }
+    const cartPageTotal = document.getElementById("cart-page-total");
+    if (cartPageTotal) cartPageTotal.textContent = formatBRL(totalAmount);
+
+    const subtitle = document.getElementById("cart-page-subtitle");
+    if (subtitle) {
+        subtitle.textContent = totalItems
+            ? `${totalItems} ${totalItems === 1 ? "item" : "itens"} no pedido`
+            : "Nenhum item ainda";
+    }
+
+    const summary = document.getElementById("cart-page-summary");
+    if (summary) summary.hidden = totalItems === 0;
+
     if (checkoutBtnModal) {
         checkoutBtnModal.disabled = totalItems === 0;
     }
@@ -1199,60 +1212,62 @@ function renderCart(triggerHighlight = true) {
         cartItemsEl.classList.remove("hidden");
 
         carrinho.forEach((entry) => {
-            const row = document.createElement("div");
-            row.className = "cart-item";
+            const row = document.createElement("article");
+            row.className = "cart-line";
             const totalItem = entry.price * entry.qty;
             const imgSrc = getPublicAssetUrl(entry.image) || entry.image || "assets/imagens/placeholder.png";
 
             row.innerHTML = `
-                <img src="${imgSrc}" alt="${entry.name}" loading="lazy" onerror="this.onerror=null; this.src='assets/imagens/placeholder.png';">
-                <div class="cart-item-info">
-                    <div class="item-name">${entry.name}</div>
-                    <div class="item-price">${formatBRL(entry.price)} / un.</div>
-                    <div class="item-total-mobile">${formatBRL(totalItem)}</div>
+                <div class="cart-line__media">
+                    <img class="cart-line__img" src="${imgSrc}" alt="" loading="lazy"
+                        onerror="this.onerror=null; this.src='assets/imagens/placeholder.png';">
                 </div>
-                <div class="cart-qty">
-                    <button type="button" data-action="dec" aria-label="Diminuir">−</button>
-                    <span>${entry.qty}</span>
-                    <button type="button" data-action="inc" aria-label="Aumentar">+</button>
+                <div class="cart-line__body">
+                    <div class="cart-line__top">
+                        <h3 class="cart-line__name">${entry.name}</h3>
+                        <button type="button" class="cart-line__remove" aria-label="Remover">×</button>
+                    </div>
+                    <p class="cart-line__meta">${formatBRL(entry.price)} / un.</p>
+                    <div class="cart-line__foot">
+                        <div class="qty-stepper">
+                            <button type="button" class="qty-stepper__btn" data-action="dec" aria-label="Diminuir">−</button>
+                            <span class="qty-stepper__value">${entry.qty}</span>
+                            <button type="button" class="qty-stepper__btn qty-stepper__btn--plus" data-action="inc" aria-label="Aumentar">+</button>
+                        </div>
+                        <strong class="cart-line__price">${formatBRL(totalItem)}</strong>
+                    </div>
                 </div>
-                <div class="item-total">${formatBRL(totalItem)}</div>
-                <button type="button" class="cart-remove" aria-label="Remover">×</button>
             `;
 
             const incBtn = row.querySelector('[data-action="inc"]');
             const decBtn = row.querySelector('[data-action="dec"]');
-            const removeBtn = row.querySelector(".cart-remove");
+            const removeBtn = row.querySelector(".cart-line__remove");
 
             if (incBtn) {
                 incBtn.addEventListener("click", () => {
-                    console.log(`Incrementando item ${entry.id}: ${entry.name}`);
                     updateCart(entry.id, entry.name, entry.price, entry.image, 1);
                     syncGrid();
-                    renderCart();
+                    renderCart(false);
                 });
             }
             if (decBtn) {
                 decBtn.addEventListener("click", () => {
-                    console.log(`Decrementando item ${entry.id}: ${entry.name}`);
                     updateCart(entry.id, entry.name, entry.price, entry.image, -1);
                     syncGrid();
-                    renderCart();
+                    renderCart(false);
                 });
             }
             if (removeBtn) {
                 removeBtn.addEventListener("click", () => {
-                    console.log(`Removendo item ${entry.id}: ${entry.name}`);
                     updateCart(entry.id, entry.name, entry.price, entry.image, -entry.qty);
                     syncGrid();
-                    renderCart();
+                    renderCart(false);
                 });
             }
 
             cartItemsEl.appendChild(row);
         });
     }
-    initializeZoom(); // Inicializa zoom no carrinho
     console.log("Carrinho renderizado:", { totalItems, totalAmount });
 }
 
@@ -1290,10 +1305,55 @@ function getPublicAssetUrl(path) {
 function finalizeOrder() {
     if (carrinho.size === 0) return;
 
+    const isSacola = !!document.getElementById("cart-page-summary");
+    const errorEl = document.getElementById("cart-error");
+    const nome = document.getElementById("cart-nome")?.value.trim() || "";
+    const phone = document.getElementById("cart-phone")?.value.trim() || "";
+    const fulfillment =
+        document.querySelector('input[name="cart-fulfillment"]:checked')?.value || "retirada";
+    const payment = document.querySelector('input[name="cart-payment"]:checked')?.value || "pix";
+    const address = document.getElementById("cart-address")?.value.trim() || "";
+
+    if (isSacola) {
+        if (errorEl) {
+            errorEl.hidden = true;
+            errorEl.textContent = "";
+        }
+        if (!nome) {
+            if (errorEl) {
+                errorEl.hidden = false;
+                errorEl.textContent = "Informe seu nome.";
+            }
+            document.getElementById("cart-nome")?.focus();
+            return;
+        }
+        if (phone.replace(/\D/g, "").length < 10) {
+            if (errorEl) {
+                errorEl.hidden = false;
+                errorEl.textContent = "Informe um WhatsApp válido.";
+            }
+            document.getElementById("cart-phone")?.focus();
+            return;
+        }
+        if (fulfillment === "entrega" && address.length < 8) {
+            if (errorEl) {
+                errorEl.hidden = false;
+                errorEl.textContent = "Informe o endereço completo para entrega.";
+            }
+            document.getElementById("cart-address")?.focus();
+            return;
+        }
+    }
+
     const cleanBRL = (val) => formatBRL(val).replace(/\u00a0/g, " ");
 
     let msg = "*PEDIDO — MARQUES MINEIRO*\n\n";
-    msg += "Olá! Quero finalizar este pedido:\n\n";
+    if (nome) msg += `Cliente: *${nome}*\n`;
+    if (phone) msg += `WhatsApp: ${phone}\n`;
+    msg += `Receber: *${fulfillment === "entrega" ? "Entrega" : "Retirada"}*\n`;
+    if (fulfillment === "entrega" && address) msg += `Endereço: ${address}\n`;
+    msg += `Pagamento: *${payment === "dinheiro" ? "Dinheiro" : "Pix"}*\n\n`;
+    msg += "Itens:\n\n";
 
     let total = 0;
     const itensVenda = [];
@@ -1309,9 +1369,7 @@ function finalizeOrder() {
         msg += `*${n}) ${name}*\n`;
         msg += `Qtd: ${qty} × ${cleanBRL(price)}\n`;
         msg += `Subtotal: ${cleanBRL(subtotal)}\n`;
-        if (imageUrl) {
-            msg += `Foto: ${imageUrl}\n`;
-        }
+        if (imageUrl) msg += `Foto: ${imageUrl}\n`;
         msg += `\n`;
         n += 1;
     });
@@ -1319,11 +1377,16 @@ function finalizeOrder() {
     msg += "────────────────\n";
     msg += `*TOTAL: ${cleanBRL(total)}*\n`;
     msg += "────────────────\n\n";
-    msg += "*PIX*\n";
-    msg += "CPF: 725.820.576-49\n";
-    msg += "Banco: Sicoob Credifor\n";
-    msg += "Nome: Onesio Marques\n\n";
-    msg += "Mando o comprovante assim que pagar.\n";
+
+    if (payment === "pix") {
+        msg += "*PIX*\n";
+        msg += "CPF: 725.820.576-49\n";
+        msg += "Banco: Sicoob Credifor\n";
+        msg += "Nome: Onesio Marques\n\n";
+        msg += "Mando o comprovante assim que pagar.\n";
+    } else {
+        msg += "Pagamento em dinheiro na hora.\n";
+    }
     msg += "Obrigado!";
 
     if (typeof registrarVenda === "function") {
@@ -1334,14 +1397,16 @@ function finalizeOrder() {
         }
     }
 
-    const phone = "553799344973";
-    const url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(msg);
-    window.open(url, "_blank");
+    const waPhone = "553799344973";
+    const url = "https://api.whatsapp.com/send?phone=" + waPhone + "&text=" + encodeURIComponent(msg);
+    const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    if (mobile) window.location.href = url;
+    else window.open(url, "_blank");
 
     carrinho.clear();
     saveCart(carrinho);
     syncGrid();
-    renderCart();
+    renderCart(false);
 }
 
 // Inicialização
@@ -1391,6 +1456,27 @@ document.addEventListener("DOMContentLoaded", () => {
         checkoutBtnModal.addEventListener("click", () => {
             console.log("Finalizando pedido (sacola.html)");
             finalizeOrder();
+        });
+    }
+
+    const syncFulfillmentUI = () => {
+        const mode = document.querySelector('input[name="cart-fulfillment"]:checked')?.value || "retirada";
+        const wrap = document.getElementById("cart-address-wrap");
+        if (wrap) wrap.hidden = mode !== "entrega";
+    };
+    document.querySelectorAll('input[name="cart-fulfillment"]').forEach((input) => {
+        input.addEventListener("change", syncFulfillmentUI);
+    });
+    syncFulfillmentUI();
+
+    const phoneInput = document.getElementById("cart-phone");
+    if (phoneInput) {
+        phoneInput.addEventListener("input", () => {
+            const d = phoneInput.value.replace(/\D/g, "").slice(0, 11);
+            if (d.length <= 2) phoneInput.value = d;
+            else if (d.length <= 6) phoneInput.value = `(${d.slice(0, 2)}) ${d.slice(2)}`;
+            else if (d.length <= 10) phoneInput.value = `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+            else phoneInput.value = `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
         });
     }
 
