@@ -356,13 +356,15 @@ function renderPlanilha() {
 
     tbody.innerHTML = lista
         .map((row, i) => {
-            const diff = (row.atacado || 0) - (row.custo || 0);
+            const ref = row.onesio != null ? row.onesio : row.atacado;
+            const diff = (ref || 0) - (row.custo || 0);
             const diffClass = diff >= 0 ? "positivo" : "negativo";
             return `
                 <tr>
                     <td>${i + 1}</td>
                     <td><div class="prod-nome">${row.nome}</div></td>
                     <td>${formatBRLAdmin(row.custo)}</td>
+                    <td>${row.onesio != null ? formatBRLAdmin(row.onesio) : "—"}</td>
                     <td>${row.atacado ? formatBRLAdmin(row.atacado) : "—"}</td>
                     <td class="${diffClass}">${formatBRLAdmin(diff)}</td>
                 </tr>
@@ -869,13 +871,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("btn-reset-precos").addEventListener("click", () => {
-        if (!confirm("Restaurar os preços originais do catálogo?")) return;
+        if (!confirm("Restaurar os preços da coluna Onesio da planilha?")) return;
         resetPrecosCatalogo(produtos);
         precosAtuais = {};
         renderProdutos();
         renderListaProdutosCarga();
         renderTotaisCarga();
-        alert("Preços restaurados.");
+        alert("Preços Onesio aplicados ao catálogo.");
     });
 
     document.getElementById("btn-reset-custos").addEventListener("click", () => {

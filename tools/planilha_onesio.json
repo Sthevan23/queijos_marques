@@ -1,0 +1,602 @@
+[
+  {
+    "nome": "Canastra Divino",
+    "custo": 25.5,
+    "atacado": 36.0,
+    "onesio": 37.0
+  },
+  {
+    "nome": "Parmesão",
+    "custo": 19.35,
+    "atacado": 28.0,
+    "onesio": 37.0
+  },
+  {
+    "nome": "Parmesão capa preta",
+    "custo": 20.35,
+    "atacado": 28.0,
+    "onesio": 39.0
+  },
+  {
+    "nome": "Palitos",
+    "custo": 18.26,
+    "atacado": 21.4,
+    "onesio": null
+  },
+  {
+    "nome": "Provolone com salame temperado",
+    "custo": 19.2,
+    "atacado": 23.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Provolone com salame",
+    "custo": 19.2,
+    "atacado": 23.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Palito Puro",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Palito Temperado",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Provolone Defumado",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Provolone Ervas Finas",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Golda",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Trança Temperada",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Trança Pura",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Trança no alho Defumada",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Minas Padrão",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Reino",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "4 Queijo",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Nozinho puro",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Nozinho temperado defumado",
+    "custo": 19.2,
+    "atacado": 22.6,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Kit Provoleto",
+    "custo": 25.6,
+    "atacado": 33.0,
+    "onesio": 38.0
+  },
+  {
+    "nome": "Frescal Light Puro",
+    "custo": 5.0,
+    "atacado": 10.0,
+    "onesio": 16.0
+  },
+  {
+    "nome": "Frescal Light Temperado",
+    "custo": 5.0,
+    "atacado": 10.0,
+    "onesio": 16.0
+  },
+  {
+    "nome": "Trança de vinho",
+    "custo": 24.24,
+    "atacado": 28.0,
+    "onesio": 33.0
+  },
+  {
+    "nome": "Requeijão de Bufala",
+    "custo": 23.94,
+    "atacado": 28.0,
+    "onesio": 33.0
+  },
+  {
+    "nome": "Mussarela de Bufala",
+    "custo": 23.94,
+    "atacado": 28.0,
+    "onesio": 33.0
+  },
+  {
+    "nome": "Trufado Bufala",
+    "custo": 28.63,
+    "atacado": 35.0,
+    "onesio": 38.0
+  },
+  {
+    "nome": "Queijo Coalho",
+    "custo": 19.95,
+    "atacado": 25.0,
+    "onesio": 27.0
+  },
+  {
+    "nome": "Manteiga 500 gramas",
+    "custo": 15.9,
+    "atacado": 19.0,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Lombo Puro",
+    "custo": 12.72,
+    "atacado": 17.0,
+    "onesio": 17.0
+  },
+  {
+    "nome": "Lombo Biquinha",
+    "custo": 12.72,
+    "atacado": 17.0,
+    "onesio": 17.0
+  },
+  {
+    "nome": "Lombo Calabresa",
+    "custo": 12.72,
+    "atacado": 17.0,
+    "onesio": 17.0
+  },
+  {
+    "nome": "Frango",
+    "custo": 12.09,
+    "atacado": 17.0,
+    "onesio": 16.0
+  },
+  {
+    "nome": "Lombo Alho",
+    "custo": 12.72,
+    "atacado": 17.0,
+    "onesio": 17.0
+  },
+  {
+    "nome": "Trufado Damasco Avela",
+    "custo": 30.34,
+    "atacado": 35.0,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Trufado Tomate seco",
+    "custo": 28.86,
+    "atacado": 33.0,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Trufado Azeitona",
+    "custo": 28.86,
+    "atacado": 33.0,
+    "onesio": 19.0
+  },
+  {
+    "nome": "Trufado Cheddar carne seca",
+    "custo": 30.34,
+    "atacado": 35.0,
+    "onesio": 28.0
+  },
+  {
+    "nome": "Trufado Damasco Avela 1/2",
+    "custo": 13.5,
+    "atacado": 20.0,
+    "onesio": 22.0
+  },
+  {
+    "nome": "Trufado Tomate seco 1/2",
+    "custo": 12.9,
+    "atacado": 20.0,
+    "onesio": 19.0
+  },
+  {
+    "nome": "Trufado Azeitona 1/2",
+    "custo": 12.9,
+    "atacado": 20.0,
+    "onesio": 19.0
+  },
+  {
+    "nome": "Trufado Cheddar carne seca 1/2",
+    "custo": 13.5,
+    "atacado": 20.0,
+    "onesio": 28.0
+  },
+  {
+    "nome": "Trufado Puro no vacuo",
+    "custo": 24.7,
+    "atacado": 30.0,
+    "onesio": 39.0
+  },
+  {
+    "nome": "Queijo Morbier Real",
+    "custo": 26.0,
+    "atacado": 29.5,
+    "onesio": null
+  },
+  {
+    "nome": "Kit Real",
+    "custo": 28.0,
+    "atacado": 32.5,
+    "onesio": null
+  },
+  {
+    "nome": "Granapadano",
+    "custo": 14.8,
+    "atacado": 20.0,
+    "onesio": 31.0
+  },
+  {
+    "nome": "Brie, gorgonzola e camembert",
+    "custo": 10.0,
+    "atacado": 13.0,
+    "onesio": 21.0
+  },
+  {
+    "nome": "Geleia trem bão",
+    "custo": 10.0,
+    "atacado": 13.0,
+    "onesio": null
+  },
+  {
+    "nome": "Kit parmesão",
+    "custo": 37.38,
+    "atacado": 40.0,
+    "onesio": 36.0
+  },
+  {
+    "nome": "Kit provolone c salame",
+    "custo": 32.0,
+    "atacado": 35.0,
+    "onesio": 40.0
+  },
+  {
+    "nome": "Trufado Doces",
+    "custo": 24.9,
+    "atacado": 28.0,
+    "onesio": 35.0
+  },
+  {
+    "nome": "Trufado Nutella",
+    "custo": 37.05,
+    "atacado": 40.0,
+    "onesio": 50.0
+  },
+  {
+    "nome": "Kit Parmesao Vinho",
+    "custo": 24.7,
+    "atacado": 30.0,
+    "onesio": 37.0
+  },
+  {
+    "nome": "Pão de queijo Tradicional",
+    "custo": 13.0,
+    "atacado": 17.0,
+    "onesio": 23.0
+  },
+  {
+    "nome": "Pão de queijo diversos",
+    "custo": 15.5,
+    "atacado": 19.0,
+    "onesio": 28.0
+  },
+  {
+    "nome": "Salame Fatiado",
+    "custo": 30.5,
+    "atacado": 33.5,
+    "onesio": 46.0
+  },
+  {
+    "nome": "Picanha Suina",
+    "custo": 19.27,
+    "atacado": 23.0,
+    "onesio": 26.0
+  },
+  {
+    "nome": "Doce de leite vmilk plastico 700",
+    "custo": 12.41,
+    "atacado": 17.0,
+    "onesio": 26.0
+  },
+  {
+    "nome": "Minas zero Lactose",
+    "custo": 19.57,
+    "atacado": 28.0,
+    "onesio": 37.0
+  },
+  {
+    "nome": "Jamon Puro",
+    "custo": 11.77,
+    "atacado": 17.0,
+    "onesio": null
+  },
+  {
+    "nome": "Jamon biquinha",
+    "custo": 11.77,
+    "atacado": 17.0,
+    "onesio": null
+  },
+  {
+    "nome": "Jamon Azeitona",
+    "custo": 11.77,
+    "atacado": 17.0,
+    "onesio": null
+  },
+  {
+    "nome": "Jamon Alho",
+    "custo": 11.77,
+    "atacado": 17.0,
+    "onesio": null
+  },
+  {
+    "nome": "Jamon limao peper",
+    "custo": 11.77,
+    "atacado": 17.0,
+    "onesio": null
+  },
+  {
+    "nome": "Jamon Malagueta",
+    "custo": 11.77,
+    "atacado": 17.0,
+    "onesio": null
+  },
+  {
+    "nome": "Gruyere",
+    "custo": 26.63,
+    "atacado": 32.0,
+    "onesio": 48.0
+  },
+  {
+    "nome": "Kit Trançinha",
+    "custo": 17.5,
+    "atacado": 25.0,
+    "onesio": 43.0
+  },
+  {
+    "nome": "Mel",
+    "custo": 19.96,
+    "atacado": 23.0,
+    "onesio": 23.0
+  },
+  {
+    "nome": "Goiabada Zelia cascão 800",
+    "custo": 22.01,
+    "atacado": 20.0,
+    "onesio": 26.0
+  },
+  {
+    "nome": "Geleia Uai pimenta Defumada",
+    "custo": 8.79,
+    "atacado": 13.0,
+    "onesio": 12.0
+  },
+  {
+    "nome": "Geleia Mostarda Maracuja Trem Bao",
+    "custo": 8.88,
+    "atacado": 13.0,
+    "onesio": 15.0
+  },
+  {
+    "nome": "Paçoca",
+    "custo": 7.77,
+    "atacado": 10.0,
+    "onesio": 15.0
+  },
+  {
+    "nome": "Bala Banana sem açucar",
+    "custo": 9.99,
+    "atacado": 13.0,
+    "onesio": null
+  },
+  {
+    "nome": "Rocca Doce de Leite",
+    "custo": 18.8,
+    "atacado": 18.0,
+    "onesio": 22.0
+  },
+  {
+    "nome": "Desidratado goiabada",
+    "custo": 18.01,
+    "atacado": 21.0,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Coalho Desidratado",
+    "custo": 15.43,
+    "atacado": 18.5,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Trufado musa vacuo",
+    "custo": 18.99,
+    "atacado": 22.5,
+    "onesio": 33.0
+  },
+  {
+    "nome": "Requeijão musa",
+    "custo": 16.06,
+    "atacado": 20.5,
+    "onesio": 29.0
+  },
+  {
+    "nome": "Doce leite blue zero",
+    "custo": 22.55,
+    "atacado": 30.0,
+    "onesio": null
+  },
+  {
+    "nome": "Vinho bordo suave Datta Valle",
+    "custo": 12.21,
+    "atacado": 18.0,
+    "onesio": 22.0
+  },
+  {
+    "nome": "Banana faduni zero",
+    "custo": 18.98,
+    "atacado": 22.0,
+    "onesio": 35.0
+  },
+  {
+    "nome": "Banana faduni",
+    "custo": 16.31,
+    "atacado": 20.0,
+    "onesio": 30.0
+  },
+  {
+    "nome": "Desidratados variados",
+    "custo": 11.0,
+    "atacado": 16.0,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Beliscao e Casadinho",
+    "custo": 10.0,
+    "atacado": 15.0,
+    "onesio": 22.0
+  },
+  {
+    "nome": "Rosquinha Nata",
+    "custo": 9.0,
+    "atacado": 12.0,
+    "onesio": 17.0
+  },
+  {
+    "nome": "Viçosa 800",
+    "custo": 19.2,
+    "atacado": 23.0,
+    "onesio": 38.0
+  },
+  {
+    "nome": "cachaça amarela 670",
+    "custo": 14.0,
+    "atacado": 19.0,
+    "onesio": 30.7
+  },
+  {
+    "nome": "Cachaça magnate 750 ml",
+    "custo": 49.0,
+    "atacado": 55.0,
+    "onesio": 57.0
+  },
+  {
+    "nome": "Queijo minas",
+    "custo": 26.4,
+    "atacado": 31.0,
+    "onesio": 42.0
+  },
+  {
+    "nome": "Cabacinha",
+    "custo": 23.27,
+    "atacado": 30.0,
+    "onesio": 27.0
+  },
+  {
+    "nome": "Requeijão em barra",
+    "custo": 26.0,
+    "atacado": 0.0,
+    "onesio": 26.0
+  },
+  {
+    "nome": "Queijo Serjão",
+    "custo": 88.8,
+    "atacado": 95.0,
+    "onesio": 95.0
+  },
+  {
+    "nome": "Burrata",
+    "custo": 19.9,
+    "atacado": 25.0,
+    "onesio": 26.0
+  },
+  {
+    "nome": "Bolinha de búfala",
+    "custo": 19.9,
+    "atacado": 25.0,
+    "onesio": 26.0
+  },
+  {
+    "nome": "Costela",
+    "custo": 55.5,
+    "atacado": 62.0,
+    "onesio": 62.0
+  },
+  {
+    "nome": "Mel bisnaga",
+    "custo": 17.0,
+    "atacado": 22.0,
+    "onesio": 23.0
+  },
+  {
+    "nome": "Palito zero lactose",
+    "custo": 27.5,
+    "atacado": 30.0,
+    "onesio": 34.0
+  },
+  {
+    "nome": "Trufado requeijão carne seca",
+    "custo": 45.88,
+    "atacado": 54.0,
+    "onesio": 52.0
+  },
+  {
+    "nome": "Cocada Prove e Aprove",
+    "custo": 21.96,
+    "atacado": 24.0,
+    "onesio": 28.0
+  },
+  {
+    "nome": "Pingo goiaba",
+    "custo": 13.87,
+    "atacado": 19.0,
+    "onesio": 20.0
+  },
+  {
+    "nome": "Bala Serra negra",
+    "custo": 19.5,
+    "atacado": 23.0,
+    "onesio": 26.0
+  }
+]

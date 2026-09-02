@@ -236,10 +236,10 @@
                     <option value="">Todas as categorias</option>
                 </select>
                 <button type="button" id="btn-salvar-custos" class="btn-admin">Salvar preços e custos</button>
-                <button type="button" id="btn-reset-precos" class="btn-ghost">Restaurar preços</button>
+                <button type="button" id="btn-reset-precos" class="btn-ghost">Restaurar preços Onesio</button>
                 <button type="button" id="btn-reset-custos" class="btn-ghost">Restaurar custos PDF</button>
             </div>
-            <p class="toolbar-note">Altere o <strong>preço de venda</strong> (aparece no site) e o <strong>custo</strong>. Lucro = venda − custo.</p>
+            <p class="toolbar-note">O <strong>preço de venda</strong> padrão vem da coluna <strong>Onesio</strong> da planilha. Edite aqui se precisar ajustar no site ou nas rotas.</p>
             <div class="table-wrap">
                 <table class="admin-table">
                     <thead>
@@ -261,7 +261,7 @@
             <div class="toolbar">
                 <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
             </div>
-            <p class="toolbar-note">Dados da planilha <strong>Custo Queijo</strong> — colunas Custo e Atacado.</p>
+            <p class="toolbar-note">Dados da planilha <strong>Custo Queijo</strong> — colunas Custo, Onesio e Atacado.</p>
             <div class="table-wrap">
                 <table class="admin-table">
                     <thead>
@@ -269,6 +269,7 @@
                             <th>#</th>
                             <th>Produto</th>
                             <th>Custo</th>
+                            <th>Onesio</th>
                             <th>Atacado</th>
                             <th>Diferença</th>
                         </tr>
@@ -287,7 +288,7 @@
         </section>
     </div>
 
-    <script src="custos.js"></script>
+    <script src="custos.js?v=11"></script>
     <script src="script.js"></script>
     <script src="admin.js"></script>
 </body>
