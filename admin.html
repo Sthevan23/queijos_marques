@@ -170,10 +170,14 @@
                 <header class="baixa-header">
                     <div>
                         <h2>Dar baixa da viagem</h2>
-                        <p id="baixa-subtitulo">Informe quanto vendeu de cada item.</p>
+                        <p id="baixa-subtitulo">Informe quanto levou e quanto vendeu de cada item.</p>
                     </div>
-                    <button type="button" id="btn-fechar-baixa" class="btn-ghost">Fechar</button>
+                    <div class="baixa-header__actions">
+                        <button type="button" id="btn-ver-rota-baixa" class="btn-ghost">Ver rota</button>
+                        <button type="button" id="btn-fechar-baixa" class="btn-ghost">Fechar</button>
+                    </div>
                 </header>
+                <div id="baixa-rota-detalhe" class="baixa-rota-detalhe hidden" hidden></div>
                 <div id="baixa-lista" class="baixa-lista"></div>
                 <div class="rota-resumo rota-resumo-grande">
                     <div><span>Vendeu</span><strong id="baixa-pecas">0</strong></div>
@@ -183,6 +187,19 @@
                 </div>
                 <button type="submit" id="btn-confirmar-baixa" class="btn-admin btn-grande btn-salvar-viagem">Confirmar baixa</button>
             </form>
+        </dialog>
+
+        <dialog id="rota-view-modal" class="baixa-modal rota-view-modal">
+            <div class="baixa-form">
+                <header class="baixa-header">
+                    <div>
+                        <h2 id="rota-view-titulo">Rota</h2>
+                        <p id="rota-view-subtitulo">Detalhes da viagem por cidade.</p>
+                    </div>
+                    <button type="button" id="btn-fechar-rota-view" class="btn-ghost">Fechar</button>
+                </header>
+                <div id="rota-view-conteudo" class="baixa-rota-detalhe"></div>
+            </div>
         </dialog>
 
         <section id="tab-aprazo" class="tab-panel hidden">

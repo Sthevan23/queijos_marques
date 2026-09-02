@@ -205,9 +205,12 @@ function renderFinanceiro() {
                                 <p>${r.observacao || "Sem observação"} · ${r.totalPecas || 0} peças · carga ${formatBRLAdmin(r.totalReceita)}</p>
                             </div>
                         </header>
-                        <button type="button" class="btn-admin btn-grande" data-baixa-rota="${r.id}">
-                            Dar baixa do que vendeu
-                        </button>
+                        <div class="card-actions">
+                            <button type="button" class="btn-admin btn-grande" data-baixa-rota="${r.id}">
+                                Dar baixa do que vendeu
+                            </button>
+                            <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
+                        </div>
                     </article>
                 `;
             })
@@ -235,6 +238,7 @@ function renderFinanceiro() {
                         </div>
                     </header>
                     <div class="card-actions">
+                        <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
                         <button type="button" class="btn-ghost" data-baixa-rota="${r.id}">Corrigir baixa</button>
                     </div>
                 </article>`
@@ -265,8 +269,14 @@ function renderFinanceiro() {
     boxPend.querySelectorAll("[data-baixa-rota]").forEach((btn) => {
         btn.addEventListener("click", () => abrirBaixa(Number(btn.dataset.baixaRota)));
     });
+    boxPend.querySelectorAll("[data-ver-rota]").forEach((btn) => {
+        btn.addEventListener("click", () => verRota(Number(btn.dataset.verRota)));
+    });
     boxOk.querySelectorAll("[data-baixa-rota]").forEach((btn) => {
         btn.addEventListener("click", () => abrirBaixa(Number(btn.dataset.baixaRota)));
+    });
+    boxOk.querySelectorAll("[data-ver-rota]").forEach((btn) => {
+        btn.addEventListener("click", () => verRota(Number(btn.dataset.verRota)));
     });
 }
 
@@ -565,6 +575,7 @@ function renderRotas() {
                     </header>
                     ${blocos}
                     <div class="card-actions">
+                        <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
                         ${
                             baixada
                                 ? `<button type="button" class="btn-admin" data-baixa-rota="${r.id}">Corrigir baixa</button>`
@@ -581,6 +592,10 @@ function renderRotas() {
         btn.addEventListener("click", () => abrirBaixa(Number(btn.dataset.baixaRota)));
     });
 
+    box.querySelectorAll("[data-ver-rota]").forEach((btn) => {
+        btn.addEventListener("click", () => verRota(Number(btn.dataset.verRota)));
+    });
+
     box.querySelectorAll("[data-del-rota]").forEach((btn) => {
         btn.addEventListener("click", () => {
             if (!confirm("Excluir esta viagem?")) return;
@@ -592,37 +607,132 @@ function renderRotas() {
     });
 }
 
+function htmlDetalheRota(rota) {
+    const porCidade = {};
+    rota.itens.forEach((i) => {
+        if (!porCidade[i.cidade]) porCidade[i.cidade] = [];
+        porCidade[i.cidade].push(i);
+    });
+
+    const baixada = rota.status === "baixada";
+
+    return Object.entries(porCidade)
+        .map(([cidade, itens]) => {
+            const pecas = itens.reduce((s, i) => s + (Number(i.qtd) || 0), 0);
+            const vendidas = itens.reduce((s, i) => s + (Number(i.qtdVendida) || 0), 0);
+            const linhas = itens
+                .map((i) => {
+                    if (baixada) {
+                        return `<li><span>${i.nome}</span><span>levou ${i.qtd} · vendeu ${i.qtdVendida || 0}</span></li>`;
+                    }
+                    return `<li><span>${i.qtd}× ${i.nome}</span><span>${formatBRLAdmin(i.preco * i.qtd)}</span></li>`;
+                })
+                .join("");
+            return `
+                <div class="cidade-bloco">
+                    <strong>${cidade}</strong>
+                    <span class="muted">(${baixada ? `${vendidas}/${pecas} vendidas` : `${pecas} peças`})</span>
+                    <ul>${linhas}</ul>
+                </div>
+            `;
+        })
+        .join("");
+}
+
+function verRota(rotaId) {
+    const rota = getRota(rotaId);
+    if (!rota) return;
+
+    document.getElementById("rota-view-titulo").textContent = `Rota ${formatDataBR(rota.data)}`;
+    document.getElementById("rota-view-subtitulo").textContent =
+        rota.observacao || `${rota.totalPecas || 0} peças · carga ${formatBRLAdmin(rota.totalReceita)}`;
+    document.getElementById("rota-view-conteudo").innerHTML = htmlDetalheRota(rota);
+    document.getElementById("rota-view-modal").showModal();
+}
+
+function toggleDetalheBaixa() {
+    const box = document.getElementById("baixa-rota-detalhe");
+    const btn = document.getElementById("btn-ver-rota-baixa");
+    if (!box || !rotaBaixaId) return;
+
+    const aberto = !box.hidden;
+    if (aberto) {
+        box.hidden = true;
+        box.classList.add("hidden");
+        if (btn) btn.textContent = "Ver rota";
+        return;
+    }
+
+    const rota = getRota(rotaBaixaId);
+    if (!rota) return;
+    box.innerHTML = htmlDetalheRota(rota);
+    box.hidden = false;
+    box.classList.remove("hidden");
+    if (btn) btn.textContent = "Ocultar rota";
+}
+
 function abrirBaixa(rotaId) {
     const rota = getRota(rotaId);
     if (!rota) return;
     rotaBaixaId = rotaId;
 
     document.getElementById("baixa-subtitulo").textContent =
-        `Viagem de ${formatDataBR(rota.data)} — informe quanto vendeu de cada item.`;
+        `Viagem de ${formatDataBR(rota.data)} — informe quanto levou e quanto vendeu.`;
+
+    const detalhe = document.getElementById("baixa-rota-detalhe");
+    if (detalhe) {
+        detalhe.hidden = true;
+        detalhe.classList.add("hidden");
+        detalhe.innerHTML = "";
+    }
+    const btnVerRota = document.getElementById("btn-ver-rota-baixa");
+    if (btnVerRota) btnVerRota.textContent = "Ver rota";
 
     const box = document.getElementById("baixa-lista");
     box.innerHTML = rota.itens
         .map((item) => {
-            const vendida = item.qtdVendida || item.qtd;
+            const vendida = item.qtdVendida ?? 0;
+            const key = `${item.cidade}|${item.produtoId}`;
             return `
                 <div class="baixa-row">
                     <div>
                         <strong>${item.nome}</strong>
-                        <p>${item.cidade} · levou ${item.qtd} · ${formatBRLAdmin(item.preco)} / un.</p>
+                        <p>${item.cidade} · ${formatBRLAdmin(item.preco)} / un.</p>
                     </div>
-                    <label>
-                        Vendeu
-                        <input type="number" min="0" max="${item.qtd}" step="1" inputmode="numeric"
-                            value="${vendida}"
-                            data-baixa-key="${item.cidade}|${item.produtoId}"
-                            data-baixa-max="${item.qtd}"
-                            data-baixa-preco="${item.preco}"
-                            data-baixa-custo="${item.custo}">
-                    </label>
+                    <div class="baixa-row__inputs">
+                        <label>
+                            Levou
+                            <input type="number" min="0" step="1" inputmode="numeric"
+                                value="${item.qtd}"
+                                data-baixa-levou-key="${key}"
+                                data-baixa-vendeu-for="${key}">
+                        </label>
+                        <label>
+                            Vendeu
+                            <input type="number" min="0" max="${item.qtd}" step="1" inputmode="numeric"
+                                value="${vendida}"
+                                data-baixa-key="${key}"
+                                data-baixa-preco="${item.preco}"
+                                data-baixa-custo="${item.custo}">
+                        </label>
+                    </div>
                 </div>
             `;
         })
         .join("");
+
+    const syncVendeuMax = (levouInput) => {
+        const key = levouInput.dataset.baixaLevouKey;
+        const vendeuInput = box.querySelector(`[data-baixa-key="${key}"]`);
+        if (!vendeuInput) return;
+        const levou = Math.max(0, Number(levouInput.value) || 0);
+        vendeuInput.max = levou;
+        let vendeu = Number(vendeuInput.value) || 0;
+        if (vendeu > levou) {
+            vendeu = levou;
+            vendeuInput.value = vendeu;
+        }
+    };
 
     const atualizarPreview = () => {
         let pecas = 0;
@@ -630,8 +740,9 @@ function abrirBaixa(rotaId) {
         let custo = 0;
         box.querySelectorAll("[data-baixa-key]").forEach((input) => {
             let q = Number(input.value) || 0;
-            const max = Number(input.dataset.baixaMax) || 0;
             if (q < 0) q = 0;
+            const levouInput = box.querySelector(`[data-baixa-levou-key="${input.dataset.baixaKey}"]`);
+            const max = levouInput ? Number(levouInput.value) || 0 : q;
             if (q > max) q = max;
             pecas += q;
             receita += q * (Number(input.dataset.baixaPreco) || 0);
@@ -643,11 +754,24 @@ function abrirBaixa(rotaId) {
         document.getElementById("baixa-lucro").textContent = formatBRLAdmin(receita - custo);
     };
 
+    box.querySelectorAll("[data-baixa-levou-key]").forEach((input) => {
+        input.addEventListener("input", () => {
+            syncVendeuMax(input);
+            atualizarPreview();
+        });
+        input.addEventListener("change", () => {
+            if ((Number(input.value) || 0) < 0) input.value = 0;
+            syncVendeuMax(input);
+            atualizarPreview();
+        });
+    });
+
     box.querySelectorAll("[data-baixa-key]").forEach((input) => {
         input.addEventListener("input", atualizarPreview);
         input.addEventListener("change", () => {
             let q = Number(input.value) || 0;
-            const max = Number(input.dataset.baixaMax) || 0;
+            const levouInput = box.querySelector(`[data-baixa-levou-key="${input.dataset.baixaKey}"]`);
+            const max = levouInput ? Number(levouInput.value) || 0 : q;
             if (q < 0) q = 0;
             if (q > max) q = max;
             input.value = q;
@@ -667,10 +791,14 @@ function fecharBaixa() {
 function confirmarBaixa() {
     if (!rotaBaixaId) return;
     const vendas = {};
+    const levou = {};
     document.querySelectorAll("#baixa-lista [data-baixa-key]").forEach((input) => {
         vendas[input.dataset.baixaKey] = Number(input.value) || 0;
     });
-    registrarBaixaRota(rotaBaixaId, vendas);
+    document.querySelectorAll("#baixa-lista [data-baixa-levou-key]").forEach((input) => {
+        levou[input.dataset.baixaLevouKey] = Number(input.value) || 0;
+    });
+    registrarBaixaRota(rotaBaixaId, vendas, levou);
     fecharBaixa();
     renderRotas();
     renderFinanceiro();
@@ -822,6 +950,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("btn-fechar-baixa").addEventListener("click", fecharBaixa);
+    document.getElementById("btn-ver-rota-baixa").addEventListener("click", toggleDetalheBaixa);
+    document.getElementById("btn-fechar-rota-view").addEventListener("click", () => {
+        document.getElementById("rota-view-modal").close();
+    });
     document.getElementById("baixa-form").addEventListener("submit", (e) => {
         e.preventDefault();
         confirmarBaixa();

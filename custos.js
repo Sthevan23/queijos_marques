@@ -451,21 +451,28 @@ function calcBaixaTotais(itens) {
     };
 }
 
-function registrarBaixaRota(id, vendasPorChave) {
+function registrarBaixaRota(id, vendasPorChave, levouPorChave = {}) {
     const rotas = loadRotas().map((rota) => {
         if (rota.id !== id) return rota;
         const itens = rota.itens.map((item) => {
             const key = `${item.cidade}|${item.produtoId}`;
+            let qtd = Number(levouPorChave[key]);
+            if (!Number.isFinite(qtd) || qtd < 0) qtd = item.qtd;
             let qtdVendida = Number(vendasPorChave[key]);
             if (!Number.isFinite(qtdVendida) || qtdVendida < 0) qtdVendida = 0;
-            if (qtdVendida > item.qtd) qtdVendida = item.qtd;
-            return { ...item, qtdVendida };
+            if (qtdVendida > qtd) qtdVendida = qtd;
+            return { ...item, qtd, qtdVendida };
         });
+        const totaisCarga = calcCargaTotais(itens);
         return {
             ...rota,
             itens,
             status: "baixada",
             baixadaEm: new Date().toISOString().slice(0, 10),
+            totalPecas: totaisCarga.totalPecas,
+            totalCusto: totaisCarga.totalCusto,
+            totalReceita: totaisCarga.totalReceita,
+            lucroEstimado: totaisCarga.lucroEstimado,
             ...calcBaixaTotais(itens)
         };
     });

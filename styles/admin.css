@@ -734,6 +734,30 @@ button {
     gap: 1rem;
 }
 
+.baixa-header__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: flex-end;
+}
+
+.baixa-rota-detalhe {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.75rem 0.85rem;
+    background: #f8fbf9;
+    max-height: 28vh;
+    overflow: auto;
+}
+
+.baixa-rota-detalhe.hidden {
+    display: none !important;
+}
+
+.rota-view-modal .baixa-rota-detalhe {
+    max-height: 55vh;
+}
+
 .baixa-header h2 {
     margin: 0;
     font-size: 1.2rem;
@@ -778,11 +802,17 @@ button {
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--muted);
-    min-width: 110px;
+    min-width: 72px;
+}
+
+.baixa-row__inputs {
+    display: flex;
+    gap: 0.55rem;
+    flex-shrink: 0;
 }
 
 .baixa-row input {
-    width: 110px;
+    width: 72px;
     font: inherit;
     font-size: 1.15rem;
     font-weight: 700;
@@ -1115,9 +1145,12 @@ button {
     border-color: #f0e0b0;
 }
 
-.fin-baixa-card .btn-grande {
-    width: 100%;
+.fin-baixa-card .card-actions {
     margin-top: 0.35rem;
+}
+
+.fin-baixa-card .btn-grande {
+    flex: 1;
 }
 
 /* ——— Mobile ——— */
@@ -1462,8 +1495,8 @@ button {
     }
 
     .baixa-row {
-        flex-wrap: nowrap;
-        align-items: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
         gap: 0.65rem;
         padding: 0.75rem 0.85rem;
     }
@@ -1482,12 +1515,17 @@ button {
         font-size: 0.78rem;
     }
 
+    .baixa-row__inputs {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
     .baixa-row label {
-        min-width: 88px;
+        min-width: 72px;
     }
 
     .baixa-row input {
-        width: 88px;
+        width: 72px;
         min-height: 46px;
         font-size: 1.1rem;
     }
