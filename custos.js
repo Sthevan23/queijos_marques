@@ -106,10 +106,10 @@ const PLANILHA_CUSTOS = [
 
 /** Preços de VENDA do PDF CATÁLOGO MARQUÊS MINEIRO. */
 const PRECOS_PADRAO = {
-    0: 60.0,
-    1: 60.0,
-    2: 60.0,
-    3: 75.0,
+    0: 70.0,
+    1: 70.0,
+    2: 70.0,
+    3: 85.0,
     4: 60.0,
     5: 60.0,
     6: 75.0,
@@ -248,7 +248,7 @@ function getCusto(id, custos = loadCustos()) {
 }
 
 /* ——— Preços de venda (editáveis no admin e no site) ——— */
-const PRECOS_STORAGE_KEY = "marques_precos_v3";
+const PRECOS_STORAGE_KEY = "marques_precos_v4";
 
 function loadPrecos() {
     try {
@@ -288,6 +288,7 @@ function aplicarPrecosCatalogo(lista) {
     try {
         localStorage.removeItem("marques_precos_v1");
         localStorage.removeItem("marques_precos_v2");
+        localStorage.removeItem("marques_precos_v3");
     } catch (e) {}
     const salvos = loadPrecos();
     lista.forEach((p) => {

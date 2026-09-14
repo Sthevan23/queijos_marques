@@ -22,7 +22,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo palito",
             detalhes: "450g – Queijo em palito artesanal",
-            preco: 60.00,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto1.png"
         },
         {
@@ -30,7 +30,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo trança",
             detalhes: "450g – Pura, defumada, alho ou temperada",
-            preco: 60.00,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto2.png"
         },
         {
@@ -38,7 +38,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Queijo nozinho",
             detalhes: "450g – Tradicional artesanal",
-            preco: 60.00,
+            preco: 70.00,
             imagem: "assets/imagens/tradicionais/foto3.png"
         },
         {
@@ -46,7 +46,7 @@ class QueijoTradicional extends Produto {
             categoria: "Queijos tradicionais",
             nome: "Kit trançinha",
             detalhes: "400g – Kit com tranças variadas",
-            preco: 75.00,
+            preco: 85.00,
             imagem: "assets/imagens/tradicionais/foto4.png"
         },
         {
