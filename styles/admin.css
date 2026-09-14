@@ -370,7 +370,6 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .easy-action {
     text-align: left;
     background: #fff;
-    border: 2px solid #eadfcs;
     border: 2px solid #eadfcf;
     border-radius: 14px;
     padding: 18px 16px;
