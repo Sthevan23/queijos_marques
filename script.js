@@ -1389,9 +1389,15 @@ function finalizeOrder() {
 }
 
 // Inicialização
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const isLoja = !!(document.getElementById("catalogo") || document.getElementById("cartItems"));
     if (!isLoja) return;
+
+    if (typeof sincronizarPrecosDoServidor === "function") {
+        await sincronizarPrecosDoServidor(produtos);
+    } else if (typeof aplicarPrecosCatalogo === "function") {
+        aplicarPrecosCatalogo(produtos);
+    }
 
     carrinho = loadCart();
 

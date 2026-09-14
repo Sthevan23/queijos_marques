@@ -34,6 +34,16 @@ INSERT INTO cidades (nome, ordem) VALUES
 ON DUPLICATE KEY UPDATE ordem = VALUES(ordem);
 
 -- ---------------------------------------------------------
+-- Preços de venda editáveis no admin (overrides do catálogo)
+-- ---------------------------------------------------------
+CREATE TABLE IF NOT EXISTS precos_venda (
+  produto_id INT UNSIGNED NOT NULL,
+  preco DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (produto_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ---------------------------------------------------------
 -- Produtos (espelho do catálogo / custos)
 -- ---------------------------------------------------------
 CREATE TABLE IF NOT EXISTS produtos (

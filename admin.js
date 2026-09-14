@@ -79,8 +79,12 @@ async function mostrarApp() {
 
     setSyncStatus("Carregando viagens do site...");
     const sync = await inicializarRotasServidor();
-    if (sync.ok) {
-        setSyncStatus(`Viagens salvas no site · ${sync.total} no banco`);
+    const syncPrecos = await sincronizarPrecosDoServidor(produtos, { migrarLocal: true });
+    precosAtuais = loadPrecos();
+    if (sync.ok && syncPrecos.ok) {
+        setSyncStatus(`Viagens e preços salvos no site · ${sync.total} viagens`);
+    } else if (sync.ok) {
+        setSyncStatus(`Viagens no site · preços só neste aparelho (${syncPrecos.erro || "erro"})`);
     } else {
         setSyncStatus(`Atenção: salvando só neste aparelho (${sync.erro || "sem conexão"})`);
     }
@@ -1053,7 +1057,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Fiado anotado!");
     });
 
-    document.getElementById("btn-salvar-custos").addEventListener("click", () => {
+    document.getElementById("btn-salvar-custos").addEventListener("click", async () => {
         document.querySelectorAll("input[data-custo-id]").forEach((input) => {
             custosAtuais[Number(input.dataset.custoId)] = Number(input.value) || 0;
         });
@@ -1063,19 +1067,38 @@ document.addEventListener("DOMContentLoaded", () => {
             precosAtuais[id] = valor;
             syncPrecoNoCatalogo(id, valor);
         });
+
+        const mapa = {};
+        produtos.forEach((p) => {
+            const v = Number(precosAtuais[p.id] ?? precosAtuais[String(p.id)] ?? p.preco);
+            mapa[String(p.id)] = Number.isFinite(v) ? v : 0;
+            syncPrecoNoCatalogo(p.id, mapa[String(p.id)]);
+        });
+
         saveCustos(custosAtuais);
-        savePrecos(precosAtuais);
+        savePrecos(mapa);
+        precosAtuais = mapa;
         aplicarPrecosCatalogo(produtos);
-        alert("Preços e custos salvos! O catálogo do site já usa os novos valores.");
+
+        try {
+            const remoto = await salvarPrecosNoServidor(mapa);
+            savePrecos(remoto);
+            precosAtuais = remoto;
+            aplicarPrecosCatalogo(produtos);
+            alert("Preços salvos no site! Qualquer celular já vê os valores novos.");
+        } catch (e) {
+            alert("Salvo só neste aparelho. Não deu pra gravar no site: " + (e.message || e));
+        }
+
         renderProdutos();
         renderListaProdutosCarga();
         renderTotaisCarga();
         renderStats();
     });
 
-    document.getElementById("btn-reset-precos").addEventListener("click", () => {
+    document.getElementById("btn-reset-precos").addEventListener("click", async () => {
         if (!confirm("Restaurar os preços do catálogo Marques Mineiro?")) return;
-        resetPrecosCatalogo(produtos);
+        await resetPrecosCatalogo(produtos);
         precosAtuais = {};
         renderProdutos();
         renderListaProdutosCarga();

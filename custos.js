@@ -249,6 +249,15 @@ function getCusto(id, custos = loadCustos()) {
 
 /* ——— Preços de venda (editáveis no admin e no site) ——— */
 const PRECOS_STORAGE_KEY = "marques_precos_v4";
+const ADMIN_API_PIN = typeof ADMIN_PIN !== "undefined" ? ADMIN_PIN : "2025";
+
+function apiPrecosUrl() {
+    try {
+        return new URL("api/precos.php", window.location.href).href;
+    } catch {
+        return "api/precos.php";
+    }
+}
 
 function loadPrecos() {
     try {
@@ -261,9 +270,82 @@ function loadPrecos() {
 }
 
 function savePrecos(precos) {
-    localStorage.setItem(PRECOS_STORAGE_KEY, JSON.stringify(precos));
+    localStorage.setItem(PRECOS_STORAGE_KEY, JSON.stringify(precos || {}));
 }
 
+function normalizarMapaPrecos(mapa) {
+    const out = {};
+    if (!mapa || typeof mapa !== "object") return out;
+    Object.keys(mapa).forEach((k) => {
+        const v = Number(mapa[k]);
+        if (Number.isFinite(v)) out[String(k)] = v;
+    });
+    return out;
+}
+
+async function fetchPrecosDoServidor() {
+    const res = await fetch(apiPrecosUrl(), { method: "GET", cache: "no-store" });
+    const json = await res.json().catch(() => ({ ok: false }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return normalizarMapaPrecos(json.data);
+}
+
+async function salvarPrecosNoServidor(precos) {
+    const res = await fetch(apiPrecosUrl(), {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Pin": ADMIN_API_PIN
+        },
+        body: JSON.stringify({ precos: normalizarMapaPrecos(precos) })
+    });
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        err.payload = json;
+        throw err;
+    }
+    return normalizarMapaPrecos(json.data?.precos || json.data || {});
+}
+
+async function limparPrecosNoServidor() {
+    const res = await fetch(apiPrecosUrl(), {
+        method: "DELETE",
+        headers: { "X-Admin-Pin": ADMIN_API_PIN }
+    });
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return true;
+}
+
+/** Busca preços do banco e aplica no catálogo (com fallback local). */
+async function sincronizarPrecosDoServidor(lista = typeof produtos !== "undefined" ? produtos : [], opts = {}) {
+    const migrarLocal = !!opts.migrarLocal;
+    try {
+        let remoto = await fetchPrecosDoServidor();
+        if (migrarLocal && Object.keys(remoto).length === 0) {
+            const local = normalizarMapaPrecos(loadPrecos());
+            if (Object.keys(local).length > 0) {
+                remoto = await salvarPrecosNoServidor(local);
+            }
+        }
+        savePrecos(remoto);
+        aplicarPrecosCatalogo(lista);
+        return { ok: true, precos: remoto };
+    } catch (e) {
+        aplicarPrecosCatalogo(lista);
+        return { ok: false, erro: e.message || "sem conexão", precos: loadPrecos() };
+    }
+}
 
 function getPrecoPadrao(id, lista = typeof produtos !== "undefined" ? produtos : []) {
     if (PRECOS_PADRAO[id] != null || PRECOS_PADRAO[String(id)] != null) {
@@ -304,8 +386,13 @@ function aplicarPrecosCatalogo(lista) {
     return lista;
 }
 
-function resetPrecosCatalogo(lista) {
+async function resetPrecosCatalogo(lista) {
     localStorage.removeItem(PRECOS_STORAGE_KEY);
+    try {
+        await limparPrecosNoServidor();
+    } catch (e) {
+        console.warn("Não limpou preços no servidor:", e.message || e);
+    }
     if (Array.isArray(lista)) {
         lista.forEach((p) => {
             const padrao = getPrecoPadrao(p.id, lista);
@@ -364,7 +451,6 @@ const CIDADES_STORAGE_KEY = "marques_cidades";
 const ROTAS_STORAGE_KEY = "marques_rotas";
 const APRAZO_STORAGE_KEY = "marques_aprazo";
 const CIDADES_PADRAO = ["Rio Verde", "Rio de Janeiro", "Goiânia", "Três Lagoas"];
-const ADMIN_API_PIN = typeof ADMIN_PIN !== "undefined" ? ADMIN_PIN : "2025";
 
 function apiRotasUrl() {
     try {
