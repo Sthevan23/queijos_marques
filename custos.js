@@ -1,6 +1,5 @@
 /**
- * Planilha Custo Queijo (1).pdf — Custo | Onesio | Atacado
- * e custos mapeados aos produtos do catálogo.
+ * Planilha de custos + preços de VENDA do catálogo Marques Mineiro.
  */
 const PLANILHA_CUSTOS = [
     { nome: "Canastra Divino", custo: 25.5, atacado: 36.0, onesio: 37 },
@@ -105,10 +104,7 @@ const PLANILHA_CUSTOS = [
     { nome: "Bala Serra negra", custo: 19.5, atacado: 23.0, onesio: 26 },
 ];
 
-/**
- * Preços de VENDA do catálogo PDF "CATÁLOGO MARQUÊS MINEIRO".
- * (Não confundir com coluna Onesio da planilha de custo — essa é atacado.)
- */
+/** Preços de VENDA do PDF CATÁLOGO MARQUÊS MINEIRO. */
 const PRECOS_PADRAO = {
     0: 60.0,
     1: 60.0,
@@ -141,16 +137,16 @@ const PRECOS_PADRAO = {
     29: 90.0,
     30: 65.0,
     31: 85.0,
-    32: 85.0,
-    33: 85.0,
-    34: 85.0,
-    35: 85.0,
-    36: 85.0,
+    32: 60.0,
+    33: 55.0,
+    34: 65.0,
+    35: 55.0,
+    36: 65.0,
     37: 65.0,
     38: 65.0,
     39: 70.0,
     40: 65.0,
-    41: 85.0,
+    41: 65.0,
     42: 130.0,
     43: 70.0,
     44: 195.0,
@@ -158,16 +154,16 @@ const PRECOS_PADRAO = {
     46: 180.0,
     47: 45.0,
     48: 150.0,
-    49: 140.0,
+    49: 70.0,
     50: 180.0,
     51: 195.0,
     52: 85.0,
     53: 45.0,
     54: 70.0,
     55: 45.0,
-    56: 85.0,
+    56: 45.0,
     57: 45.0,
-    58: 50.0,
+    58: 60.0,
     59: 140.0,
     60: 85.0,
     61: 70.0,
@@ -185,15 +181,15 @@ const PRECOS_PADRAO = {
     75: 45.0,
     76: 45.0,
     77: 75.0,
-    78: 48.0,
-    79: 48.0,
-    80: 48.0,
+    78: 45.0,
+    79: 45.0,
+    80: 45.0,
     81: 45.0,
     82: 45.0,
     83: 65.0,
     84: 45.0,
     85: 50.0,
-    86: 48.0,
+    86: 45.0,
     87: 45.0,
     88: 45.0,
     89: 60.0,
@@ -252,7 +248,7 @@ function getCusto(id, custos = loadCustos()) {
 }
 
 /* ——— Preços de venda (editáveis no admin e no site) ——— */
-const PRECOS_STORAGE_KEY = "marques_precos_v2";
+const PRECOS_STORAGE_KEY = "marques_precos_v3";
 
 function loadPrecos() {
     try {
@@ -289,6 +285,10 @@ function getPreco(id, lista = typeof produtos !== "undefined" ? produtos : []) {
 }
 
 function aplicarPrecosCatalogo(lista) {
+    try {
+        localStorage.removeItem("marques_precos_v1");
+        localStorage.removeItem("marques_precos_v2");
+    } catch (e) {}
     const salvos = loadPrecos();
     lista.forEach((p) => {
         const padrao = getPrecoPadrao(p.id, lista);

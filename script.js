@@ -297,7 +297,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão, damasco e avelã",
             detalhes: "700g – Doce e cremoso",
-            preco: 85.00,
+            preco: 60.00,
             imagem: "assets/imagens/trufados/trufado1.png"
         },
         {
@@ -305,7 +305,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e tomate seco",
             detalhes: "500g – Leve e aromático",
-            preco: 85.00,
+            preco: 55.00,
             imagem: "assets/imagens/trufados/trufado2.png"
         },
         {
@@ -313,7 +313,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com cheddar",
             detalhes: "500g – Sabor intenso",
-            preco: 85.00,
+            preco: 65.00,
             imagem: "assets/imagens/trufados/trufado3.png"
         },
         {
@@ -321,7 +321,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e azeitona",
             detalhes: "800g – Salgado e marcante",
-            preco: 85.00,
+            preco: 55.00,
             imagem: "assets/imagens/trufados/trufado4.png"
         },
         {
@@ -329,7 +329,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com cheddar e carne seca",
             detalhes: "500g – Robusto e saboroso",
-            preco: 85.00,
+            preco: 65.00,
             imagem: "assets/imagens/trufados/trufado5.png"
         },
         {
@@ -369,7 +369,7 @@ class QueijoTrufado extends Produto {
             categoria: "Queijos trufados",
             nome: "Queijo recheado com requeijão e carne seca",
             detalhes: "500g – Sabor irresistível",
-            preco: 85.00,
+            preco: 65.00,
             imagem: "assets/imagens/trufados/trufado11.png"
         }
     ];
@@ -442,7 +442,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo brisa",
             detalhes: "450g – Sabor marcante, perfeito para molhos",
-            preco: 140.00,
+            preco: 70.00,
             imagem: "assets/imagens/queijos_finos/foto8.png"
         },
         {
@@ -498,7 +498,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo camembert",
             detalhes: "350g – Cremoso e sofisticado",
-            preco: 85.00,
+            preco: 45.00,
             imagem: "assets/imagens/queijos_finos/foto16.png"
         },
         {
@@ -514,7 +514,7 @@ class QueijoFino extends Produto {
             categoria: "Queijos finos",
             nome: "Queijo tipo grana",
             detalhes: "220g – Encorpado, ideal para massas",
-            preco: 50.00,
+            preco: 60.00,
             imagem: "assets/imagens/queijos_finos/foto18.png"
         },
         {
@@ -628,7 +628,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salaminho c/ azeitona",
             detalhes: "200g – Combinação saborosa de salame com azeitonas selecionadas",
-            preco: 48.00,
+            preco: 45.00,
             imagem: "assets/imagens/salaminhos/foto4.png"
         },
         {
@@ -636,7 +636,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta calabresa",
             detalhes: "200g – Defumado intenso com o toque picante da calabresa",
-            preco: 48.00,
+            preco: 45.00,
             imagem: "assets/imagens/salaminhos/foto5.png"
         },
         {
@@ -644,7 +644,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame frango c/ azeitona",
             detalhes: "200g – Leve, saboroso e realçado com azeitonas selecionadas",
-            preco: 48.00,
+            preco: 45.00,
             imagem: "assets/imagens/salaminhos/foto6.png"
         },
         {
@@ -758,7 +758,7 @@ class Doce extends Produto {
             categoria: "Doces",
             nome: "Bananada vovô olavo",
             detalhes: "450g – Bananada tradicional com sabor marcante",
-            preco: 48.00,
+            preco: 45.00,
             imagem: "assets/imagens/doces/foto6.png"
         },
         {
