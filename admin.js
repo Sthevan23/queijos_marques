@@ -72,12 +72,13 @@ function setQtdCarga(cidade, produtoId, qtd) {
 async function mostrarApp() {
     document.getElementById("login-screen").classList.add("hidden");
     document.getElementById("admin-app").classList.remove("hidden");
+    document.body.classList.remove("login-page");
 
     document.getElementById("rota-data").value = hojeISO();
     document.getElementById("aprazo-data").value = hojeISO();
     document.getElementById("financeiro-data").value = hojeISO();
 
-    setSyncStatus("Carregando viagens do site...");
+    setSyncStatus("Carregando…");
     const syncProdutos = await sincronizarProdutosCustom(
         typeof PRODUTOS_BASE !== "undefined" ? PRODUTOS_BASE : produtos.filter((p) => !p.custom)
     );
@@ -86,11 +87,11 @@ async function mostrarApp() {
     precosAtuais = loadPrecos();
     custosAtuais = loadCustos();
     if (sync.ok && syncPrecos.ok && syncProdutos.ok) {
-        setSyncStatus(`Viagens, preços e produtos no site · ${sync.total} viagens`);
+        setSyncStatus(`No site · ${sync.total} viagens`);
     } else if (sync.ok) {
-        setSyncStatus(`Viagens no site · checar preços/produtos (${syncPrecos.erro || syncProdutos.erro || "erro"})`);
+        setSyncStatus("Parcial · checar sync");
     } else {
-        setSyncStatus(`Atenção: salvando só neste aparelho (${sync.erro || "sem conexão"})`);
+        setSyncStatus(`Só neste aparelho`);
     }
 
     renderStats();
@@ -107,6 +108,7 @@ async function mostrarApp() {
     renderPlanilha();
     renderVendas();
     updateEasyBaixaHint();
+    showTab("financeiro");
 }
 
 function setSyncStatus(texto) {
@@ -962,11 +964,35 @@ function renderAprazo() {
 
 function showTab(tab) {
     const target = tab === "planilha" || tab === "vendas" ? "mais" : tab;
-    document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === target));
+    const titles = {
+        financeiro: "Início",
+        rotas: "Viagem",
+        aprazo: "Fiado",
+        produtos: "Produtos",
+        mais: "Mais"
+    };
+
+    document.querySelectorAll(".sidebar__link[data-page]").forEach((b) => {
+        b.classList.toggle("active", b.dataset.page === target);
+    });
+    // compat com tabs antigas, se existirem
+    document.querySelectorAll(".tab[data-tab]").forEach((b) => {
+        b.classList.toggle("active", b.dataset.tab === target);
+    });
+
     ["financeiro", "rotas", "aprazo", "produtos", "mais"].forEach((name) => {
         const el = document.getElementById(`tab-${name}`);
-        if (el) el.classList.toggle("hidden", name !== target);
+        if (!el) return;
+        const on = name === target;
+        el.classList.toggle("active", on);
+        el.classList.toggle("hidden", !on);
     });
+
+    const titleEl = document.getElementById("page-title");
+    if (titleEl) titleEl.textContent = titles[target] || "Painel";
+
+    fecharSidebar();
+
     if (target === "financeiro") {
         renderFinanceiro();
         updateEasyBaixaHint();
@@ -981,12 +1007,27 @@ function showTab(tab) {
         fillCidadeSelects();
         renderAprazo();
     }
-    if (target === "produtos") renderProdutos();
+    if (target === "produtos") {
+        renderProdutos();
+        renderProdutosCustomLista();
+    }
     if (target === "mais") {
         renderPlanilha();
         renderVendas();
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function abrirSidebar() {
+    document.getElementById("sidebar")?.classList.add("open");
+    document.getElementById("sidebar-backdrop")?.classList.add("is-visible");
+    document.body.classList.add("sidebar-open");
+}
+
+function fecharSidebar() {
+    document.getElementById("sidebar")?.classList.remove("open");
+    document.getElementById("sidebar-backdrop")?.classList.remove("is-visible");
+    document.body.classList.remove("sidebar-open");
 }
 
 function updateEasyBaixaHint() {
@@ -1029,9 +1070,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("btn-logout").addEventListener("click", sair);
 
-    document.querySelectorAll(".tab").forEach((btn) => {
+    document.querySelectorAll(".tab[data-tab]").forEach((btn) => {
         btn.addEventListener("click", () => showTab(btn.dataset.tab));
     });
+    document.querySelectorAll(".sidebar__link[data-page]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            showTab(btn.dataset.page);
+        });
+    });
+    document.getElementById("sidebar-toggle")?.addEventListener("click", abrirSidebar);
+    document.getElementById("sidebar-backdrop")?.addEventListener("click", fecharSidebar);
 
     document.getElementById("busca-produto").addEventListener("input", renderProdutos);
     document.getElementById("filtro-categoria").addEventListener("change", renderProdutos);

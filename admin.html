@@ -4,383 +4,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#1a4635">
-    <title>Painel Admin - Marques Mineiro</title>
-    <link rel="stylesheet" href="styles/admin.css">
+    <meta name="theme-color" content="#2C1810">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Painel — Marques Mineiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css?v=20">
 </head>
 
 <body>
     <div id="login-screen" class="login-screen">
-        <form id="login-form" class="login-card">
-            <p class="login-eyebrow">Marques Mineiro</p>
-            <h1>Painel Admin</h1>
-            <p class="login-hint">Digite o PIN pra abrir o painel.</p>
-            <input type="password" id="admin-pin" placeholder="PIN" maxlength="8" inputmode="numeric" autocomplete="current-password" required>
-            <button type="submit" class="btn-admin btn-grande">Entrar</button>
-            <p id="login-error" class="login-error hidden">PIN incorreto</p>
-            <a href="index.html" class="login-back">← Voltar ao catálogo</a>
-        </form>
+        <div class="login">
+            <div class="login__visual">
+                <div class="login__overlay"></div>
+                <div class="login__visual-content">
+                    <i class="fas fa-cheese"></i>
+                    <h1>Marques Mineiro</h1>
+                    <p>Painel simples da rota</p>
+                </div>
+            </div>
+            <div class="login__form-wrapper">
+                <form id="login-form" class="login__form-container">
+                    <div class="login__header">
+                        <h2>Entrar</h2>
+                        <p>Digite o PIN pra abrir o painel</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-pin"><i class="fas fa-lock"></i> PIN</label>
+                        <input type="password" id="admin-pin" placeholder="••••" maxlength="8" inputmode="numeric" autocomplete="current-password" required>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full btn--xl">Entrar</button>
+                    <p id="login-error" class="login__error hidden">PIN incorreto</p>
+                    <a href="index.html" class="login__back"><i class="fas fa-arrow-left"></i> Voltar à loja</a>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div id="admin-app" class="admin-app hidden">
-        <header class="admin-header">
-            <div>
-                <p class="login-eyebrow">Marques Mineiro</p>
-                <h1>Meu painel</h1>
-                <p id="sync-status" class="sync-status">Conectando ao site...</p>
+    <div id="admin-app" class="admin-shell hidden">
+        <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <i class="fas fa-cheese"></i>
+                <span>Marques</span>
             </div>
-            <div class="admin-header-actions">
-                <a href="index.html" class="btn-ghost">Loja</a>
-                <button type="button" id="btn-logout" class="btn-ghost">Sair</button>
+            <nav class="sidebar__nav">
+                <a href="#" class="sidebar__link active" data-page="financeiro"><i class="fas fa-home"></i> Início</a>
+                <a href="#" class="sidebar__link" data-page="rotas"><i class="fas fa-truck"></i> Viagem</a>
+                <a href="#" class="sidebar__link" data-page="aprazo"><i class="fas fa-hand-holding-dollar"></i> Fiado</a>
+                <a href="#" class="sidebar__link" data-page="produtos"><i class="fas fa-tags"></i> Produtos</a>
+                <a href="#" class="sidebar__link" data-page="mais"><i class="fas fa-ellipsis"></i> Mais</a>
+            </nav>
+            <div class="sidebar__footer">
+                <a href="index.html" class="sidebar__link"><i class="fas fa-store"></i> Ver loja</a>
+                <a href="#" class="sidebar__link" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
             </div>
-        </header>
+        </aside>
 
-        <section class="stats-grid stats-grid--easy" id="stats-grid">
-            <article class="stat-card accent">
-                <span>Entrou hoje</span>
-                <strong id="stat-faturado-hoje">R$ 0,00</strong>
-            </article>
-            <article class="stat-card">
-                <span>Lucro hoje</span>
-                <strong id="stat-lucro-hoje">R$ 0,00</strong>
-            </article>
-            <article class="stat-card">
-                <span>Fiado a receber</span>
-                <strong id="stat-aprazo">R$ 0,00</strong>
-            </article>
-            <article class="stat-card alerta" id="stat-sem-baixa-card">
-                <span>Falta dar baixa</span>
-                <strong id="stat-sem-baixa">0</strong>
-            </article>
-        </section>
-
-        <nav class="admin-tabs admin-tabs--easy" aria-label="Menu do painel">
-            <button type="button" class="tab active" data-tab="financeiro">
-                <span class="tab-ico">1</span>
-                <span>Início</span>
-            </button>
-            <button type="button" class="tab" data-tab="rotas">
-                <span class="tab-ico">2</span>
-                <span>Viagem</span>
-            </button>
-            <button type="button" class="tab" data-tab="aprazo">
-                <span class="tab-ico">$</span>
-                <span>Fiado</span>
-            </button>
-            <button type="button" class="tab" data-tab="produtos">
-                <span class="tab-ico">P</span>
-                <span>Produtos</span>
-            </button>
-            <button type="button" class="tab" data-tab="mais">
-                <span class="tab-ico">+</span>
-                <span>Mais</span>
-            </button>
-        </nav>
-
-        <section id="tab-financeiro" class="tab-panel">
-            <div class="easy-actions" id="easy-actions">
-                <button type="button" class="easy-action easy-action--main" data-go-tab="rotas">
-                    <strong>Montar viagem</strong>
-                    <span>Escolher cidade e produtos</span>
+        <main class="admin-main">
+            <header class="admin-header">
+                <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
                 </button>
-                <button type="button" class="easy-action" id="btn-easy-baixa">
-                    <strong>Dar baixa</strong>
-                    <span id="easy-baixa-hint">Informar o que vendeu</span>
-                </button>
-                <button type="button" class="easy-action" data-go-tab="aprazo">
-                    <strong>Anotar fiado</strong>
-                    <span>Cliente que vai pagar depois</span>
-                </button>
-            </div>
+                <h1 class="admin-header__title" id="page-title">Início</h1>
+                <div class="admin-header__user">
+                    <span class="sync-badge" id="sync-status">Conectando…</span>
+                </div>
+            </header>
 
-            <div class="panel-block">
-                <div class="financeiro-topo">
-                    <div>
-                        <h2 class="panel-title">Hoje</h2>
-                        <p class="toolbar-note" style="margin: 0;">Quanto entrou e quanto falta baixar.</p>
+            <!-- INÍCIO -->
+            <section id="tab-financeiro" class="admin-page active">
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-card__icon" style="background:#FDE8D0;color:#A0522D"><i class="fas fa-coins"></i></div>
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Entrou hoje</span>
+                            <strong class="stat-card__value" id="stat-faturado-hoje">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__icon" style="background:#E8F5E9;color:#2E7D32"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Lucro hoje</span>
+                            <strong class="stat-card__value" id="stat-lucro-hoje">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__icon" style="background:#E3F2FD;color:#1565C0"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Fiado a receber</span>
+                            <strong class="stat-card__value" id="stat-aprazo">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card" id="stat-sem-baixa-card">
+                        <div class="stat-card__icon" style="background:#FFEBEE;color:#C62828"><i class="fas fa-exclamation"></i></div>
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Falta dar baixa</span>
+                            <strong class="stat-card__value" id="stat-sem-baixa">0</strong>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="easy-actions" id="easy-actions">
+                    <button type="button" class="easy-action easy-action--main" data-go-tab="rotas">
+                        <i class="fas fa-truck"></i>
+                        <strong>Montar viagem</strong>
+                        <span>Escolher cidade e produtos</span>
+                    </button>
+                    <button type="button" class="easy-action" id="btn-easy-baixa">
+                        <i class="fas fa-clipboard-check"></i>
+                        <strong>Dar baixa</strong>
+                        <span id="easy-baixa-hint">Informar o que vendeu</span>
+                    </button>
+                    <button type="button" class="easy-action" data-go-tab="aprazo">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <strong>Anotar fiado</strong>
+                        <span>Cliente que paga depois</span>
+                    </button>
+                    <button type="button" class="easy-action" data-go-tab="produtos">
+                        <i class="fas fa-tags"></i>
+                        <strong>Preços e produtos</strong>
+                        <span>Mudar valor ou cadastrar item</span>
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card__head">
+                        <div>
+                            <h2 class="card__title">Resumo do dia</h2>
+                            <p class="card__note">Quanto entrou e o que ainda falta baixar.</p>
+                        </div>
+                        <label class="inline-field">
+                            Dia
+                            <input type="date" id="financeiro-data">
+                        </label>
                     </div>
-                    <label class="financeiro-data">
-                        Dia
-                        <input type="date" id="financeiro-data">
-                    </label>
+                    <div class="financeiro-grid" id="financeiro-resumo">
+                        <article class="fin-card destaque">
+                            <span>Entrou</span>
+                            <strong id="fin-faturado">R$ 0,00</strong>
+                        </article>
+                        <article class="fin-card">
+                            <span>Lucro</span>
+                            <strong id="fin-lucro" class="positivo">R$ 0,00</strong>
+                        </article>
+                        <article class="fin-card">
+                            <span>Peças</span>
+                            <strong id="fin-pecas">0</strong>
+                        </article>
+                        <article class="fin-card alerta">
+                            <span>Sem baixa</span>
+                            <strong id="fin-pendentes">0</strong>
+                        </article>
+                    </div>
                 </div>
 
-                <div class="financeiro-grid" id="financeiro-resumo">
-                    <article class="fin-card destaque">
-                        <span>Entrou</span>
-                        <strong id="fin-faturado">R$ 0,00</strong>
-                    </article>
-                    <article class="fin-card">
-                        <span>Lucro</span>
-                        <strong id="fin-lucro" class="positivo">R$ 0,00</strong>
-                    </article>
-                    <article class="fin-card">
-                        <span>Peças</span>
-                        <strong id="fin-pecas">0</strong>
-                    </article>
-                    <article class="fin-card alerta">
-                        <span>Sem baixa</span>
-                        <strong id="fin-pendentes">0</strong>
-                    </article>
-                </div>
-            </div>
-
-            <div class="panel-block">
-                <h2 class="panel-title">Falta dar baixa</h2>
-                <p class="toolbar-note">Quando voltar da rota, diga quanto vendeu de cada item.</p>
-                <div id="financeiro-pendentes" class="vendas-lista"></div>
-            </div>
-
-            <div class="panel-block">
-                <h2 class="panel-title">Já contado neste dia</h2>
-                <p class="toolbar-note">Baixas e vendas do site que já entraram no total.</p>
-                <div id="financeiro-baixadas" class="vendas-lista"></div>
-            </div>
-        </section>
-
-        <section id="tab-rotas" class="tab-panel hidden">
-            <div class="panel-block viagem-panel">
-                <h2 class="panel-title">Montar viagem</h2>
-                <ol class="easy-steps">
-                    <li>Toque na <strong>cidade</strong></li>
-                    <li>Coloque a <strong>quantidade</strong> de cada produto</li>
-                    <li>Aperte <strong>Salvar viagem</strong></li>
-                </ol>
-
-                <div class="viagem-topo">
-                    <label>
-                        Data
-                        <input type="date" id="rota-data">
-                    </label>
-                    <label class="grow">
-                        Observação <span class="opcional">(opcional)</span>
-                        <input type="text" id="rota-obs" placeholder="Ex.: saída de manhã">
-                    </label>
+                <div class="card">
+                    <h2 class="card__title">Falta dar baixa</h2>
+                    <p class="card__note">Quando voltar da rota, diga quanto vendeu de cada item.</p>
+                    <div id="financeiro-pendentes" class="vendas-lista"></div>
                 </div>
 
-                <div class="passo">
-                    <p class="passo-label">1 · Cidade</p>
-                    <div class="cidade-chips" id="cidade-chips"></div>
-                    <select id="carga-cidade" class="hidden" aria-hidden="true"></select>
+                <div class="card">
+                    <h2 class="card__title">Já contado neste dia</h2>
+                    <p class="card__note">Baixas e vendas da loja que já entraram no total.</p>
+                    <div id="financeiro-baixadas" class="vendas-lista"></div>
+                </div>
+            </section>
+
+            <!-- VIAGEM -->
+            <section id="tab-rotas" class="admin-page">
+                <div class="card viagem-panel">
+                    <h2 class="card__title">Montar viagem</h2>
+                    <ol class="easy-steps">
+                        <li>Toque na <strong>cidade</strong></li>
+                        <li>Coloque a <strong>quantidade</strong> de cada produto</li>
+                        <li>Aperte <strong>Salvar viagem</strong></li>
+                    </ol>
+
+                    <div class="viagem-topo">
+                        <label>
+                            Data
+                            <input type="date" id="rota-data">
+                        </label>
+                        <label class="grow">
+                            Observação <span class="opcional">(opcional)</span>
+                            <input type="text" id="rota-obs" placeholder="Ex.: saída de manhã">
+                        </label>
+                    </div>
+
+                    <div class="passo">
+                        <p class="passo-label">1 · Cidade</p>
+                        <div class="cidade-chips" id="cidade-chips"></div>
+                        <select id="carga-cidade" class="hidden" aria-hidden="true"></select>
+                    </div>
+
+                    <div class="passo">
+                        <p class="passo-label">2 · Produtos</p>
+                        <input type="search" id="carga-busca" class="busca-grande" placeholder="Buscar produto...">
+                        <div id="lista-produtos-carga" class="lista-produtos-carga"></div>
+                    </div>
+
+                    <div class="viagem-sticky" id="rota-resumo">
+                        <div class="rota-resumo rota-resumo-grande">
+                            <div><span>Peças</span><strong id="draft-pecas">0</strong></div>
+                            <div><span>Valor carga</span><strong id="draft-receita">R$ 0,00</strong></div>
+                            <div><span>Custo</span><strong id="draft-custo">R$ 0,00</strong></div>
+                            <div><span>Se vender tudo</span><strong class="positivo" id="draft-lucro">R$ 0,00</strong></div>
+                        </div>
+                        <button type="button" id="btn-salvar-rota" class="btn btn--primary btn--xl btn--full">3 · Salvar viagem</button>
+                    </div>
                 </div>
 
-                <div class="passo">
-                    <p class="passo-label">2 · Produtos</p>
-                    <input type="search" id="carga-busca" class="busca-grande" placeholder="Buscar produto...">
-                    <div id="lista-produtos-carga" class="lista-produtos-carga"></div>
-                </div>
+                <details class="card cidades-config">
+                    <summary>Trocar nomes das cidades</summary>
+                    <div class="cidades-grid" id="cidades-grid"></div>
+                    <button type="button" id="btn-salvar-cidades" class="btn btn--secondary">Salvar cidades</button>
+                </details>
 
-                <div class="viagem-sticky" id="rota-resumo">
+                <div class="card">
+                    <h2 class="card__title">Viagens salvas</h2>
+                    <p class="card__note">Depois da rota: <strong>Dar baixa</strong> → diga quanto vendeu.</p>
+                    <div id="rotas-lista" class="vendas-lista"></div>
+                </div>
+            </section>
+
+            <dialog id="baixa-modal" class="baixa-modal">
+                <form method="dialog" id="baixa-form" class="baixa-form">
+                    <header class="baixa-header">
+                        <div>
+                            <h2>Dar baixa da viagem</h2>
+                            <p id="baixa-subtitulo">Informe quanto levou e quanto vendeu de cada item.</p>
+                        </div>
+                        <div class="baixa-header__actions">
+                            <button type="button" id="btn-ver-rota-baixa" class="btn btn--secondary btn--sm">Ver rota</button>
+                            <button type="button" id="btn-fechar-baixa" class="btn btn--secondary btn--sm">Fechar</button>
+                        </div>
+                    </header>
+                    <div id="baixa-rota-detalhe" class="baixa-rota-detalhe hidden" hidden></div>
+                    <div id="baixa-lista" class="baixa-lista"></div>
                     <div class="rota-resumo rota-resumo-grande">
-                        <div><span>Peças</span><strong id="draft-pecas">0</strong></div>
-                        <div><span>Valor carga</span><strong id="draft-receita">R$ 0,00</strong></div>
-                        <div><span>Custo</span><strong id="draft-custo">R$ 0,00</strong></div>
-                        <div><span>Se vender tudo</span><strong class="positivo" id="draft-lucro">R$ 0,00</strong></div>
+                        <div><span>Vendeu</span><strong id="baixa-pecas">0</strong></div>
+                        <div><span>Receita</span><strong id="baixa-receita">R$ 0,00</strong></div>
+                        <div><span>Custo vendido</span><strong id="baixa-custo">R$ 0,00</strong></div>
+                        <div><span>Lucro real</span><strong class="positivo" id="baixa-lucro">R$ 0,00</strong></div>
                     </div>
-                    <button type="button" id="btn-salvar-rota" class="btn-admin btn-grande btn-salvar-viagem">3 · Salvar viagem</button>
+                    <button type="submit" id="btn-confirmar-baixa" class="btn btn--primary btn--xl btn--full">Confirmar baixa</button>
+                </form>
+            </dialog>
+
+            <dialog id="rota-view-modal" class="baixa-modal rota-view-modal">
+                <div class="baixa-form">
+                    <header class="baixa-header">
+                        <div>
+                            <h2 id="rota-view-titulo">Rota</h2>
+                            <p id="rota-view-subtitulo">Detalhes da viagem por cidade.</p>
+                        </div>
+                        <button type="button" id="btn-fechar-rota-view" class="btn btn--secondary btn--sm">Fechar</button>
+                    </header>
+                    <div id="rota-view-conteudo" class="baixa-rota-detalhe"></div>
                 </div>
-            </div>
+            </dialog>
 
-            <details class="panel-block cidades-config">
-                <summary>Trocar nomes das cidades</summary>
-                <div class="cidades-grid" id="cidades-grid"></div>
-                <button type="button" id="btn-salvar-cidades" class="btn-admin">Salvar cidades</button>
-            </details>
-
-            <div class="panel-block">
-                <h2 class="panel-title">Viagens salvas</h2>
-                <p class="toolbar-note">Depois da rota: <strong>Dar baixa</strong> → diga quanto vendeu.</p>
-                <div id="rotas-lista" class="vendas-lista"></div>
-            </div>
-        </section>
-
-        <dialog id="baixa-modal" class="baixa-modal">
-            <form method="dialog" id="baixa-form" class="baixa-form">
-                <header class="baixa-header">
-                    <div>
-                        <h2>Dar baixa da viagem</h2>
-                        <p id="baixa-subtitulo">Informe quanto levou e quanto vendeu de cada item.</p>
+            <!-- FIADO -->
+            <section id="tab-aprazo" class="admin-page">
+                <div class="card">
+                    <h2 class="card__title">Anotar fiado</h2>
+                    <p class="card__note">Quem ficou pra pagar depois.</p>
+                    <div class="form-row form-row--easy">
+                        <label class="grow">
+                            Nome do cliente
+                            <input type="text" id="aprazo-cliente" placeholder="Nome">
+                        </label>
+                        <label>
+                            Cidade
+                            <select id="aprazo-cidade"></select>
+                        </label>
+                        <label>
+                            Valor (R$)
+                            <input type="number" id="aprazo-valor" min="0" step="0.01" placeholder="0,00" inputmode="decimal">
+                        </label>
+                        <label>
+                            Data
+                            <input type="date" id="aprazo-data">
+                        </label>
+                        <label>
+                            Vence em
+                            <input type="date" id="aprazo-vencimento">
+                        </label>
+                        <label class="grow">
+                            Observação
+                            <input type="text" id="aprazo-obs" placeholder="Opcional">
+                        </label>
+                        <button type="button" id="btn-salvar-aprazo" class="btn btn--primary btn--xl">Salvar fiado</button>
                     </div>
-                    <div class="baixa-header__actions">
-                        <button type="button" id="btn-ver-rota-baixa" class="btn-ghost">Ver rota</button>
-                        <button type="button" id="btn-fechar-baixa" class="btn-ghost">Fechar</button>
+                </div>
+
+                <div class="card">
+                    <div class="card__head">
+                        <h2 class="card__title" style="margin:0">A receber</h2>
+                        <strong class="positivo" id="aprazo-total-pendente">R$ 0,00</strong>
                     </div>
-                </header>
-                <div id="baixa-rota-detalhe" class="baixa-rota-detalhe hidden" hidden></div>
-                <div id="baixa-lista" class="baixa-lista"></div>
-                <div class="rota-resumo rota-resumo-grande">
-                    <div><span>Vendeu</span><strong id="baixa-pecas">0</strong></div>
-                    <div><span>Receita</span><strong id="baixa-receita">R$ 0,00</strong></div>
-                    <div><span>Custo vendido</span><strong id="baixa-custo">R$ 0,00</strong></div>
-                    <div><span>Lucro real</span><strong class="positivo" id="baixa-lucro">R$ 0,00</strong></div>
+                    <div id="aprazo-lista" class="vendas-lista"></div>
                 </div>
-                <button type="submit" id="btn-confirmar-baixa" class="btn-admin btn-grande btn-salvar-viagem">Confirmar baixa</button>
-            </form>
-        </dialog>
+            </section>
 
-        <dialog id="rota-view-modal" class="baixa-modal rota-view-modal">
-            <div class="baixa-form">
-                <header class="baixa-header">
-                    <div>
-                        <h2 id="rota-view-titulo">Rota</h2>
-                        <p id="rota-view-subtitulo">Detalhes da viagem por cidade.</p>
+            <!-- PRODUTOS -->
+            <section id="tab-produtos" class="admin-page">
+                <div class="card">
+                    <h2 class="card__title">Adicionar produto na loja</h2>
+                    <p class="card__note">O item aparece no site na hora.</p>
+                    <div class="form-row form-row--easy">
+                        <label class="grow">
+                            Nome
+                            <input type="text" id="novo-prod-nome" placeholder="Ex.: Queijo canastra especial">
+                        </label>
+                        <label>
+                            Categoria
+                            <select id="novo-prod-categoria"></select>
+                        </label>
+                        <label class="grow">
+                            Detalhes
+                            <input type="text" id="novo-prod-detalhes" placeholder="Ex.: 500g – Meia cura">
+                        </label>
                     </div>
-                    <button type="button" id="btn-fechar-rota-view" class="btn-ghost">Fechar</button>
-                </header>
-                <div id="rota-view-conteudo" class="baixa-rota-detalhe"></div>
-            </div>
-        </dialog>
-
-        <section id="tab-aprazo" class="tab-panel hidden">
-            <div class="panel-block">
-                <h2 class="panel-title">Anotar fiado</h2>
-                <p class="toolbar-note">Quem ficou pra pagar depois.</p>
-                <div class="form-row form-row--easy">
-                    <label class="grow">
-                        Nome do cliente
-                        <input type="text" id="aprazo-cliente" placeholder="Nome">
-                    </label>
-                    <label>
-                        Cidade
-                        <select id="aprazo-cidade"></select>
-                    </label>
-                    <label>
-                        Valor (R$)
-                        <input type="number" id="aprazo-valor" min="0" step="0.01" placeholder="0,00" inputmode="decimal">
-                    </label>
-                    <label>
-                        Data
-                        <input type="date" id="aprazo-data">
-                    </label>
-                    <label>
-                        Vence em
-                        <input type="date" id="aprazo-vencimento">
-                    </label>
-                    <label class="grow">
-                        Observação
-                        <input type="text" id="aprazo-obs" placeholder="Opcional">
-                    </label>
-                    <button type="button" id="btn-salvar-aprazo" class="btn-admin btn-grande">Salvar fiado</button>
-                </div>
-            </div>
-
-            <div class="panel-block">
-                <div class="toolbar" style="justify-content: space-between; align-items: center;">
-                    <h2 class="panel-title" style="margin: 0;">A receber</h2>
-                    <strong class="positivo" id="aprazo-total-pendente">R$ 0,00</strong>
-                </div>
-                <div id="aprazo-lista" class="vendas-lista"></div>
-            </div>
-        </section>
-
-        <section id="tab-produtos" class="tab-panel hidden">
-            <div class="panel-block">
-                <h2 class="panel-title">Adicionar produto no site</h2>
-                <p class="toolbar-note">O item entra na loja na hora, na categoria que você escolher.</p>
-                <div class="form-row form-row--easy">
-                    <label class="grow">
-                        Nome
-                        <input type="text" id="novo-prod-nome" placeholder="Ex.: Queijo canastra especial">
-                    </label>
-                    <label>
-                        Categoria
-                        <select id="novo-prod-categoria"></select>
-                    </label>
-                    <label class="grow">
-                        Detalhes
-                        <input type="text" id="novo-prod-detalhes" placeholder="Ex.: 500g – Meia cura">
-                    </label>
-                </div>
-                <div class="form-row form-row--easy">
-                    <label>
-                        Preço venda (R$)
-                        <input type="number" id="novo-prod-preco" min="0" step="0.01" placeholder="0,00">
-                    </label>
-                    <label>
-                        Custo (R$)
-                        <input type="number" id="novo-prod-custo" min="0" step="0.01" placeholder="0,00">
-                    </label>
-                    <label class="grow">
-                        Foto (opcional)
-                        <input type="file" id="novo-prod-foto" accept="image/jpeg,image/png,image/webp,image/gif">
-                    </label>
-                    <button type="button" id="btn-add-produto" class="btn-admin btn-grande">Adicionar ao site</button>
-                </div>
-                <div id="produtos-custom-lista" class="vendas-lista" style="margin-top: 1rem;"></div>
-            </div>
-
-            <div class="toolbar toolbar--easy">
-                <input type="search" id="busca-produto" placeholder="Buscar produto...">
-                <select id="filtro-categoria">
-                    <option value="">Todas as categorias</option>
-                </select>
-                <button type="button" id="btn-salvar-custos" class="btn-admin btn-grande">Salvar preços</button>
-            </div>
-            <details class="easy-details">
-                <summary>Opções avançadas</summary>
-                <div class="toolbar">
-                    <button type="button" id="btn-reset-precos" class="btn-ghost">Voltar preços do catálogo</button>
-                    <button type="button" id="btn-reset-custos" class="btn-ghost">Voltar custos do PDF</button>
-                </div>
-            </details>
-            <p class="toolbar-note">Preço de <strong>venda</strong> = catálogo Marques Mineiro. Custo = planilha. Lucro = venda − custo.</p>
-            <div class="table-wrap">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Categoria</th>
-                            <th>Custo</th>
-                            <th>Venda</th>
-                            <th>Lucro</th>
-                            <th>%</th>
-                        </tr>
-                    </thead>
-                    <tbody id="produtos-tbody"></tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="tab-mais" class="tab-panel hidden">
-            <div class="panel-block">
-                <h2 class="panel-title">Planilha de custos</h2>
-                <p class="toolbar-note">Custo, Onesio e Atacado da planilha Custo Queijo.</p>
-                <div class="toolbar">
-                    <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
-                </div>
-                <div class="table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Produto</th>
-                                <th>Custo</th>
-                                <th>Onesio</th>
-                                <th>Atacado</th>
-                                <th>Diferença</th>
-                            </tr>
-                        </thead>
-                        <tbody id="planilha-tbody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="panel-block">
-                <div class="toolbar" style="justify-content: space-between; align-items: center;">
-                    <div>
-                        <h2 class="panel-title" style="margin:0">Vendas da loja</h2>
-                        <p class="toolbar-note" style="margin:0.25rem 0 0">Quando o cliente finaliza no WhatsApp.</p>
+                    <div class="form-row form-row--easy">
+                        <label>
+                            Preço venda (R$)
+                            <input type="number" id="novo-prod-preco" min="0" step="0.01" placeholder="0,00">
+                        </label>
+                        <label>
+                            Custo (R$)
+                            <input type="number" id="novo-prod-custo" min="0" step="0.01" placeholder="0,00">
+                        </label>
+                        <label class="grow">
+                            Foto (opcional)
+                            <input type="file" id="novo-prod-foto" accept="image/jpeg,image/png,image/webp,image/gif">
+                        </label>
+                        <button type="button" id="btn-add-produto" class="btn btn--primary btn--xl">Adicionar ao site</button>
                     </div>
-                    <button type="button" id="btn-limpar-vendas" class="btn-ghost danger">Limpar</button>
+                    <div id="produtos-custom-lista" class="vendas-lista" style="margin-top: 1rem;"></div>
                 </div>
-                <div id="vendas-lista" class="vendas-lista"></div>
-            </div>
-        </section>
+
+                <div class="card">
+                    <div class="toolbar toolbar--easy">
+                        <input type="search" id="busca-produto" placeholder="Buscar produto...">
+                        <select id="filtro-categoria">
+                            <option value="">Todas as categorias</option>
+                        </select>
+                        <button type="button" id="btn-salvar-custos" class="btn btn--primary btn--xl">Salvar preços</button>
+                    </div>
+                    <details class="easy-details">
+                        <summary>Opções avançadas</summary>
+                        <div class="toolbar">
+                            <button type="button" id="btn-reset-precos" class="btn btn--secondary">Voltar preços do catálogo</button>
+                            <button type="button" id="btn-reset-custos" class="btn btn--secondary">Voltar custos do PDF</button>
+                        </div>
+                    </details>
+                    <p class="card__note">Mude o preço de venda e aperte <strong>Salvar preços</strong>.</p>
+                    <div class="table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Categoria</th>
+                                    <th>Custo</th>
+                                    <th>Venda</th>
+                                    <th>Lucro</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody id="produtos-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MAIS -->
+            <section id="tab-mais" class="admin-page">
+                <div class="card">
+                    <h2 class="card__title">Planilha de custos</h2>
+                    <p class="card__note">Custo, Onesio e Atacado da planilha.</p>
+                    <div class="toolbar">
+                        <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
+                    </div>
+                    <div class="table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Produto</th>
+                                    <th>Custo</th>
+                                    <th>Onesio</th>
+                                    <th>Atacado</th>
+                                    <th>Diferença</th>
+                                </tr>
+                            </thead>
+                            <tbody id="planilha-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__head">
+                        <div>
+                            <h2 class="card__title" style="margin:0">Vendas da loja</h2>
+                            <p class="card__note" style="margin:0.25rem 0 0">Quando o cliente finaliza no WhatsApp.</p>
+                        </div>
+                        <button type="button" id="btn-limpar-vendas" class="btn btn--danger btn--sm">Limpar</button>
+                    </div>
+                    <div id="vendas-lista" class="vendas-lista"></div>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <script src="custos.js?v=19"></script>
-    <script src="script.js?v=19"></script>
-    <script src="admin.js?v=19"></script>
+    <script src="custos.js?v=20"></script>
+    <script src="script.js?v=20"></script>
+    <script src="admin.js?v=20"></script>
 </body>
 
 </html>
