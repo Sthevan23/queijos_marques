@@ -78,13 +78,17 @@ async function mostrarApp() {
     document.getElementById("financeiro-data").value = hojeISO();
 
     setSyncStatus("Carregando viagens do site...");
+    const syncProdutos = await sincronizarProdutosCustom(
+        typeof PRODUTOS_BASE !== "undefined" ? PRODUTOS_BASE : produtos.filter((p) => !p.custom)
+    );
     const sync = await inicializarRotasServidor();
     const syncPrecos = await sincronizarPrecosDoServidor(produtos, { migrarLocal: true });
     precosAtuais = loadPrecos();
-    if (sync.ok && syncPrecos.ok) {
-        setSyncStatus(`Viagens e preços salvos no site · ${sync.total} viagens`);
+    custosAtuais = loadCustos();
+    if (sync.ok && syncPrecos.ok && syncProdutos.ok) {
+        setSyncStatus(`Viagens, preços e produtos no site · ${sync.total} viagens`);
     } else if (sync.ok) {
-        setSyncStatus(`Viagens no site · preços só neste aparelho (${syncPrecos.erro || "erro"})`);
+        setSyncStatus(`Viagens no site · checar preços/produtos (${syncPrecos.erro || syncProdutos.erro || "erro"})`);
     } else {
         setSyncStatus(`Atenção: salvando só neste aparelho (${sync.erro || "sem conexão"})`);
     }
@@ -99,6 +103,7 @@ async function mostrarApp() {
     renderRotas();
     renderAprazo();
     renderProdutos();
+    renderProdutosCustomLista();
     renderPlanilha();
     renderVendas();
     updateEasyBaixaHint();
@@ -111,13 +116,83 @@ function setSyncStatus(texto) {
 
 function fillCategorias() {
     const select = document.getElementById("filtro-categoria");
-    if (select.options.length > 1) return;
+    const novoCat = document.getElementById("novo-prod-categoria");
     const cats = [...new Set(produtos.map((p) => p.categoria))].sort();
-    cats.forEach((c) => {
-        const opt = document.createElement("option");
-        opt.value = c;
-        opt.textContent = c;
-        select.appendChild(opt);
+
+    if (select && select.options.length <= 1) {
+        cats.forEach((c) => {
+            const opt = document.createElement("option");
+            opt.value = c;
+            opt.textContent = c;
+            select.appendChild(opt);
+        });
+    }
+
+    if (novoCat) {
+        const atual = novoCat.value;
+        novoCat.innerHTML = "";
+        cats.forEach((c) => {
+            const opt = document.createElement("option");
+            opt.value = c;
+            opt.textContent = c;
+            novoCat.appendChild(opt);
+        });
+        const outra = document.createElement("option");
+        outra.value = "__nova__";
+        outra.textContent = "Outra categoria…";
+        novoCat.appendChild(outra);
+        if ([...novoCat.options].some((o) => o.value === atual)) novoCat.value = atual;
+    }
+}
+
+function renderProdutosCustomLista() {
+    const box = document.getElementById("produtos-custom-lista");
+    if (!box) return;
+    const extras = produtos.filter((p) => p.custom || Number(p.id) >= 1000);
+    if (!extras.length) {
+        box.innerHTML = `<p class="toolbar-note" style="margin:0">Nenhum produto novo ainda. Cadastre acima para aparecer na loja.</p>`;
+        return;
+    }
+    box.innerHTML = `
+        <h3 class="panel-title" style="font-size:1rem;margin:0 0 0.5rem">Produtos que você adicionou</h3>
+                ${extras
+            .map(
+                (p) => `
+            <article class="venda-card">
+                <header>
+                    <div>
+                        <strong>${p.nome}</strong>
+                        <p>${p.categoria} · ${p.detalhes || "—"}</p>
+                    </div>
+                    <strong>${formatBRLAdmin(p.preco)}</strong>
+                </header>
+                <div class="card-actions">
+                    <button type="button" class="btn-ghost danger" data-remover-produto="${p.id}">Remover do site</button>
+                </div>
+            </article>`
+            )
+            .join("")}
+    `;
+    box.querySelectorAll("[data-remover-produto]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            const id = Number(btn.dataset.removerProduto);
+            if (!confirm("Remover este produto da loja?")) return;
+            try {
+                await removerProdutoCustom(id);
+                await sincronizarProdutosCustom(
+                    typeof PRODUTOS_BASE !== "undefined" ? PRODUTOS_BASE : produtos.filter((p) => !p.custom)
+                );
+                precosAtuais = loadPrecos();
+                custosAtuais = loadCustos();
+                fillCategorias();
+                renderProdutosCustomLista();
+                renderProdutos();
+                renderListaProdutosCarga();
+                alert("Produto removido da loja.");
+            } catch (e) {
+                alert("Não removeu: " + (e.message || e));
+            }
+        });
     });
 }
 
@@ -1055,6 +1130,85 @@ document.addEventListener("DOMContentLoaded", () => {
         renderAprazo();
         renderStats();
         alert("Fiado anotado!");
+    });
+
+    document.getElementById("btn-add-produto").addEventListener("click", async () => {
+        const nome = document.getElementById("novo-prod-nome").value.trim();
+        let categoria = document.getElementById("novo-prod-categoria").value;
+        const detalhes = document.getElementById("novo-prod-detalhes").value.trim();
+        const preco = Number(document.getElementById("novo-prod-preco").value) || 0;
+        const custo = Number(document.getElementById("novo-prod-custo").value) || 0;
+        const fotoInput = document.getElementById("novo-prod-foto");
+
+        if (!nome) {
+            alert("Digite o nome do produto.");
+            return;
+        }
+        if (categoria === "__nova__") {
+            categoria = (prompt("Nome da nova categoria:") || "").trim();
+            if (!categoria) return;
+        }
+        if (preco <= 0) {
+            alert("Informe o preço de venda.");
+            return;
+        }
+
+        const btn = document.getElementById("btn-add-produto");
+        btn.disabled = true;
+        btn.textContent = "Salvando…";
+        try {
+            let imagem = "assets/imagens/tradicionais/foto1.png";
+            if (fotoInput.files && fotoInput.files[0]) {
+                imagem = await uploadImagemProduto(fotoInput.files[0]);
+            }
+            const criado = await criarProdutoCustom({
+                nome,
+                categoria,
+                detalhes,
+                preco,
+                custo,
+                imagem
+            });
+
+            precosAtuais[criado.id] = criado.preco;
+            custosAtuais[criado.id] = criado.custo;
+            savePrecos({ ...loadPrecos(), [String(criado.id)]: criado.preco });
+            saveCustos(custosAtuais);
+
+            await sincronizarProdutosCustom(
+                typeof PRODUTOS_BASE !== "undefined" ? PRODUTOS_BASE : produtos.filter((p) => !p.custom)
+            );
+            await sincronizarPrecosDoServidor(produtos);
+            precosAtuais = loadPrecos();
+            custosAtuais = loadCustos();
+
+            document.getElementById("novo-prod-nome").value = "";
+            document.getElementById("novo-prod-detalhes").value = "";
+            document.getElementById("novo-prod-preco").value = "";
+            document.getElementById("novo-prod-custo").value = "";
+            fotoInput.value = "";
+
+            // Recarrega filtro de categorias
+            const filtro = document.getElementById("filtro-categoria");
+            if (filtro) {
+                const selected = filtro.value;
+                filtro.innerHTML = `<option value="">Todas as categorias</option>`;
+                fillCategorias();
+                filtro.value = selected;
+            } else {
+                fillCategorias();
+            }
+
+            renderProdutosCustomLista();
+            renderProdutos();
+            renderListaProdutosCarga();
+            alert(`"${criado.nome}" adicionado na loja.`);
+        } catch (e) {
+            alert("Não deu pra adicionar: " + (e.message || e));
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "Adicionar ao site";
+        }
     });
 
     document.getElementById("btn-salvar-custos").addEventListener("click", async () => {

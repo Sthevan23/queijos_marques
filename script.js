@@ -845,7 +845,7 @@ class Doce extends Produto {
 }
 
 // Lista de produtos combinando todas as categorias
-const produtos = [
+const PRODUTOS_BASE = [
     ...QueijoTradicional.itens,
     ...Desidratado.itens,
     ...QueijoEspecial.itens,
@@ -856,6 +856,7 @@ const produtos = [
     ...Salaminho.itens,
     ...Doce.itens
 ];
+let produtos = PRODUTOS_BASE.slice();
 
 // Aplica preços alterados no admin (localStorage) no catálogo do site
 if (typeof aplicarPrecosCatalogo === "function") {
@@ -1393,6 +1394,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isLoja = !!(document.getElementById("catalogo") || document.getElementById("cartItems"));
     if (!isLoja) return;
 
+    if (typeof sincronizarProdutosCustom === "function") {
+        await sincronizarProdutosCustom(PRODUTOS_BASE);
+    }
     if (typeof sincronizarPrecosDoServidor === "function") {
         await sincronizarPrecosDoServidor(produtos);
     } else if (typeof aplicarPrecosCatalogo === "function") {

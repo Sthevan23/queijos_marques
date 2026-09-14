@@ -402,6 +402,140 @@ async function resetPrecosCatalogo(lista) {
     }
 }
 
+/* ——— Produtos cadastrados no admin ——— */
+function apiProdutosUrl() {
+    try {
+        return new URL("api/produtos.php", window.location.href).href;
+    } catch {
+        return "api/produtos.php";
+    }
+}
+
+function apiUploadImagemUrl() {
+    try {
+        return new URL("api/upload_imagem.php", window.location.href).href;
+    } catch {
+        return "api/upload_imagem.php";
+    }
+}
+
+function normalizarProdutoCustom(p) {
+    return {
+        id: Number(p.id),
+        categoria: String(p.categoria || "Diversos"),
+        nome: String(p.nome || ""),
+        detalhes: String(p.detalhes || ""),
+        preco: Number(p.preco) || 0,
+        custo: Number(p.custo) || 0,
+        imagem: String(p.imagem || "assets/imagens/tradicionais/foto1.png"),
+        custom: true,
+        precoBase: Number(p.preco) || 0
+    };
+}
+
+async function fetchProdutosCustom(todos = false) {
+    const url = apiProdutosUrl() + (todos ? "?todos=1" : "");
+    const headers = {};
+    if (todos) headers["X-Admin-Pin"] = ADMIN_API_PIN;
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers });
+    const json = await res.json().catch(() => ({ ok: false }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return Array.isArray(json.data) ? json.data.map(normalizarProdutoCustom) : [];
+}
+
+async function criarProdutoCustom(payload) {
+    const res = await fetch(apiProdutosUrl(), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Pin": ADMIN_API_PIN
+        },
+        body: JSON.stringify(payload)
+    });
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return normalizarProdutoCustom(json.data);
+}
+
+async function removerProdutoCustom(id) {
+    const res = await fetch(apiProdutosUrl() + `?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: { "X-Admin-Pin": ADMIN_API_PIN }
+    });
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return json.data;
+}
+
+async function uploadImagemProduto(file) {
+    const fd = new FormData();
+    fd.append("imagem", file);
+    const res = await fetch(apiUploadImagemUrl(), {
+        method: "POST",
+        headers: { "X-Admin-Pin": ADMIN_API_PIN },
+        body: fd
+    });
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return json.data.imagem || json.data.url;
+}
+
+/** Remove extras antigos e injeta os do servidor na lista global `produtos`. */
+function mesclarProdutosCustomNaLista(listaCustom, listaBase) {
+    const base = Array.isArray(listaBase) ? listaBase : [];
+    const extras = (listaCustom || []).map(normalizarProdutoCustom);
+    const mesclados = base.filter((p) => !p.custom && Number(p.id) < 1000).concat(extras);
+
+    if (typeof produtos !== "undefined" && Array.isArray(produtos)) {
+        produtos.length = 0;
+        mesclados.forEach((p) => produtos.push(p));
+    }
+
+    // Custos dos extras
+    try {
+        const custos = loadCustos();
+        let mudou = false;
+        extras.forEach((p) => {
+            if (p.custo != null && Number.isFinite(Number(p.custo))) {
+                custos[p.id] = Number(p.custo);
+                mudou = true;
+            }
+        });
+        if (mudou) saveCustos(custos);
+    } catch (e) {}
+
+    if (typeof aplicarPrecosCatalogo === "function") {
+        aplicarPrecosCatalogo(typeof produtos !== "undefined" ? produtos : mesclados);
+    }
+    return typeof produtos !== "undefined" ? produtos : mesclados;
+}
+
+async function sincronizarProdutosCustom(listaBase) {
+    try {
+        const remoto = await fetchProdutosCustom(false);
+        const lista = mesclarProdutosCustomNaLista(remoto, listaBase);
+        return { ok: true, produtos: remoto, lista };
+    } catch (e) {
+        return { ok: false, erro: e.message || "sem conexão", produtos: [], lista: listaBase };
+    }
+}
+
 function loadVendas() {
     try {
         const saved = localStorage.getItem(VENDAS_STORAGE_KEY);

@@ -43,6 +43,23 @@ CREATE TABLE IF NOT EXISTS precos_venda (
   PRIMARY KEY (produto_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Produtos extras cadastrados pelo admin (IDs a partir de 1000)
+CREATE TABLE IF NOT EXISTS produtos_custom (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(180) NOT NULL,
+  categoria VARCHAR(120) NOT NULL DEFAULT '',
+  detalhes VARCHAR(255) NOT NULL DEFAULT '',
+  preco DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  custo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  imagem VARCHAR(500) NOT NULL DEFAULT 'assets/imagens/tradicionais/foto1.png',
+  ativo TINYINT(1) NOT NULL DEFAULT 1,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_produtos_custom_ativo (ativo),
+  KEY idx_produtos_custom_categoria (categoria)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1000;
+
 -- ---------------------------------------------------------
 -- Produtos (espelho do catálogo / custos)
 -- ---------------------------------------------------------
