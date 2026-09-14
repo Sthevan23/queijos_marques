@@ -1074,13 +1074,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("btn-reset-precos").addEventListener("click", () => {
-        if (!confirm("Restaurar os preços da coluna Onesio da planilha?")) return;
+        if (!confirm("Restaurar os preços do catálogo Marques Mineiro?")) return;
         resetPrecosCatalogo(produtos);
         precosAtuais = {};
         renderProdutos();
         renderListaProdutosCarga();
         renderTotaisCarga();
-        alert("Preços Onesio aplicados ao catálogo.");
+        alert("Preços do catálogo aplicados na loja.");
     });
 
     document.getElementById("btn-reset-custos").addEventListener("click", () => {

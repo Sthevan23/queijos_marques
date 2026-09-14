@@ -571,7 +571,7 @@ class Diversos extends Produto {
             categoria: "Diversos",
             nome: "Manteiga de Leite caipira",
             detalhes: "200g – Cremosa e artesanal",
-            preco: 48.00,
+            preco: 40.00,
             imagem: "assets/imagens/diversos/foto7.png"
         },
         {
