@@ -1,14 +1,14 @@
 -- =========================================================
 -- Marques Mineiro — schema MySQL (Hostinger)
--- Banco: u586160337_marquesmineiro
+-- Banco: u586160337_queijos
 -- Domínio: marquesmineiro.com.br
 -- =========================================================
 -- Como usar:
--- 1) phpMyAdmin → selecionar u586160337_marquesmineiro
+-- 1) phpMyAdmin → selecionar u586160337_queijos (à esquerda)
 -- 2) Aba SQL → colar este arquivo → Executar
 -- =========================================================
 
-USE `u586160337_marquesmineiro`;
+USE `u586160337_queijos`;
 
 SET NAMES utf8mb4;
 SET time_zone = '-03:00';
