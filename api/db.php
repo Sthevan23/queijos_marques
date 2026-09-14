@@ -48,7 +48,6 @@ function db(): PDO
         echo json_encode([
             'ok' => false,
             'erro' => 'Falha na conexão com o banco.',
-            'detalhe' => $e->getMessage(),
         ]);
         exit;
     }
