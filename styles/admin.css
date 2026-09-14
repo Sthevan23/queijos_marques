@@ -1,21 +1,22 @@
-/* Marques Mineiro — Painel estilo Aurora (simples pro celular) */
+/* Marques Mineiro — Painel limpo (verde, sem marrom) */
 :root {
-    --brand-dark: #2C1810;
-    --brand-primary: #A0522D;
-    --brand-accent: #E67E22;
-    --brand-light: #FDFBF7;
-    --bg: #F3EEE7;
-    --cream: #FFF8F0;
-    --texto: #2C1810;
-    --texto-claro: #6B5344;
+    --brand-dark: #0F2F26;
+    --brand-primary: #1F7A5C;
+    --brand-accent: #2FA67A;
+    --brand-light: #F7FAF8;
+    --bg: #EEF3F0;
+    --cream: #F4F8F6;
+    --texto: #15231F;
+    --texto-claro: #5A6F67;
     --branco: #fff;
-    --success: #2E7D32;
+    --success: #1B8A4C;
     --danger: #C62828;
-    --warning: #E67E22;
+    --warning: #D97706;
+    --border: #D7E3DC;
     --sidebar-width: 260px;
     --header-height: 64px;
-    --sombra: 0 2px 14px rgba(44, 24, 16, 0.08);
-    --radius: 12px;
+    --sombra: 0 2px 14px rgba(15, 47, 38, 0.07);
+    --radius: 14px;
     --font-title: "Fraunces", Georgia, serif;
     --font-body: "Outfit", system-ui, sans-serif;
     --transicao: all 0.25s ease;
@@ -50,8 +51,8 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     transition: var(--transicao);
 }
 .btn--primary { background: var(--brand-primary); color: #fff; }
-.btn--primary:hover { background: #8a4324; }
-.btn--secondary { background: var(--cream); color: var(--texto); border: 1px solid #e4d5c5; }
+.btn--primary:hover { background: #18634a; }
+.btn--secondary { background: var(--cream); color: var(--texto); border: 1px solid var(--border); }
 .btn--danger { background: var(--danger); color: #fff; }
 .btn--sm { padding: 8px 14px; font-size: 0.85rem; }
 .btn--xl { padding: 16px 22px; font-size: 1.05rem; min-height: 54px; }
@@ -74,7 +75,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     border-radius: 8px;
     font-weight: 600;
     color: var(--texto-claro);
-    border: 1px solid #e4d5c5;
+    border: 1px solid var(--border);
     background: var(--cream);
 }
 .btn-ghost.danger { color: var(--danger); border-color: #f5c2c2; }
@@ -89,8 +90,8 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     align-items: center;
     justify-content: center;
     background:
-        radial-gradient(circle at 30% 20%, rgba(230, 126, 34, 0.35), transparent 50%),
-        linear-gradient(145deg, #3d2218, #2C1810 55%, #A0522D);
+        radial-gradient(circle at 30% 20%, rgba(47, 166, 122, 0.28), transparent 50%),
+        linear-gradient(145deg, #0B241D, #0F2F26 55%, #1F7A5C);
 }
 .login__overlay { position: absolute; inset: 0; }
 .login__visual-content {
@@ -142,7 +143,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .custo-input input {
     width: 100%;
     padding: 12px 14px;
-    border: 1.5px solid #e0d4c8;
+    border: 1.5px solid var(--border);
     border-radius: 10px;
     font: inherit;
     background: #fff;
@@ -152,7 +153,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .form-row label select:focus {
     outline: none;
     border-color: var(--brand-primary);
-    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.12);
+    box-shadow: 0 0 0 3px rgba(31, 122, 92, 0.14);
 }
 
 @media (min-width: 900px) {
@@ -223,11 +224,11 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     position: sticky;
     top: 0;
     z-index: 30;
-    background: rgba(243, 238, 231, 0.94);
+    background: rgba(238, 243, 240, 0.94);
     backdrop-filter: blur(10px);
     margin: 0 -18px 18px;
     padding: 0 18px;
-    border-bottom: 1px solid #e7dccf;
+    border-bottom: 1px solid var(--border);
 }
 .sidebar-toggle {
     display: none;
@@ -235,7 +236,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     height: 42px;
     border-radius: 10px;
     background: #fff;
-    border: 1px solid #e4d5c5;
+    border: 1px solid var(--border);
     color: var(--brand-dark);
     font-size: 1.1rem;
 }
@@ -252,7 +253,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     padding: 7px 12px;
     border-radius: 999px;
     background: #fff;
-    border: 1px solid #e4d5c5;
+    border: 1px solid var(--border);
     color: var(--texto-claro);
     font-size: 0.78rem;
     font-weight: 600;
@@ -264,6 +265,28 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 
 .admin-page { display: none; }
 .admin-page.active { display: block; }
+
+.page-section { margin-bottom: 22px; }
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texto-claro);
+    margin: 0 0 10px 2px;
+}
+.card-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+@media (min-width: 900px) {
+    .card-grid-2 { grid-template-columns: 1fr 1fr; }
+}
+.icon-money { background: #D9F2E7; color: #1F7A5C; }
+.icon-profit { background: #E8F5E9; color: #1B8A4C; }
+.icon-fiado { background: #E3F2FD; color: #1565C0; }
+.icon-alert { background: #FFEBEE; color: #C62828; }
 
 .sidebar-backdrop {
     display: none;
@@ -370,7 +393,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .easy-action {
     text-align: left;
     background: #fff;
-    border: 2px solid #eadfcf;
+    border: 2px solid var(--border);
     border-radius: 14px;
     padding: 18px 16px;
     box-shadow: var(--sombra);
@@ -387,7 +410,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .easy-action strong { font-size: 1.1rem; }
 .easy-action span { color: var(--texto-claro); font-size: 0.88rem; }
 .easy-action--main {
-    background: linear-gradient(135deg, var(--brand-primary), #8a4324);
+    background: linear-gradient(135deg, var(--brand-primary), #18634a);
     border-color: transparent;
     color: #fff;
 }
@@ -410,7 +433,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 }
 .fin-card span { display: block; font-size: 0.8rem; color: var(--texto-claro); font-weight: 600; }
 .fin-card strong { display: block; font-size: 1.2rem; margin-top: 4px; }
-.fin-card.destaque { background: #FDE8D0; }
+.fin-card.destaque { background: #D9F2E7; }
 .fin-card.alerta { background: #FFEBEE; }
 .positivo { color: var(--success); }
 
@@ -443,7 +466,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .admin-table th, .admin-table td {
     padding: 12px 10px;
     text-align: left;
-    border-bottom: 1px solid #efe6dc;
+    border-bottom: 1px solid var(--border);
     vertical-align: middle;
 }
 .admin-table th {
@@ -487,7 +510,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .cidade-chip {
     padding: 12px 16px;
     border-radius: 999px;
-    border: 2px solid #e4d5c5;
+    border: 2px solid var(--border);
     background: #fff;
     font-weight: 700;
     font-size: 0.95rem;
@@ -502,7 +525,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .lista-produtos-carga {
     max-height: 52vh;
     overflow: auto;
-    border: 1px solid #efe6dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     background: #fff;
 }
@@ -521,9 +544,9 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     align-items: center;
     gap: 10px;
     padding: 12px;
-    border-bottom: 1px solid #f2ebe3;
+    border-bottom: 1px solid #EAF1ED;
 }
-.carga-prod-row.tem-qtd { background: #FFF6EB; }
+.carga-prod-row.tem-qtd { background: #E8F6EF; }
 .carga-prod-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .carga-prod-info strong { font-size: 0.95rem; }
 .carga-prod-info span { color: var(--texto-claro); font-size: 0.85rem; }
@@ -538,7 +561,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     width: 64px;
     text-align: center;
     padding: 10px 6px;
-    border: 1.5px solid #e0d4c8;
+    border: 1.5px solid var(--border);
     border-radius: 10px;
     font-weight: 700;
     font-size: 1rem;
@@ -548,7 +571,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     height: 42px;
     border-radius: 10px;
     background: var(--cream);
-    border: 1px solid #e4d5c5;
+    border: 1px solid var(--border);
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--brand-dark);
@@ -561,7 +584,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     backdrop-filter: blur(8px);
     padding-top: 12px;
     margin-top: 12px;
-    border-top: 1px solid #efe6dc;
+    border-top: 1px solid var(--border);
 }
 .rota-resumo, .rota-resumo-grande {
     display: grid;
@@ -603,14 +626,14 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .cidades-grid input {
     width: 100%;
     padding: 12px;
-    border: 1.5px solid #e0d4c8;
+    border: 1.5px solid var(--border);
     border-radius: 10px;
 }
 
 /* —— Listas / cards de venda —— */
 .vendas-lista { display: flex; flex-direction: column; gap: 10px; }
 .venda-card {
-    border: 1px solid #efe6dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 14px;
     background: var(--cream);
@@ -648,7 +671,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     max-height: 92vh;
     box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
-.baixa-modal::backdrop { background: rgba(44, 24, 16, 0.45); }
+.baixa-modal::backdrop { background: rgba(15, 47, 38, 0.45); }
 .baixa-form { padding: 18px; }
 .baixa-header {
     display: flex;
@@ -689,14 +712,14 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 }
 .baixa-inputs input {
     padding: 10px;
-    border: 1.5px solid #e0d4c8;
+    border: 1.5px solid var(--border);
     border-radius: 10px;
     font: inherit;
     font-weight: 700;
 }
 .baixa-rota-detalhe {
     background: #fff;
-    border: 1px solid #efe6dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 12px;
     margin-bottom: 12px;
