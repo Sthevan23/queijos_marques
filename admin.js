@@ -69,13 +69,21 @@ function setQtdCarga(cidade, produtoId, qtd) {
     }
 }
 
-function mostrarApp() {
+async function mostrarApp() {
     document.getElementById("login-screen").classList.add("hidden");
     document.getElementById("admin-app").classList.remove("hidden");
 
     document.getElementById("rota-data").value = hojeISO();
     document.getElementById("aprazo-data").value = hojeISO();
     document.getElementById("financeiro-data").value = hojeISO();
+
+    setSyncStatus("Carregando viagens do site...");
+    const sync = await inicializarRotasServidor();
+    if (sync.ok) {
+        setSyncStatus(`Viagens salvas no site · ${sync.total} no banco`);
+    } else {
+        setSyncStatus(`Atenção: salvando só neste aparelho (${sync.erro || "sem conexão"})`);
+    }
 
     renderStats();
     fillCategorias();
@@ -90,6 +98,11 @@ function mostrarApp() {
     renderPlanilha();
     renderVendas();
     updateEasyBaixaHint();
+}
+
+function setSyncStatus(texto) {
+    const el = document.getElementById("sync-status");
+    if (el) el.textContent = texto;
 }
 
 function fillCategorias() {
@@ -599,12 +612,15 @@ function renderRotas() {
     });
 
     box.querySelectorAll("[data-del-rota]").forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
             if (!confirm("Excluir esta viagem?")) return;
-            removerRota(Number(btn.dataset.delRota));
+            const res = await removerRota(Number(btn.dataset.delRota));
             renderRotas();
             renderFinanceiro();
             renderStats();
+            if (res && res.salvaNoSite === false) {
+                alert("Excluiu neste aparelho, mas não no site.\n" + (res.erro || ""));
+            }
         });
     });
 }
@@ -790,7 +806,7 @@ function fecharBaixa() {
     document.getElementById("baixa-modal").close();
 }
 
-function confirmarBaixa() {
+async function confirmarBaixa() {
     if (!rotaBaixaId) return;
     const vendas = {};
     const levou = {};
@@ -800,12 +816,16 @@ function confirmarBaixa() {
     document.querySelectorAll("#baixa-lista [data-baixa-levou-key]").forEach((input) => {
         levou[input.dataset.baixaLevouKey] = Number(input.value) || 0;
     });
-    registrarBaixaRota(rotaBaixaId, vendas, levou);
+    const res = await registrarBaixaRota(rotaBaixaId, vendas, levou);
     fecharBaixa();
     renderRotas();
     renderFinanceiro();
     renderStats();
-    alert("Baixa ok! O dinheiro do dia já foi atualizado.");
+    if (res && res.salvaNoSite) {
+        alert("Baixa ok! Já está salva no site.");
+    } else {
+        alert("Baixa ficou só neste aparelho.\n" + ((res && res.erro) || "Confira a conexão / banco."));
+    }
 }
 
 function renderAprazo() {
@@ -958,27 +978,41 @@ document.addEventListener("DOMContentLoaded", () => {
         renderListaProdutosCarga();
     });
 
-    document.getElementById("btn-salvar-rota").addEventListener("click", () => {
+    document.getElementById("btn-salvar-rota").addEventListener("click", async () => {
         if (!cargaDraft.length) {
             alert("Coloque a quantidade de pelo menos um produto.");
             return;
         }
-        criarRota({
-            data: document.getElementById("rota-data").value || hojeISO(),
-            observacao: document.getElementById("rota-obs").value.trim(),
-            itens: cargaDraft
-        });
-        cargaDraft = [];
-        document.getElementById("rota-obs").value = "";
-        document.getElementById("carga-busca").value = "";
-        renderCidadeChips();
-        renderListaProdutosCarga();
-        renderTotaisCarga();
-        renderRotas();
-        renderFinanceiro();
-        renderStats();
-        alert("Viagem salva!\nDe noite: Início → Dar baixa.");
-        showTab("financeiro");
+        const btn = document.getElementById("btn-salvar-rota");
+        btn.disabled = true;
+        btn.textContent = "Salvando...";
+        try {
+            const res = await criarRota({
+                data: document.getElementById("rota-data").value || hojeISO(),
+                observacao: document.getElementById("rota-obs").value.trim(),
+                itens: cargaDraft
+            });
+            cargaDraft = [];
+            document.getElementById("rota-obs").value = "";
+            document.getElementById("carga-busca").value = "";
+            renderCidadeChips();
+            renderListaProdutosCarga();
+            renderTotaisCarga();
+            renderRotas();
+            renderFinanceiro();
+            renderStats();
+            if (res.salvaNoSite) {
+                setSyncStatus("Viagens salvas no site");
+                alert("Viagem salva no site!\nDe noite: Início → Dar baixa.");
+            } else {
+                setSyncStatus("Salvando só neste aparelho");
+                alert("Viagem ficou só neste celular.\nMotivo: " + (res.erro || "API/banco offline") + "\n\nRode o SQL no phpMyAdmin se ainda não rodou.");
+            }
+            showTab("financeiro");
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "3 · Salvar viagem";
+        }
     });
 
     document.querySelectorAll("[data-go-tab]").forEach((btn) => {

@@ -359,6 +359,35 @@ const CIDADES_STORAGE_KEY = "marques_cidades";
 const ROTAS_STORAGE_KEY = "marques_rotas";
 const APRAZO_STORAGE_KEY = "marques_aprazo";
 const CIDADES_PADRAO = ["Rio Verde", "Rio de Janeiro", "Goiânia", "Três Lagoas"];
+const ADMIN_API_PIN = typeof ADMIN_PIN !== "undefined" ? ADMIN_PIN : "2025";
+
+function apiRotasUrl() {
+    try {
+        return new URL("api/rotas.php", window.location.href).href;
+    } catch {
+        return "api/rotas.php";
+    }
+}
+
+async function apiRotas(method, body = null, query = "") {
+    const opts = {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Pin": ADMIN_API_PIN
+        }
+    };
+    if (body != null) opts.body = JSON.stringify(body);
+    const res = await fetch(apiRotasUrl() + query, opts);
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        err.payload = json;
+        throw err;
+    }
+    return json.data;
+}
 
 function loadCidades() {
     try {
@@ -394,6 +423,67 @@ function saveRotas(rotas) {
     localStorage.setItem(ROTAS_STORAGE_KEY, JSON.stringify(rotas));
 }
 
+/** Busca viagens no servidor e atualiza o cache local. */
+async function syncRotasDoServidor() {
+    const remoto = await apiRotas("GET");
+    const lista = Array.isArray(remoto) ? remoto : [];
+    saveRotas(lista);
+    return lista;
+}
+
+/**
+ * Se o servidor estiver vazio e o celular tiver viagens locais,
+ * envia as locais para o banco (migração única).
+ */
+async function migrarRotasLocaisSePreciso(remoto) {
+    const locais = loadRotas();
+    if ((remoto && remoto.length) || !locais.length) return remoto || [];
+
+    const enviadas = [];
+    for (const r of locais) {
+        try {
+            const criada = await apiRotas("POST", {
+                data: r.data,
+                observacao: r.observacao || "",
+                itens: r.itens || []
+            });
+            if (r.status === "baixada") {
+                const atualizada = await apiRotas("PUT", {
+                    id: criada.id,
+                    status: "baixada",
+                    baixadaEm: r.baixadaEm || r.data,
+                    observacao: r.observacao || "",
+                    itens: (r.itens || []).map((i) => ({
+                        ...i,
+                        qtdVendida: i.qtdVendida || 0
+                    }))
+                });
+                enviadas.push(atualizada);
+            } else {
+                enviadas.push(criada);
+            }
+        } catch (e) {
+            console.warn("Falha ao migrar rota local:", e);
+        }
+    }
+    if (enviadas.length) saveRotas(enviadas);
+    return enviadas;
+}
+
+async function inicializarRotasServidor() {
+    try {
+        let remoto = await syncRotasDoServidor();
+        if (!remoto.length) {
+            remoto = await migrarRotasLocaisSePreciso(remoto);
+            if (remoto.length) remoto = await syncRotasDoServidor();
+        }
+        return { ok: true, total: remoto.length };
+    } catch (e) {
+        console.warn("API de rotas indisponível, usando só este aparelho:", e);
+        return { ok: false, erro: e.message || String(e), total: loadRotas().length };
+    }
+}
+
 function calcCargaTotais(itens) {
     const totalPecas = itens.reduce((s, i) => s + (Number(i.qtd) || 0), 0);
     const totalCusto = itens.reduce((s, i) => s + (Number(i.custo) || 0) * (Number(i.qtd) || 0), 0);
@@ -406,9 +496,9 @@ function calcCargaTotais(itens) {
     };
 }
 
-function criarRota({ data, observacao, itens }) {
+function montarRotaLocal({ data, observacao, itens }) {
     const totais = calcCargaTotais(itens);
-    const rota = {
+    return {
         id: Date.now(),
         data: data || new Date().toISOString().slice(0, 10),
         observacao: observacao || "",
@@ -429,14 +519,48 @@ function criarRota({ data, observacao, itens }) {
         lucroReal: 0,
         baixadaEm: null
     };
-    const rotas = loadRotas();
-    rotas.unshift(rota);
-    saveRotas(rotas);
-    return rota;
 }
 
-function removerRota(id) {
+async function criarRota({ data, observacao, itens }) {
+    const payload = {
+        data: data || new Date().toISOString().slice(0, 10),
+        observacao: observacao || "",
+        itens: itens.map((i) => ({
+            cidade: i.cidade,
+            produtoId: i.produtoId,
+            nome: i.nome,
+            qtd: Number(i.qtd) || 0,
+            qtdVendida: 0,
+            preco: Number(i.preco) || 0,
+            custo: Number(i.custo) || 0
+        }))
+    };
+
+    try {
+        const rota = await apiRotas("POST", payload);
+        const rotas = loadRotas().filter((r) => r.id !== rota.id);
+        rotas.unshift(rota);
+        saveRotas(rotas);
+        return { rota, salvaNoSite: true };
+    } catch (e) {
+        console.warn("Não salvou no site, ficou só neste aparelho:", e);
+        const rota = montarRotaLocal(payload);
+        const rotas = loadRotas();
+        rotas.unshift(rota);
+        saveRotas(rotas);
+        return { rota, salvaNoSite: false, erro: e.message };
+    }
+}
+
+async function removerRota(id) {
     saveRotas(loadRotas().filter((r) => r.id !== id));
+    try {
+        await apiRotas("DELETE", null, `?id=${encodeURIComponent(id)}`);
+        return { ok: true, salvaNoSite: true };
+    } catch (e) {
+        console.warn("Excluiu local, mas falhou no site:", e);
+        return { ok: true, salvaNoSite: false, erro: e.message };
+    }
 }
 
 function calcBaixaTotais(itens) {
@@ -451,7 +575,7 @@ function calcBaixaTotais(itens) {
     };
 }
 
-function registrarBaixaRota(id, vendasPorChave, levouPorChave = {}) {
+function aplicarBaixaLocal(id, vendasPorChave, levouPorChave = {}) {
     const rotas = loadRotas().map((rota) => {
         if (rota.id !== id) return rota;
         const itens = rota.itens.map((item) => {
@@ -480,8 +604,29 @@ function registrarBaixaRota(id, vendasPorChave, levouPorChave = {}) {
     return rotas.find((r) => r.id === id);
 }
 
+async function registrarBaixaRota(id, vendasPorChave, levouPorChave = {}) {
+    const local = aplicarBaixaLocal(id, vendasPorChave, levouPorChave);
+    if (!local) return { rota: null, salvaNoSite: false };
+
+    try {
+        const rota = await apiRotas("PUT", {
+            id,
+            status: "baixada",
+            baixadaEm: local.baixadaEm,
+            observacao: local.observacao || "",
+            itens: local.itens
+        });
+        const rotas = loadRotas().map((r) => (r.id === id ? rota : r));
+        saveRotas(rotas);
+        return { rota, salvaNoSite: true };
+    } catch (e) {
+        console.warn("Baixa ficou só neste aparelho:", e);
+        return { rota: local, salvaNoSite: false, erro: e.message };
+    }
+}
+
 function getRota(id) {
-    return loadRotas().find((r) => r.id === id) || null;
+    return loadRotas().find((r) => r.id === id || String(r.id) === String(id)) || null;
 }
 
 function dataISO(valor) {
