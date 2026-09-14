@@ -385,30 +385,30 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
-@media (min-width: 700px) {
-    .easy-actions { grid-template-columns: 1fr 1fr; }
+@media (min-width: 720px) {
+    .easy-actions { grid-template-columns: repeat(3, 1fr); }
 }
 .easy-action {
     text-align: left;
     background: #fff;
-    border: 2px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
     box-shadow: var(--sombra);
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    min-height: 96px;
+    gap: 2px;
+    min-height: 88px;
 }
 .easy-action i {
     color: var(--brand-accent);
-    font-size: 1.2rem;
-    margin-bottom: 4px;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
 }
-.easy-action strong { font-size: 1.1rem; }
-.easy-action span { color: var(--texto-claro); font-size: 0.88rem; }
+.easy-action strong { font-size: 1rem; }
+.easy-action span { color: var(--texto-claro); font-size: 0.82rem; }
 .easy-action--main {
     background: linear-gradient(135deg, var(--brand-primary), #18634a);
     border-color: transparent;
@@ -728,8 +728,8 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 }
 
 @media (max-width: 900px) {
-    .admin-header__title { font-size: 1.35rem; }
-    .sync-badge, .sync-status { max-width: 120px; font-size: 0.75rem; }
+    .admin-header__title { font-size: 1.2rem; }
+    .sync-badge, .sync-status { max-width: 130px; font-size: 0.75rem; }
     .viagem-sticky {
         position: fixed;
         left: 0;
@@ -739,10 +739,9 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
         padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
         box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
     }
-    .viagem-panel { padding-bottom: 180px; }
+    .viagem-panel { padding-bottom: 170px; }
 }
 
-/* —— Modo simples (sogro / celular) —— */
 .sr-only {
     position: absolute !important;
     width: 1px; height: 1px;
@@ -751,146 +750,73 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     white-space: nowrap; border: 0;
 }
 
-.section-help {
-    font-size: 1.05rem;
-    color: var(--texto-claro);
-    margin: 0 0 14px;
-    line-height: 1.45;
-}
-
-.stats-grid--simple {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-.stats-grid--simple .stat-card {
-    padding: 16px;
-    text-align: left;
-}
-.stats-grid--simple .stat-card__label { font-size: 0.9rem; }
-.stats-grid--simple .stat-card__value { font-size: 1.35rem; margin-top: 6px; }
-
-.easy-actions--stack {
+.admin-main {
     display: flex;
     flex-direction: column;
-    gap: 12px;
 }
-.easy-actions--stack .easy-action {
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    min-height: 78px;
-    padding: 16px 18px;
+.admin-page {
     width: 100%;
-    text-align: left;
-}
-.easy-action__num {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: var(--cream);
-    border: 2px solid var(--border);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.15rem;
-    flex-shrink: 0;
-    color: var(--brand-primary);
-}
-.easy-action--main .easy-action__num {
-    background: rgba(255,255,255,0.2);
-    border-color: rgba(255,255,255,0.35);
-    color: #fff;
-}
-.easy-actions--stack .easy-action strong {
-    display: block;
-    font-size: 1.2rem;
-}
-.easy-actions--stack .easy-action span {
-    display: block;
-    margin-top: 2px;
-    font-size: 0.95rem;
+    max-width: 980px;
 }
 
-.card__head--simple {
-    align-items: flex-end;
+.stats-grid {
     margin-bottom: 14px;
 }
-.card__head--simple .card__title { margin: 0; }
-
-.form-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+.stat-card {
+    min-height: 78px;
 }
-.form-stack label {
+.stat-card__value {
+    font-size: 1.2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+    margin-bottom: 14px;
+}
+.form-grid label {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 600;
 }
-.form-stack input,
-.form-stack select {
+.form-grid label.span-2 { grid-column: 1 / -1; }
+.form-grid input,
+.form-grid select {
     width: 100%;
-    min-height: 52px;
-    padding: 14px 16px;
+    min-height: 42px;
+    padding: 10px 12px;
     border: 1.5px solid var(--border);
-    border-radius: 12px;
+    border-radius: 10px;
     font: inherit;
-    font-size: 1.05rem;
     background: #fff;
 }
-
-.toolbar--stack {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 14px;
+@media (max-width: 640px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid label.span-2 { grid-column: auto; }
 }
-.toolbar--stack > * { width: 100%; min-height: 52px; }
 
-.viagem-topo--simple label { width: 100%; max-width: 280px; }
-.passo-label { font-size: 1.1rem; margin-bottom: 10px; }
-.cidade-chip {
-    min-height: 52px;
-    padding: 14px 18px;
-    font-size: 1.05rem;
+.passo-label {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--texto-claro);
+    margin-bottom: 8px;
 }
-.btn-qtd { width: 48px; height: 48px; }
-.qtd-controle input { width: 72px; min-height: 48px; font-size: 1.15rem; }
-.carga-prod-info strong { font-size: 1.05rem; }
 
-.admin-table--simple th:nth-child(1),
-.admin-table--simple td:nth-child(1) { width: 46%; }
 .admin-table--simple .custo-input input,
 .admin-table--simple .preco-input input {
-    width: 100%;
-    min-width: 88px;
-    min-height: 48px;
-    font-size: 1.05rem;
+    width: 100px;
+    min-height: 40px;
 }
 
-.sticky-save { margin-top: 14px; }
-.valor-destaque { font-size: 1.25rem; }
-.sidebar__link--muted { opacity: 0.72; font-size: 0.95rem; }
-
-.admin-main {
-    max-width: 920px;
-}
-.admin-page > .page-section,
-.admin-page > .card {
-    max-width: 720px;
-}
+.sidebar__link--muted { opacity: 0.75; }
 
 .login__form-container input {
-    min-height: 56px;
-    font-size: 1.2rem;
-    letter-spacing: 0.2em;
+    min-height: 48px;
+    font-size: 1.1rem;
     text-align: center;
-}
-.login__form-container .btn--xl {
-    min-height: 58px;
-    font-size: 1.15rem;
+    letter-spacing: 0.15em;
 }
 

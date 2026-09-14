@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles/admin.css?v=23">
+    <link rel="stylesheet" href="styles/admin.css?v=24">
 </head>
 
 <body>
@@ -77,76 +77,62 @@
 
             <!-- INÍCIO -->
             <section id="tab-financeiro" class="admin-page active">
-                <div class="page-section">
-                    <div class="stats-grid stats-grid--simple">
-                        <article class="stat-card">
-                            <div class="stat-card__info">
-                                <span class="stat-card__label">Entrou hoje</span>
-                                <strong class="stat-card__value" id="stat-faturado-hoje">R$ 0,00</strong>
-                            </div>
-                        </article>
-                        <article class="stat-card">
-                            <div class="stat-card__info">
-                                <span class="stat-card__label">Lucro</span>
-                                <strong class="stat-card__value" id="stat-lucro-hoje">R$ 0,00</strong>
-                            </div>
-                        </article>
-                        <article class="stat-card">
-                            <div class="stat-card__info">
-                                <span class="stat-card__label">Fiado</span>
-                                <strong class="stat-card__value" id="stat-aprazo">R$ 0,00</strong>
-                            </div>
-                        </article>
-                        <article class="stat-card" id="stat-sem-baixa-card">
-                            <div class="stat-card__info">
-                                <span class="stat-card__label">Falta baixa</span>
-                                <strong class="stat-card__value" id="stat-sem-baixa">0</strong>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-
-                <div class="page-section">
-                    <p class="section-help">Toque em um botão grande pra começar:</p>
-                    <div class="easy-actions easy-actions--stack" id="easy-actions">
-                        <button type="button" class="easy-action easy-action--main" data-go-tab="rotas">
-                            <span class="easy-action__num">1</span>
-                            <div>
-                                <strong>Montar viagem</strong>
-                                <span>Escolher cidade e produtos</span>
-                            </div>
-                        </button>
-                        <button type="button" class="easy-action" id="btn-easy-baixa">
-                            <span class="easy-action__num">2</span>
-                            <div>
-                                <strong>Dar baixa</strong>
-                                <span id="easy-baixa-hint">Dizer o que vendeu</span>
-                            </div>
-                        </button>
-                        <button type="button" class="easy-action" data-go-tab="aprazo">
-                            <span class="easy-action__num">3</span>
-                            <div>
-                                <strong>Anotar fiado</strong>
-                                <span>Quem vai pagar depois</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="page-section">
-                    <div class="card">
-                        <div class="card__head card__head--simple">
-                            <h2 class="card__title">Falta dar baixa</h2>
-                            <label class="inline-field">
-                                Dia
-                                <input type="date" id="financeiro-data">
-                            </label>
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Entrou hoje</span>
+                            <strong class="stat-card__value" id="stat-faturado-hoje">R$ 0,00</strong>
                         </div>
-                        <div id="financeiro-pendentes" class="vendas-lista"></div>
-                    </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Lucro</span>
+                            <strong class="stat-card__value" id="stat-lucro-hoje">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Fiado</span>
+                            <strong class="stat-card__value" id="stat-aprazo">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card" id="stat-sem-baixa-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Falta baixa</span>
+                            <strong class="stat-card__value" id="stat-sem-baixa">0</strong>
+                        </div>
+                    </article>
                 </div>
 
-                <!-- mantém IDs usados no JS, escondidos da tela principal -->
+                <div class="easy-actions" id="easy-actions">
+                    <button type="button" class="easy-action easy-action--main" data-go-tab="rotas">
+                        <i class="fas fa-truck"></i>
+                        <strong>Montar viagem</strong>
+                        <span>Cidade e produtos</span>
+                    </button>
+                    <button type="button" class="easy-action" id="btn-easy-baixa">
+                        <i class="fas fa-clipboard-check"></i>
+                        <strong>Dar baixa</strong>
+                        <span id="easy-baixa-hint">O que vendeu</span>
+                    </button>
+                    <button type="button" class="easy-action" data-go-tab="aprazo">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <strong>Anotar fiado</strong>
+                        <span>Paga depois</span>
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card__head">
+                        <h2 class="card__title">Falta dar baixa</h2>
+                        <label class="inline-field">
+                            Dia
+                            <input type="date" id="financeiro-data">
+                        </label>
+                    </div>
+                    <div id="financeiro-pendentes" class="vendas-lista"></div>
+                </div>
+
                 <div class="sr-only" aria-hidden="true">
                     <div id="financeiro-resumo">
                         <strong id="fin-faturado">R$ 0,00</strong>
@@ -161,25 +147,23 @@
             <!-- VIAGEM -->
             <section id="tab-rotas" class="admin-page">
                 <div class="card viagem-panel">
-                    <p class="section-help">Siga os 3 passos e salve no final.</p>
-
-                    <div class="viagem-topo viagem-topo--simple">
+                    <div class="viagem-topo">
                         <label>
-                            Data da viagem
+                            Data
                             <input type="date" id="rota-data">
                         </label>
                     </div>
                     <input type="hidden" id="rota-obs" value="">
 
                     <div class="passo">
-                        <p class="passo-label">Passo 1 — Toque na cidade</p>
+                        <p class="passo-label">1. Cidade</p>
                         <div class="cidade-chips" id="cidade-chips"></div>
                         <select id="carga-cidade" class="hidden" aria-hidden="true"></select>
                     </div>
 
                     <div class="passo">
-                        <p class="passo-label">Passo 2 — Quantidade de cada produto</p>
-                        <input type="search" id="carga-busca" class="busca-grande" placeholder="Procurar produto...">
+                        <p class="passo-label">2. Produtos</p>
+                        <input type="search" id="carga-busca" class="busca-grande" placeholder="Buscar…">
                         <div id="lista-produtos-carga" class="lista-produtos-carga"></div>
                     </div>
 
@@ -190,14 +174,14 @@
                             <div><span>Custo</span><strong id="draft-custo">R$ 0,00</strong></div>
                             <div><span>Lucro</span><strong class="positivo" id="draft-lucro">R$ 0,00</strong></div>
                         </div>
-                        <button type="button" id="btn-salvar-rota" class="btn btn--primary btn--xl btn--full">Passo 3 — Salvar viagem</button>
+                        <button type="button" id="btn-salvar-rota" class="btn btn--primary btn--xl btn--full">Salvar viagem</button>
                     </div>
                 </div>
 
                 <details class="card cidades-config">
-                    <summary>Trocar nomes das cidades</summary>
+                    <summary>Cidades</summary>
                     <div class="cidades-grid" id="cidades-grid"></div>
-                    <button type="button" id="btn-salvar-cidades" class="btn btn--secondary btn--xl">Salvar cidades</button>
+                    <button type="button" id="btn-salvar-cidades" class="btn btn--secondary">Salvar cidades</button>
                 </details>
 
                 <div class="card">
@@ -247,10 +231,9 @@
             <section id="tab-aprazo" class="admin-page">
                 <div class="card">
                     <h2 class="card__title">Anotar fiado</h2>
-                    <p class="section-help">Preencha e aperte Salvar.</p>
-                    <div class="form-stack">
+                    <div class="form-grid">
                         <label>
-                            Nome do cliente
+                            Cliente
                             <input type="text" id="aprazo-cliente" placeholder="Nome">
                         </label>
                         <label>
@@ -266,21 +249,21 @@
                             <input type="date" id="aprazo-data">
                         </label>
                         <label>
-                            Vence em <span class="opcional">(se quiser)</span>
+                            Vence em
                             <input type="date" id="aprazo-vencimento">
                         </label>
-                        <label>
-                            Observação <span class="opcional">(se quiser)</span>
-                            <input type="text" id="aprazo-obs" placeholder="">
+                        <label class="span-2">
+                            Observação
+                            <input type="text" id="aprazo-obs" placeholder="Opcional">
                         </label>
-                        <button type="button" id="btn-salvar-aprazo" class="btn btn--primary btn--xl btn--full">Salvar fiado</button>
                     </div>
+                    <button type="button" id="btn-salvar-aprazo" class="btn btn--primary btn--xl">Salvar fiado</button>
                 </div>
 
                 <div class="card">
-                    <div class="card__head card__head--simple">
+                    <div class="card__head">
                         <h2 class="card__title">A receber</h2>
-                        <strong class="positivo valor-destaque" id="aprazo-total-pendente">R$ 0,00</strong>
+                        <strong class="positivo" id="aprazo-total-pendente">R$ 0,00</strong>
                     </div>
                     <div id="aprazo-lista" class="vendas-lista"></div>
                 </div>
@@ -289,12 +272,14 @@
             <!-- PRODUTOS -->
             <section id="tab-produtos" class="admin-page">
                 <div class="card">
-                    <h2 class="card__title">Mudar preços</h2>
-                    <p class="section-help">Ache o produto, mude o valor e aperte Salvar.</p>
-                    <div class="toolbar toolbar--stack">
-                        <input type="search" id="busca-produto" placeholder="Procurar produto...">
+                    <div class="card__head">
+                        <h2 class="card__title">Preços</h2>
+                        <button type="button" id="btn-salvar-custos" class="btn btn--primary">Salvar</button>
+                    </div>
+                    <div class="toolbar">
+                        <input type="search" id="busca-produto" placeholder="Buscar produto…">
                         <select id="filtro-categoria">
-                            <option value="">Todas as categorias</option>
+                            <option value="">Todas</option>
                         </select>
                     </div>
                     <div class="table-wrap">
@@ -309,23 +294,21 @@
                             <tbody id="produtos-tbody"></tbody>
                         </table>
                     </div>
-                    <button type="button" id="btn-salvar-custos" class="btn btn--primary btn--xl btn--full sticky-save">Salvar preços</button>
                     <details class="easy-details">
-                        <summary>Opções avançadas</summary>
-                        <div class="toolbar toolbar--stack">
-                            <button type="button" id="btn-reset-precos" class="btn btn--secondary btn--xl">Voltar preços do catálogo</button>
-                            <button type="button" id="btn-reset-custos" class="btn btn--secondary btn--xl">Voltar custos do PDF</button>
+                        <summary>Opções</summary>
+                        <div class="toolbar">
+                            <button type="button" id="btn-reset-precos" class="btn btn--secondary">Preços do catálogo</button>
+                            <button type="button" id="btn-reset-custos" class="btn btn--secondary">Custos do PDF</button>
                         </div>
                     </details>
                 </div>
 
                 <div class="card">
-                    <h2 class="card__title">Adicionar produto novo</h2>
-                    <p class="section-help">Só se precisar cadastrar um item que ainda não existe.</p>
-                    <div class="form-stack">
-                        <label>
+                    <h2 class="card__title">Novo produto</h2>
+                    <div class="form-grid">
+                        <label class="span-2">
                             Nome
-                            <input type="text" id="novo-prod-nome" placeholder="Nome do produto">
+                            <input type="text" id="novo-prod-nome" placeholder="Nome">
                         </label>
                         <label>
                             Categoria
@@ -336,19 +319,19 @@
                             <input type="text" id="novo-prod-detalhes" placeholder="Ex.: 500g">
                         </label>
                         <label>
-                            Preço venda (R$)
+                            Venda (R$)
                             <input type="number" id="novo-prod-preco" min="0" step="0.01" placeholder="0,00">
                         </label>
                         <label>
                             Custo (R$)
                             <input type="number" id="novo-prod-custo" min="0" step="0.01" placeholder="0,00">
                         </label>
-                        <label>
-                            Foto <span class="opcional">(se quiser)</span>
+                        <label class="span-2">
+                            Foto
                             <input type="file" id="novo-prod-foto" accept="image/jpeg,image/png,image/webp,image/gif">
                         </label>
-                        <button type="button" id="btn-add-produto" class="btn btn--primary btn--xl btn--full">Adicionar ao site</button>
                     </div>
+                    <button type="button" id="btn-add-produto" class="btn btn--primary">Adicionar</button>
                     <div id="produtos-custom-lista" class="vendas-lista" style="margin-top: 1rem;"></div>
                 </div>
             </section>
@@ -392,9 +375,9 @@
         </main>
     </div>
 
-    <script src="custos.js?v=23"></script>
-    <script src="script.js?v=23"></script>
-    <script src="admin.js?v=23"></script>
+    <script src="custos.js?v=24"></script>
+    <script src="script.js?v=24"></script>
+    <script src="admin.js?v=24"></script>
 </body>
 
 </html>
