@@ -14,9 +14,9 @@
         <form id="login-form" class="login-card">
             <p class="login-eyebrow">Marques Mineiro</p>
             <h1>Painel Admin</h1>
-            <p class="login-hint">Digite o PIN para ver custos e lucros.</p>
-            <input type="password" id="admin-pin" placeholder="PIN" maxlength="8" autocomplete="current-password" required>
-            <button type="submit" class="btn-admin">Entrar</button>
+            <p class="login-hint">Digite o PIN pra abrir o painel.</p>
+            <input type="password" id="admin-pin" placeholder="PIN" maxlength="8" inputmode="numeric" autocomplete="current-password" required>
+            <button type="submit" class="btn-admin btn-grande">Entrar</button>
             <p id="login-error" class="login-error hidden">PIN incorreto</p>
             <a href="index.html" class="login-back">← Voltar ao catálogo</a>
         </form>
@@ -26,17 +26,17 @@
         <header class="admin-header">
             <div>
                 <p class="login-eyebrow">Marques Mineiro</p>
-                <h1>Painel Admin</h1>
+                <h1>Meu painel</h1>
             </div>
             <div class="admin-header-actions">
-                <a href="index.html" class="btn-ghost">Catálogo</a>
+                <a href="index.html" class="btn-ghost">Loja</a>
                 <button type="button" id="btn-logout" class="btn-ghost">Sair</button>
             </div>
         </header>
 
-        <section class="stats-grid" id="stats-grid">
+        <section class="stats-grid stats-grid--easy" id="stats-grid">
             <article class="stat-card accent">
-                <span>Faturado hoje</span>
+                <span>Entrou hoje</span>
                 <strong id="stat-faturado-hoje">R$ 0,00</strong>
             </article>
             <article class="stat-card">
@@ -44,36 +44,59 @@
                 <strong id="stat-lucro-hoje">R$ 0,00</strong>
             </article>
             <article class="stat-card">
-                <span>A receber (a prazo)</span>
+                <span>Fiado a receber</span>
                 <strong id="stat-aprazo">R$ 0,00</strong>
             </article>
-            <article class="stat-card">
-                <span>Cargas sem baixa</span>
+            <article class="stat-card alerta" id="stat-sem-baixa-card">
+                <span>Falta dar baixa</span>
                 <strong id="stat-sem-baixa">0</strong>
             </article>
         </section>
 
-        <nav class="admin-tabs">
-            <button type="button" class="tab active" data-tab="financeiro">Financeiro</button>
-            <button type="button" class="tab" data-tab="rotas">Rotas</button>
-            <button type="button" class="tab" data-tab="aprazo">A prazo</button>
-            <button type="button" class="tab" data-tab="produtos">
-                <span class="tab-full">Produtos & margens</span>
-                <span class="tab-short">Produtos</span>
+        <nav class="admin-tabs admin-tabs--easy" aria-label="Menu do painel">
+            <button type="button" class="tab active" data-tab="financeiro">
+                <span class="tab-ico">1</span>
+                <span>Início</span>
             </button>
-            <button type="button" class="tab" data-tab="planilha">Planilha</button>
-            <button type="button" class="tab" data-tab="vendas">
-                <span class="tab-full">Vendas site</span>
-                <span class="tab-short">Site</span>
+            <button type="button" class="tab" data-tab="rotas">
+                <span class="tab-ico">2</span>
+                <span>Viagem</span>
+            </button>
+            <button type="button" class="tab" data-tab="aprazo">
+                <span class="tab-ico">$</span>
+                <span>Fiado</span>
+            </button>
+            <button type="button" class="tab" data-tab="produtos">
+                <span class="tab-ico">P</span>
+                <span>Preços</span>
+            </button>
+            <button type="button" class="tab" data-tab="mais">
+                <span class="tab-ico">+</span>
+                <span>Mais</span>
             </button>
         </nav>
 
         <section id="tab-financeiro" class="tab-panel">
+            <div class="easy-actions" id="easy-actions">
+                <button type="button" class="easy-action easy-action--main" data-go-tab="rotas">
+                    <strong>Montar viagem</strong>
+                    <span>Escolher cidade e produtos</span>
+                </button>
+                <button type="button" class="easy-action" id="btn-easy-baixa">
+                    <strong>Dar baixa</strong>
+                    <span id="easy-baixa-hint">Informar o que vendeu</span>
+                </button>
+                <button type="button" class="easy-action" data-go-tab="aprazo">
+                    <strong>Anotar fiado</strong>
+                    <span>Cliente que vai pagar depois</span>
+                </button>
+            </div>
+
             <div class="panel-block">
                 <div class="financeiro-topo">
                     <div>
-                        <h2 class="panel-title">Financeiro do dia</h2>
-                        <p class="toolbar-note" style="margin: 0;">De noite, dê baixa na carga vendida pra ver o faturamento.</p>
+                        <h2 class="panel-title">Hoje</h2>
+                        <p class="toolbar-note" style="margin: 0;">Quanto entrou e quanto falta baixar.</p>
                     </div>
                     <label class="financeiro-data">
                         Dia
@@ -83,41 +106,45 @@
 
                 <div class="financeiro-grid" id="financeiro-resumo">
                     <article class="fin-card destaque">
-                        <span>Faturado no dia</span>
+                        <span>Entrou</span>
                         <strong id="fin-faturado">R$ 0,00</strong>
                     </article>
                     <article class="fin-card">
-                        <span>Lucro do dia</span>
+                        <span>Lucro</span>
                         <strong id="fin-lucro" class="positivo">R$ 0,00</strong>
                     </article>
                     <article class="fin-card">
-                        <span>Peças vendidas</span>
+                        <span>Peças</span>
                         <strong id="fin-pecas">0</strong>
                     </article>
                     <article class="fin-card alerta">
-                        <span>Ainda sem baixa</span>
+                        <span>Sem baixa</span>
                         <strong id="fin-pendentes">0</strong>
                     </article>
                 </div>
             </div>
 
             <div class="panel-block">
-                <h2 class="panel-title">Dar baixa à noite</h2>
-                <p class="toolbar-note">Cargas do dia que ainda precisam da baixa do que vendeu.</p>
+                <h2 class="panel-title">Falta dar baixa</h2>
+                <p class="toolbar-note">Quando voltar da rota, diga quanto vendeu de cada item.</p>
                 <div id="financeiro-pendentes" class="vendas-lista"></div>
             </div>
 
             <div class="panel-block">
-                <h2 class="panel-title">Já faturado neste dia</h2>
-                <p class="toolbar-note">Baixas e vendas que entraram no faturamento do dia.</p>
+                <h2 class="panel-title">Já contado neste dia</h2>
+                <p class="toolbar-note">Baixas e vendas do site que já entraram no total.</p>
                 <div id="financeiro-baixadas" class="vendas-lista"></div>
             </div>
         </section>
 
         <section id="tab-rotas" class="tab-panel hidden">
             <div class="panel-block viagem-panel">
-                <h2 class="panel-title">Nova viagem</h2>
-                <p class="toolbar-note">Escolha a cidade e coloque a quantidade ao lado de cada produto. No final aparece o valor total da carga.</p>
+                <h2 class="panel-title">Montar viagem</h2>
+                <ol class="easy-steps">
+                    <li>Toque na <strong>cidade</strong></li>
+                    <li>Coloque a <strong>quantidade</strong> de cada produto</li>
+                    <li>Aperte <strong>Salvar viagem</strong></li>
+                </ol>
 
                 <div class="viagem-topo">
                     <label>
@@ -131,12 +158,13 @@
                 </div>
 
                 <div class="passo">
-                    <p class="passo-label">Cidade</p>
+                    <p class="passo-label">1 · Cidade</p>
                     <div class="cidade-chips" id="cidade-chips"></div>
                     <select id="carga-cidade" class="hidden" aria-hidden="true"></select>
                 </div>
 
                 <div class="passo">
+                    <p class="passo-label">2 · Produtos</p>
                     <input type="search" id="carga-busca" class="busca-grande" placeholder="Buscar produto...">
                     <div id="lista-produtos-carga" class="lista-produtos-carga"></div>
                 </div>
@@ -148,19 +176,19 @@
                         <div><span>Custo</span><strong id="draft-custo">R$ 0,00</strong></div>
                         <div><span>Se vender tudo</span><strong class="positivo" id="draft-lucro">R$ 0,00</strong></div>
                     </div>
-                    <button type="button" id="btn-salvar-rota" class="btn-admin btn-grande btn-salvar-viagem">Salvar viagem</button>
+                    <button type="button" id="btn-salvar-rota" class="btn-admin btn-grande btn-salvar-viagem">3 · Salvar viagem</button>
                 </div>
             </div>
 
             <details class="panel-block cidades-config">
-                <summary>Alterar nomes das 4 cidades</summary>
+                <summary>Trocar nomes das cidades</summary>
                 <div class="cidades-grid" id="cidades-grid"></div>
                 <button type="button" id="btn-salvar-cidades" class="btn-admin">Salvar cidades</button>
             </details>
 
             <div class="panel-block">
-                <h2 class="panel-title">Viagens</h2>
-                <p class="toolbar-note">Depois da viagem, clique em <strong>Dar baixa</strong> e informe quanto vendeu pra ver o lucro real.</p>
+                <h2 class="panel-title">Viagens salvas</h2>
+                <p class="toolbar-note">Depois da rota: <strong>Dar baixa</strong> → diga quanto vendeu.</p>
                 <div id="rotas-lista" class="vendas-lista"></div>
             </div>
         </section>
@@ -204,12 +232,12 @@
 
         <section id="tab-aprazo" class="tab-panel hidden">
             <div class="panel-block">
-                <h2 class="panel-title">Nova venda a prazo</h2>
-                <p class="toolbar-note">Registre quem ficou para pagar depois.</p>
-                <div class="form-row">
+                <h2 class="panel-title">Anotar fiado</h2>
+                <p class="toolbar-note">Quem ficou pra pagar depois.</p>
+                <div class="form-row form-row--easy">
                     <label class="grow">
-                        Cliente
-                        <input type="text" id="aprazo-cliente" placeholder="Nome do cliente">
+                        Nome do cliente
+                        <input type="text" id="aprazo-cliente" placeholder="Nome">
                     </label>
                     <label>
                         Cidade
@@ -217,29 +245,27 @@
                     </label>
                     <label>
                         Valor (R$)
-                        <input type="number" id="aprazo-valor" min="0" step="0.01" placeholder="0,00">
+                        <input type="number" id="aprazo-valor" min="0" step="0.01" placeholder="0,00" inputmode="decimal">
                     </label>
-                </div>
-                <div class="form-row">
                     <label>
                         Data
                         <input type="date" id="aprazo-data">
                     </label>
                     <label>
-                        Vencimento
+                        Vence em
                         <input type="date" id="aprazo-vencimento">
                     </label>
                     <label class="grow">
                         Observação
                         <input type="text" id="aprazo-obs" placeholder="Opcional">
                     </label>
-                    <button type="button" id="btn-salvar-aprazo" class="btn-admin">Salvar a prazo</button>
+                    <button type="button" id="btn-salvar-aprazo" class="btn-admin btn-grande">Salvar fiado</button>
                 </div>
             </div>
 
             <div class="panel-block">
                 <div class="toolbar" style="justify-content: space-between; align-items: center;">
-                    <h2 class="panel-title" style="margin: 0;">Contas a receber</h2>
+                    <h2 class="panel-title" style="margin: 0;">A receber</h2>
                     <strong class="positivo" id="aprazo-total-pendente">R$ 0,00</strong>
                 </div>
                 <div id="aprazo-lista" class="vendas-lista"></div>
@@ -247,16 +273,21 @@
         </section>
 
         <section id="tab-produtos" class="tab-panel hidden">
-            <div class="toolbar">
+            <div class="toolbar toolbar--easy">
                 <input type="search" id="busca-produto" placeholder="Buscar produto...">
                 <select id="filtro-categoria">
                     <option value="">Todas as categorias</option>
                 </select>
-                <button type="button" id="btn-salvar-custos" class="btn-admin">Salvar preços e custos</button>
-                <button type="button" id="btn-reset-precos" class="btn-ghost">Restaurar preços Onesio</button>
-                <button type="button" id="btn-reset-custos" class="btn-ghost">Restaurar custos PDF</button>
+                <button type="button" id="btn-salvar-custos" class="btn-admin btn-grande">Salvar preços</button>
             </div>
-            <p class="toolbar-note">O <strong>preço de venda</strong> padrão vem da coluna <strong>Onesio</strong> da planilha. Edite aqui se precisar ajustar no site ou nas rotas.</p>
+            <details class="easy-details">
+                <summary>Opções avançadas</summary>
+                <div class="toolbar">
+                    <button type="button" id="btn-reset-precos" class="btn-ghost">Voltar preços Onesio</button>
+                    <button type="button" id="btn-reset-custos" class="btn-ghost">Voltar custos do PDF</button>
+                </div>
+            </details>
+            <p class="toolbar-note">Mude o <strong>preço de venda</strong> (aparece na loja) e o <strong>custo</strong>. Lucro = venda − custo.</p>
             <div class="table-wrap">
                 <table class="admin-table">
                     <thead>
@@ -264,9 +295,9 @@
                             <th>Produto</th>
                             <th>Categoria</th>
                             <th>Custo</th>
-                            <th>Venda (site)</th>
-                            <th>Lucro / un.</th>
-                            <th>Margem</th>
+                            <th>Venda</th>
+                            <th>Lucro</th>
+                            <th>%</th>
                         </tr>
                     </thead>
                     <tbody id="produtos-tbody"></tbody>
@@ -274,40 +305,46 @@
             </div>
         </section>
 
-        <section id="tab-planilha" class="tab-panel hidden">
-            <div class="toolbar">
-                <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
+        <section id="tab-mais" class="tab-panel hidden">
+            <div class="panel-block">
+                <h2 class="panel-title">Planilha de custos</h2>
+                <p class="toolbar-note">Custo, Onesio e Atacado da planilha Custo Queijo.</p>
+                <div class="toolbar">
+                    <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
+                </div>
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Produto</th>
+                                <th>Custo</th>
+                                <th>Onesio</th>
+                                <th>Atacado</th>
+                                <th>Diferença</th>
+                            </tr>
+                        </thead>
+                        <tbody id="planilha-tbody"></tbody>
+                    </table>
+                </div>
             </div>
-            <p class="toolbar-note">Dados da planilha <strong>Custo Queijo</strong> — colunas Custo, Onesio e Atacado.</p>
-            <div class="table-wrap">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Produto</th>
-                            <th>Custo</th>
-                            <th>Onesio</th>
-                            <th>Atacado</th>
-                            <th>Diferença</th>
-                        </tr>
-                    </thead>
-                    <tbody id="planilha-tbody"></tbody>
-                </table>
-            </div>
-        </section>
 
-        <section id="tab-vendas" class="tab-panel hidden">
-            <div class="toolbar">
-                <button type="button" id="btn-limpar-vendas" class="btn-ghost danger">Limpar histórico</button>
+            <div class="panel-block">
+                <div class="toolbar" style="justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2 class="panel-title" style="margin:0">Vendas da loja</h2>
+                        <p class="toolbar-note" style="margin:0.25rem 0 0">Quando o cliente finaliza no WhatsApp.</p>
+                    </div>
+                    <button type="button" id="btn-limpar-vendas" class="btn-ghost danger">Limpar</button>
+                </div>
+                <div id="vendas-lista" class="vendas-lista"></div>
             </div>
-            <p class="toolbar-note">As vendas entram aqui quando o cliente finaliza o pedido no WhatsApp.</p>
-            <div id="vendas-lista" class="vendas-lista"></div>
         </section>
     </div>
 
-    <script src="custos.js?v=11"></script>
-    <script src="script.js"></script>
-    <script src="admin.js"></script>
+    <script src="custos.js?v=12"></script>
+    <script src="script.js?v=12"></script>
+    <script src="admin.js?v=12"></script>
 </body>
 
 </html>

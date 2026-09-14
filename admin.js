@@ -89,6 +89,7 @@ function mostrarApp() {
     renderProdutos();
     renderPlanilha();
     renderVendas();
+    updateEasyBaixaHint();
 }
 
 function fillCategorias() {
@@ -166,6 +167,7 @@ function renderStats() {
     document.getElementById("stat-lucro-hoje").textContent = formatBRLAdmin(resumo.lucro);
     document.getElementById("stat-aprazo").textContent = formatBRLAdmin(totalAprazoPendente());
     document.getElementById("stat-sem-baixa").textContent = String(totalRotasSemBaixa());
+    updateEasyBaixaHint();
 }
 
 function getFinanceiroDia() {
@@ -192,7 +194,7 @@ function renderFinanceiro() {
     const pendentes = [...resumo.pendentes, ...outrasAbertas];
 
     if (!pendentes.length) {
-        boxPend.innerHTML = `<div class="empty-state">Nenhuma carga esperando baixa.<br>Quando voltar da rota, as viagens aparecem aqui pra você informar o que vendeu.</div>`;
+        boxPend.innerHTML = `<div class="empty-state">Tudo em dia.<br>Quando voltar da rota, aparece aqui pra dar baixa.</div>`;
     } else {
         boxPend.innerHTML = pendentes
             .map((r) => {
@@ -206,9 +208,9 @@ function renderFinanceiro() {
                             </div>
                         </header>
                         <div class="card-actions">
-                            <button type="button" class="btn-admin btn-grande" data-baixa-rota="${r.id}">
-                                Dar baixa do que vendeu
-                            </button>
+                        <button type="button" class="btn-admin btn-grande" data-baixa-rota="${r.id}">
+                            Dar baixa agora
+                        </button>
                             <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
                         </div>
                     </article>
@@ -239,7 +241,7 @@ function renderFinanceiro() {
                     </header>
                     <div class="card-actions">
                         <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
-                        <button type="button" class="btn-ghost" data-baixa-rota="${r.id}">Corrigir baixa</button>
+                        <button type="button" class="btn-ghost" data-baixa-rota="${r.id}">Corrigir</button>
                     </div>
                 </article>`
             )
@@ -578,8 +580,8 @@ function renderRotas() {
                         <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
                         ${
                             baixada
-                                ? `<button type="button" class="btn-admin" data-baixa-rota="${r.id}">Corrigir baixa</button>`
-                                : `<button type="button" class="btn-admin" data-baixa-rota="${r.id}">Dar baixa (quanto vendeu)</button>`
+                                ? `<button type="button" class="btn-admin" data-baixa-rota="${r.id}">Corrigir</button>`
+                                : `<button type="button" class="btn-admin" data-baixa-rota="${r.id}">Dar baixa</button>`
                         }
                         <button type="button" class="btn-ghost danger" data-del-rota="${r.id}">Excluir viagem</button>
                     </div>
@@ -803,7 +805,7 @@ function confirmarBaixa() {
     renderRotas();
     renderFinanceiro();
     renderStats();
-    alert("Baixa registrada! O faturamento do dia já foi atualizado.");
+    alert("Baixa ok! O dinheiro do dia já foi atualizado.");
 }
 
 function renderAprazo() {
@@ -812,7 +814,7 @@ function renderAprazo() {
     document.getElementById("aprazo-total-pendente").textContent = formatBRLAdmin(totalAprazoPendente());
 
     if (!lista.length) {
-        box.innerHTML = `<div class="empty-state">Nenhuma venda a prazo.<br>Registre acima quando alguém ficar para pagar depois.</div>`;
+        box.innerHTML = `<div class="empty-state">Nenhum fiado.<br>Anote acima quando alguém ficar pra pagar depois.</div>`;
         return;
     }
 
@@ -833,7 +835,7 @@ function renderAprazo() {
                         </div>
                     </header>
                     <div class="card-actions">
-                        ${pendente ? `<button type="button" class="btn-admin" data-pagar-aprazo="${item.id}">Marcar como pago</button>` : ""}
+                        ${pendente ? `<button type="button" class="btn-admin" data-pagar-aprazo="${item.id}">Já pagou</button>` : ""}
                         <button type="button" class="btn-ghost danger" data-del-aprazo="${item.id}">Excluir</button>
                     </div>
                 </article>
@@ -860,25 +862,54 @@ function renderAprazo() {
 }
 
 function showTab(tab) {
-    document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
-    ["financeiro", "rotas", "aprazo", "produtos", "planilha", "vendas"].forEach((name) => {
+    const target = tab === "planilha" || tab === "vendas" ? "mais" : tab;
+    document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === target));
+    ["financeiro", "rotas", "aprazo", "produtos", "mais"].forEach((name) => {
         const el = document.getElementById(`tab-${name}`);
-        if (el) el.classList.toggle("hidden", name !== tab);
+        if (el) el.classList.toggle("hidden", name !== target);
     });
-    if (tab === "financeiro") renderFinanceiro();
-    if (tab === "rotas") {
+    if (target === "financeiro") {
+        renderFinanceiro();
+        updateEasyBaixaHint();
+    }
+    if (target === "rotas") {
         fillCidadeSelects();
         renderListaProdutosCarga();
         renderTotaisCarga();
         renderRotas();
     }
-    if (tab === "aprazo") {
+    if (target === "aprazo") {
         fillCidadeSelects();
         renderAprazo();
     }
-    if (tab === "vendas") renderVendas();
-    if (tab === "produtos") renderProdutos();
-    if (tab === "planilha") renderPlanilha();
+    if (target === "produtos") renderProdutos();
+    if (target === "mais") {
+        renderPlanilha();
+        renderVendas();
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateEasyBaixaHint() {
+    const n = totalRotasSemBaixa();
+    const hint = document.getElementById("easy-baixa-hint");
+    const btn = document.getElementById("btn-easy-baixa");
+    if (hint) {
+        hint.textContent = n
+            ? `${n} viagem${n === 1 ? "" : "ns"} esperando`
+            : "Nenhuma viagem pendente";
+    }
+    if (btn) btn.classList.toggle("easy-action--alert", n > 0);
+}
+
+function abrirPrimeiraBaixa() {
+    const abertas = loadRotas().filter((r) => r.status !== "baixada");
+    if (!abertas.length) {
+        alert("Nenhuma viagem esperando baixa.\nMonte uma viagem primeiro.");
+        showTab("rotas");
+        return;
+    }
+    abrirBaixa(abertas[0].id);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -946,8 +977,14 @@ document.addEventListener("DOMContentLoaded", () => {
         renderRotas();
         renderFinanceiro();
         renderStats();
-        alert("Viagem salva! De noite use Financeiro pra dar baixa do que vendeu.");
+        alert("Viagem salva!\nDe noite: Início → Dar baixa.");
+        showTab("financeiro");
     });
+
+    document.querySelectorAll("[data-go-tab]").forEach((btn) => {
+        btn.addEventListener("click", () => showTab(btn.dataset.goTab));
+    });
+    document.getElementById("btn-easy-baixa").addEventListener("click", abrirPrimeiraBaixa);
 
     document.getElementById("btn-fechar-baixa").addEventListener("click", fecharBaixa);
     document.getElementById("btn-ver-rota-baixa").addEventListener("click", toggleDetalheBaixa);
@@ -979,7 +1016,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("aprazo-obs").value = "";
         renderAprazo();
         renderStats();
-        alert("Venda a prazo registrada!");
+        alert("Fiado anotado!");
     });
 
     document.getElementById("btn-salvar-custos").addEventListener("click", () => {
