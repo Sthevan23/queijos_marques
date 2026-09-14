@@ -392,28 +392,18 @@ function renderProdutos() {
         .filter((p) => !cat || p.categoria === cat)
         .filter((p) => !busca || p.nome.toLowerCase().includes(busca) || p.categoria.toLowerCase().includes(busca))
         .slice()
-        .sort((a, b) => {
-            const precoA = Number(precosAtuais[a.id] ?? a.preco);
-            const precoB = Number(precosAtuais[b.id] ?? b.preco);
-            const lucroA = precoA - getCusto(a.id, custosAtuais);
-            const lucroB = precoB - getCusto(b.id, custosAtuais);
-            return lucroB - lucroA;
-        });
+        .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
 
     tbody.innerHTML = lista
         .map((p) => {
             const custo = getCusto(p.id, custosAtuais);
             const preco = Number(precosAtuais[p.id] ?? p.preco);
-            const lucro = preco - custo;
-            const margem = preco > 0 ? (lucro / preco) * 100 : 0;
-            const lucroClass = lucro >= 0 ? "positivo" : "negativo";
             return `
                 <tr data-id="${p.id}">
                     <td>
                         <div class="prod-nome">${p.nome}</div>
-                        <div class="prod-detalhe">${p.detalhes}</div>
+                        <div class="prod-detalhe">${p.categoria}</div>
                     </td>
-                    <td>${p.categoria}</td>
                     <td>
                         <label class="custo-input">
                             R$
@@ -426,8 +416,6 @@ function renderProdutos() {
                             <input type="number" min="0" step="0.01" value="${preco.toFixed(2)}" data-preco-id="${p.id}">
                         </label>
                     </td>
-                    <td class="${lucroClass}">${formatBRLAdmin(lucro)}</td>
-                    <td class="${lucroClass}">${formatPct(margem)}</td>
                 </tr>
             `;
         })
@@ -968,8 +956,8 @@ function showTab(tab) {
         financeiro: "Início",
         rotas: "Viagem",
         aprazo: "Fiado",
-        produtos: "Produtos",
-        mais: "Mais"
+        produtos: "Preços",
+        mais: "Outros"
     };
 
     document.querySelectorAll(".sidebar__link[data-page]").forEach((b) => {
