@@ -3,3 +3,5 @@
 *.log
 deploy_marquesmineiro.zip
 script_old.js
+
+api/config.php
