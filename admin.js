@@ -470,7 +470,7 @@ function renderPlanilha() {
                     <td>${i + 1}</td>
                     <td><div class="prod-nome">${row.nome}</div></td>
                     <td>${formatBRLAdmin(row.custo)}</td>
-                    <td>${row.onesio != null ? formatBRLAdmin(row.onesio) : "—"}</td>
+                    <td class="col-onesio">${row.onesio != null ? formatBRLAdmin(row.onesio) : "—"}</td>
                     <td>${row.atacado ? formatBRLAdmin(row.atacado) : "—"}</td>
                     <td class="${diffClass}">${formatBRLAdmin(diff)}</td>
                 </tr>
@@ -835,7 +835,7 @@ function abrirBaixa(rotaId) {
     const totaisCarga = calcCargaTotais(itens);
 
     document.getElementById("baixa-subtitulo").textContent =
-        `Viagem de ${formatDataBR(rota.data)} — venda Onesio (planilha) · custo planilha.`;
+        `Viagem de ${formatDataBR(rota.data)} — venda coluna Onesio (amarelo) · custo planilha.`;
 
     const elLevou = document.getElementById("baixa-levou-total");
     const elCargaRec = document.getElementById("baixa-carga-receita");

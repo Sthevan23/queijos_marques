@@ -405,134 +405,165 @@ const CARGA_PRECO_ALIAS = {
 };
 
 /**
- * Preço de VENDA da rota = Onesio da planilha (se Onesio < custo, usa Atacado).
- * Custo = custo da planilha.
- * Catálogo PDF fica pra loja; na viagem o Onesio vende pela planilha.
+ * Mapa produto → linha da planilha.
+ * Venda da viagem = coluna Onesio (amarelo). Nunca usa varejo do catálogo.
+ * Se Onesio estiver vazio, usa Atacado só como fallback da planilha.
  */
-const CARGA_PLANILHA_PRECO = {
-    0: { custo: 19.2, venda: 30 },
-    1: { custo: 19.2, venda: 30 },
-    2: { custo: 19.2, venda: 30 },
-    3: { custo: 17.5, venda: 43 },
-    4: { custo: 19.2, venda: 30 },
-    5: { custo: 19.2, venda: 30 },
-    6: { custo: 25.6, venda: 38 },
-    7: { custo: 32.0, venda: 40 },
-    8: { custo: 19.2, venda: 30 },
-    10: { custo: 19.2, venda: 30 },
-    12: { custo: 26.4, venda: 42 },
-    13: { custo: 5.0, venda: 16 },
-    16: { custo: 16.06, venda: 29 },
-    17: { custo: 11.0, venda: 20 },
-    19: { custo: 18.01, venda: 20 },
-    21: { custo: 15.43, venda: 20 },
-    22: { custo: 11.0, venda: 20 },
-    24: { custo: 23.94, venda: 33 },
-    26: { custo: 19.57, venda: 37 },
-    28: { custo: 23.94, venda: 33 },
-    31: { custo: 26.63, venda: 48 },
-    32: { custo: 30.34, venda: 35 },
-    33: { custo: 28.86, venda: 33 },
-    34: { custo: 30.34, venda: 35 },
-    35: { custo: 28.86, venda: 33 },
-    36: { custo: 30.34, venda: 35 },
-    37: { custo: 24.7, venda: 39 },
-    38: { custo: 24.9, venda: 35 },
-    42: { custo: 25.5, venda: 37 },
-    43: { custo: 19.35, venda: 37 },
-    47: { custo: 10.0, venda: 21 },
-    52: { custo: 37.38, venda: 40 },
-    53: { custo: 19.9, venda: 26 },
-    54: { custo: 26.0, venda: 29.5 },
-    55: { custo: 10.0, venda: 21 },
-    58: { custo: 14.8, venda: 31 },
-    59: { custo: 70.0, venda: 95 }, // Colonial ~ Serjão Onesio planilha
-    61: { custo: 19.27, venda: 26 },
-    63: { custo: 8.79, venda: 12 },
-    64: { custo: 15.9, venda: 20 },
-    66: { custo: 8.88, venda: 15 },
-    67: { custo: 17.0, venda: 23 },
-    69: { custo: 9.0, venda: 17 },
-    70: { custo: 10.0, venda: 22 },
-    71: { custo: 10.0, venda: 22 },
-    73: { custo: 10.0, venda: 22 },
-    75: { custo: 12.72, venda: 17 },
-    76: { custo: 12.72, venda: 17 },
-    77: { custo: 30.5, venda: 46 },
-    78: { custo: 12.72, venda: 17 },
-    79: { custo: 12.72, venda: 17 },
-    81: { custo: 12.09, venda: 16 },
-    82: { custo: 12.72, venda: 17 },
-    83: { custo: 19.2, venda: 38 },
-    85: { custo: 22.01, venda: 26 },
-    86: { custo: 16.31, venda: 30 },
-    89: { custo: 16.31, venda: 30 },
-    91: { custo: 18.8, venda: 22 },
-    92: { custo: 22.55, venda: 30 },
-    93: { custo: 12.41, venda: 26 },
-    94: { custo: 19.5, venda: 26 },
-    9001: { custo: 19.2, venda: 30 },
-    9002: { custo: 19.2, venda: 30 },
-    9003: { custo: 5.0, venda: 16 },
-    9004: { custo: 5.0, venda: 16 },
-    9005: { custo: 19.2, venda: 30 },
-    9006: { custo: 25.6, venda: 38 },
-    9007: { custo: 25.6, venda: 38 },
-    9008: { custo: 19.2, venda: 30 },
-    9009: { custo: 19.2, venda: 30 },
-    9010: { custo: 19.2, venda: 30 },
-    9011: { custo: 19.2, venda: 30 },
-    9012: { custo: 13.2, venda: 21 },
-    9013: { custo: 12.75, venda: 18.5 },
-    9014: { custo: 32.0, venda: 40 },
-    9015: { custo: 11.0, venda: 20 },
-    9016: { custo: 20.35, venda: 39 },
-    9017: { custo: 18.98, venda: 35 },
-    9018: { custo: 16.31, venda: 30 },
-    9019: { custo: 16.31, venda: 30 },
-    9020: { custo: 16.31, venda: 30 },
-    9021: { custo: 16.31, venda: 30 },
-    9022: { custo: 10.0, venda: 22 },
-    9023: { custo: 18.99, venda: 33 },
-    9024: { custo: 18.99, venda: 33 },
-    9025: { custo: 18.99, venda: 33 },
-    9026: { custo: 12.72, venda: 17 },
-    9027: { custo: 16.06, venda: 29 },
-    9028: { custo: 24.9, venda: 35 },
-    9029: { custo: 28.86, venda: 33 },
-    9030: { custo: 10.0, venda: 22 },
-    9031: { custo: 22.01, venda: 26 },
-    9032: { custo: 8.79, venda: 12 },
-    9033: { custo: 8.79, venda: 12 },
-    9034: { custo: 22.55, venda: 30 }
+const PRODUTO_PARA_PLANILHA = {
+    0: "Palito Puro",
+    1: "Trança Temperada",
+    2: "Nozinho temperado defumado",
+    3: "Kit Trançinha",
+    4: "Reino",
+    5: "Provolone Defumado",
+    6: "Kit Provoleto",
+    7: "Kit provolone c salame",
+    8: "4 Queijo",
+    9: "Cabacinha",
+    10: "Minas Padrão",
+    12: "Queijo minas",
+    13: "Frescal Light Puro",
+    14: "Trança de vinho",
+    15: "Queijo Coalho",
+    16: "Requeijão musa",
+    17: "Desidratados variados",
+    19: "Desidratado goiabada",
+    21: "Coalho Desidratado",
+    22: "Desidratados variados",
+    24: "Requeijão de Bufala",
+    26: "Minas zero Lactose",
+    28: "Mussarela de Bufala",
+    30: "Palito zero lactose",
+    31: "Gruyere",
+    32: "Trufado Damasco Avela",
+    33: "Trufado Tomate seco",
+    34: "Trufado Cheddar carne seca",
+    35: "Trufado Azeitona",
+    36: "Trufado Cheddar carne seca",
+    37: "Trufado Puro no vacuo",
+    38: "Trufado Doces",
+    39: "Trufado Nutella",
+    42: "Canastra Divino",
+    43: "Parmesão",
+    44: "Queijo Serjão",
+    47: "Brie, gorgonzola e camembert",
+    52: "Kit parmesão",
+    53: "Burrata",
+    54: "Queijo Morbier Real",
+    55: "Brie, gorgonzola e camembert",
+    56: "Brie, gorgonzola e camembert",
+    57: "Bolinha de búfala",
+    58: "Granapadano",
+    59: "Queijo Serjão",
+    61: "Picanha Suina",
+    62: "Costela",
+    63: "Geleia Uai pimenta Defumada",
+    64: "Manteiga 500 gramas",
+    66: "Geleia Mostarda Maracuja Trem Bao",
+    67: "Mel bisnaga",
+    69: "Rosquinha Nata",
+    70: "Beliscao e Casadinho",
+    71: "Beliscao e Casadinho",
+    73: "Beliscao e Casadinho",
+    75: "Lombo Biquinha",
+    76: "Lombo Alho",
+    77: "Salame Fatiado",
+    78: "Lombo Puro",
+    79: "Lombo Calabresa",
+    81: "Frango",
+    82: "Lombo Puro",
+    83: "Viçosa 800",
+    85: "Goiabada Zelia cascão 800",
+    86: "Banana faduni",
+    89: "Banana faduni",
+    91: "Rocca Doce de Leite",
+    92: "Doce leite blue zero",
+    93: "Doce de leite vmilk plastico 700",
+    94: "Bala Serra negra",
+    95: "Pingo goiaba",
+    96: "Cocada Prove e Aprove",
+    9001: "Palito Puro",
+    9002: "Palito Temperado",
+    9003: "Frescal Light Temperado",
+    9004: "Frescal Light Puro",
+    9005: "Nozinho temperado defumado",
+    9006: "Kit Provoleto",
+    9007: "Kit Provoleto",
+    9008: "Trança no alho Defumada",
+    9009: "Provolone Defumado",
+    9010: "Provolone Ervas Finas",
+    9011: "Golda",
+    9012: { nome: "Queijo minas", fator: 0.5 },
+    9013: { nome: "Canastra Divino", fator: 0.5 },
+    9014: "Kit provolone c salame",
+    9015: "Desidratados variados",
+    9016: "Parmesão capa preta",
+    9017: "Banana faduni zero",
+    9018: "Banana faduni",
+    9019: "Banana faduni",
+    9020: "Banana faduni",
+    9021: "Banana faduni",
+    9022: "Beliscao e Casadinho",
+    9023: "Trufado musa vacuo",
+    9024: "Trufado musa vacuo",
+    9025: "Trufado musa vacuo",
+    9026: "Lombo Puro",
+    9027: "Requeijão musa",
+    9028: "Trufado Doces",
+    9029: "Trufado Azeitona",
+    9030: "Beliscao e Casadinho",
+    9031: "Goiabada Zelia cascão 800",
+    9032: "Geleia Uai pimenta Defumada",
+    9033: "Geleia Uai pimenta Defumada",
+    9034: "Doce leite blue zero"
 };
 
-function resolverPrecoCustoItem(item, lista = typeof produtos !== "undefined" ? produtos : []) {
+function acharLinhaPlanilha(nome) {
+    if (!nome) return null;
+    const key = String(nome).trim().toLowerCase();
+    return PLANILHA_CUSTOS.find((r) => r.nome.toLowerCase() === key) || null;
+}
+
+/** Coluna amarela Onesio; se vazia, Atacado da planilha. Nunca varejo. */
+function precoOnesioDaLinha(row) {
+    if (!row) return 0;
+    if (row.onesio != null && Number.isFinite(Number(row.onesio))) return Number(row.onesio);
+    if (row.atacado != null && Number.isFinite(Number(row.atacado)) && Number(row.atacado) > 0) {
+        return Number(row.atacado);
+    }
+    return 0;
+}
+
+function resolverPrecoCustoItem(item) {
     const pid = Number(item?.produtoId ?? item?.id);
-    const row = CARGA_PLANILHA_PRECO[pid];
+    let map = PRODUTO_PARA_PLANILHA[pid];
+    let fator = 1;
+
+    if (!map) {
+        const alias = CARGA_PRECO_ALIAS[pid];
+        if (alias) {
+            map = PRODUTO_PARA_PLANILHA[Number(alias.id)];
+            fator = alias.fator != null ? Number(alias.fator) : 1;
+        }
+    }
+
+    if (map && typeof map === "object" && map.nome) {
+        fator = map.fator != null ? Number(map.fator) : fator;
+        map = map.nome;
+    }
+
+    const row = typeof map === "string" ? acharLinhaPlanilha(map) : null;
     if (row) {
         return {
-            preco: Math.round(Number(row.venda) * 100) / 100,
-            custo: Math.round(Number(row.custo) * 100) / 100
+            preco: Math.round(precoOnesioDaLinha(row) * fator * 100) / 100,
+            custo: Math.round(Number(row.custo || 0) * fator * 100) / 100
         };
     }
-    const alias = CARGA_PRECO_ALIAS[pid];
-    const baseId = alias ? Number(alias.id) : pid;
-    const fator = alias && alias.fator != null ? Number(alias.fator) : 1;
-    const base = CARGA_PLANILHA_PRECO[baseId];
-    if (base) {
-        return {
-            preco: Math.round(base.venda * fator * 100) / 100,
-            custo: Math.round(base.custo * fator * 100) / 100
-        };
-    }
-    let preco = getPrecoPadrao(baseId, lista) * fator;
-    let custo = getCusto(baseId, CUSTOS_PADRAO) * fator;
-    if (!Number.isFinite(preco) || preco < 0) preco = Number(item?.preco) || 0;
-    if (!Number.isFinite(custo) || custo < 0) custo = Number(item?.custo) || 0;
+
+    // Sem linha na planilha: não cai no varejo do catálogo
     return {
-        preco: Math.round(preco * 100) / 100,
-        custo: Math.round(custo * 100) / 100
+        preco: Math.round((Number(item?.preco) || 0) * 100) / 100,
+        custo: Math.round((Number(item?.custo) || 0) * 100) / 100
     };
 }
 

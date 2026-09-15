@@ -437,6 +437,15 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .fin-card.alerta { background: #FFEBEE; }
 .positivo { color: var(--success); }
 
+.admin-table .col-onesio {
+    background: #fff3a0;
+    font-weight: 700;
+    color: #5c4b00;
+}
+.admin-table th.col-onesio {
+    background: #ffe566;
+}
+
 /* —— Forms / tables —— */
 .form-row, .form-row--easy, .toolbar, .viagem-topo {
     display: flex;
