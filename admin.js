@@ -835,7 +835,7 @@ function abrirBaixa(rotaId) {
     const totaisCarga = calcCargaTotais(itens);
 
     document.getElementById("baixa-subtitulo").textContent =
-        `Viagem de ${formatDataBR(rota.data)} — preços do catálogo · custo da planilha.`;
+        `Viagem de ${formatDataBR(rota.data)} — venda Onesio (planilha) · custo planilha.`;
 
     const elLevou = document.getElementById("baixa-levou-total");
     const elCargaRec = document.getElementById("baixa-carga-receita");

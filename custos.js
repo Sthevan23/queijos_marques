@@ -404,71 +404,130 @@ const CARGA_PRECO_ALIAS = {
     9034: { id: 92 }
 };
 
-/** Custo da planilha por SKU custom (quando não bate 1:1 com o catálogo). */
-const CARGA_CUSTO_OVERRIDE = {
-    // Palitos / trança / provolone / golda (planilha)
-    9001: 19.2,
-    9002: 19.2,
-    9005: 19.2,
-    9008: 19.2,
-    9009: 19.2,
-    9010: 19.2,
-    9011: 19.2,
-    // Frescal light (planilha)
-    9003: 5.0,
-    9004: 5.0,
-    // Kits
-    9006: 25.6, // Kit Provoleto
-    9007: 25.6,
-    9014: 32.0, // Kit provolone c salame
-    // Metades
-    9012: 13.2, // metade minas (26.4/2)
-    9013: 12.75, // metade canastra divino (25.5/2)
-    // Desidratados
-    9015: 11.0,
-    // Parmesão capa preta (planilha)
-    9016: 20.35,
-    // Doces / fadune / tropical (planilha próxima)
-    9017: 18.98, // Banana faduni zero
-    9018: 16.31, // approx banana/doce
-    9019: 16.31,
-    9020: 16.31,
-    9021: 16.31,
-    9022: 10.0, // Beliscao e Casadinho
-    // Trufado musa (planilha)
-    9023: 18.99,
-    9024: 18.99,
-    9025: 18.99,
-    // Lombo / embutidos
-    9026: 12.72, // Lombo
-    9027: 16.06, // Requeijão musa
-    9028: 24.9, // Trufado Doces
-    9029: 28.86, // Trufado Azeitona
-    9030: 10.0,
-    9031: 22.01, // Goiabada Zelia
-    9032: 8.79, // Geleia defumada
-    9033: 8.79,
-    9034: 22.55, // Doce leite blue zero
-    // Catálogo ids com custo específico da planilha
-    16: 16.06, // Musa barra = Requeijão musa
-    34: 30.34, // Trufado cheddar (carne seca na planilha)
-    36: 30.34,
-    67: 17.0, // Mel bisnaga
-    8: 19.2, // 4 Queijo
-    52: 37.38 // Kit parmesão
+/**
+ * Preço de VENDA da rota = Onesio da planilha (se Onesio < custo, usa Atacado).
+ * Custo = custo da planilha.
+ * Catálogo PDF fica pra loja; na viagem o Onesio vende pela planilha.
+ */
+const CARGA_PLANILHA_PRECO = {
+    0: { custo: 19.2, venda: 30 },
+    1: { custo: 19.2, venda: 30 },
+    2: { custo: 19.2, venda: 30 },
+    3: { custo: 17.5, venda: 43 },
+    4: { custo: 19.2, venda: 30 },
+    5: { custo: 19.2, venda: 30 },
+    6: { custo: 25.6, venda: 38 },
+    7: { custo: 32.0, venda: 40 },
+    8: { custo: 19.2, venda: 30 },
+    10: { custo: 19.2, venda: 30 },
+    12: { custo: 26.4, venda: 42 },
+    13: { custo: 5.0, venda: 16 },
+    16: { custo: 16.06, venda: 29 },
+    17: { custo: 11.0, venda: 20 },
+    19: { custo: 18.01, venda: 20 },
+    21: { custo: 15.43, venda: 20 },
+    22: { custo: 11.0, venda: 20 },
+    24: { custo: 23.94, venda: 33 },
+    26: { custo: 19.57, venda: 37 },
+    28: { custo: 23.94, venda: 33 },
+    31: { custo: 26.63, venda: 48 },
+    32: { custo: 30.34, venda: 35 },
+    33: { custo: 28.86, venda: 33 },
+    34: { custo: 30.34, venda: 35 },
+    35: { custo: 28.86, venda: 33 },
+    36: { custo: 30.34, venda: 35 },
+    37: { custo: 24.7, venda: 39 },
+    38: { custo: 24.9, venda: 35 },
+    42: { custo: 25.5, venda: 37 },
+    43: { custo: 19.35, venda: 37 },
+    47: { custo: 10.0, venda: 21 },
+    52: { custo: 37.38, venda: 40 },
+    53: { custo: 19.9, venda: 26 },
+    54: { custo: 26.0, venda: 29.5 },
+    55: { custo: 10.0, venda: 21 },
+    58: { custo: 14.8, venda: 31 },
+    59: { custo: 70.0, venda: 95 }, // Colonial ~ Serjão Onesio planilha
+    61: { custo: 19.27, venda: 26 },
+    63: { custo: 8.79, venda: 12 },
+    64: { custo: 15.9, venda: 20 },
+    66: { custo: 8.88, venda: 15 },
+    67: { custo: 17.0, venda: 23 },
+    69: { custo: 9.0, venda: 17 },
+    70: { custo: 10.0, venda: 22 },
+    71: { custo: 10.0, venda: 22 },
+    73: { custo: 10.0, venda: 22 },
+    75: { custo: 12.72, venda: 17 },
+    76: { custo: 12.72, venda: 17 },
+    77: { custo: 30.5, venda: 46 },
+    78: { custo: 12.72, venda: 17 },
+    79: { custo: 12.72, venda: 17 },
+    81: { custo: 12.09, venda: 16 },
+    82: { custo: 12.72, venda: 17 },
+    83: { custo: 19.2, venda: 38 },
+    85: { custo: 22.01, venda: 26 },
+    86: { custo: 16.31, venda: 30 },
+    89: { custo: 16.31, venda: 30 },
+    91: { custo: 18.8, venda: 22 },
+    92: { custo: 22.55, venda: 30 },
+    93: { custo: 12.41, venda: 26 },
+    94: { custo: 19.5, venda: 26 },
+    9001: { custo: 19.2, venda: 30 },
+    9002: { custo: 19.2, venda: 30 },
+    9003: { custo: 5.0, venda: 16 },
+    9004: { custo: 5.0, venda: 16 },
+    9005: { custo: 19.2, venda: 30 },
+    9006: { custo: 25.6, venda: 38 },
+    9007: { custo: 25.6, venda: 38 },
+    9008: { custo: 19.2, venda: 30 },
+    9009: { custo: 19.2, venda: 30 },
+    9010: { custo: 19.2, venda: 30 },
+    9011: { custo: 19.2, venda: 30 },
+    9012: { custo: 13.2, venda: 21 },
+    9013: { custo: 12.75, venda: 18.5 },
+    9014: { custo: 32.0, venda: 40 },
+    9015: { custo: 11.0, venda: 20 },
+    9016: { custo: 20.35, venda: 39 },
+    9017: { custo: 18.98, venda: 35 },
+    9018: { custo: 16.31, venda: 30 },
+    9019: { custo: 16.31, venda: 30 },
+    9020: { custo: 16.31, venda: 30 },
+    9021: { custo: 16.31, venda: 30 },
+    9022: { custo: 10.0, venda: 22 },
+    9023: { custo: 18.99, venda: 33 },
+    9024: { custo: 18.99, venda: 33 },
+    9025: { custo: 18.99, venda: 33 },
+    9026: { custo: 12.72, venda: 17 },
+    9027: { custo: 16.06, venda: 29 },
+    9028: { custo: 24.9, venda: 35 },
+    9029: { custo: 28.86, venda: 33 },
+    9030: { custo: 10.0, venda: 22 },
+    9031: { custo: 22.01, venda: 26 },
+    9032: { custo: 8.79, venda: 12 },
+    9033: { custo: 8.79, venda: 12 },
+    9034: { custo: 22.55, venda: 30 }
 };
 
 function resolverPrecoCustoItem(item, lista = typeof produtos !== "undefined" ? produtos : []) {
     const pid = Number(item?.produtoId ?? item?.id);
+    const row = CARGA_PLANILHA_PRECO[pid];
+    if (row) {
+        return {
+            preco: Math.round(Number(row.venda) * 100) / 100,
+            custo: Math.round(Number(row.custo) * 100) / 100
+        };
+    }
     const alias = CARGA_PRECO_ALIAS[pid];
     const baseId = alias ? Number(alias.id) : pid;
     const fator = alias && alias.fator != null ? Number(alias.fator) : 1;
-    // Catálogo Marques (PDF) — sem override local, pra carga/histórico bater certo
+    const base = CARGA_PLANILHA_PRECO[baseId];
+    if (base) {
+        return {
+            preco: Math.round(base.venda * fator * 100) / 100,
+            custo: Math.round(base.custo * fator * 100) / 100
+        };
+    }
     let preco = getPrecoPadrao(baseId, lista) * fator;
-    let custo =
-        CARGA_CUSTO_OVERRIDE[pid] != null
-            ? Number(CARGA_CUSTO_OVERRIDE[pid])
-            : getCusto(baseId, CUSTOS_PADRAO) * fator;
+    let custo = getCusto(baseId, CUSTOS_PADRAO) * fator;
     if (!Number.isFinite(preco) || preco < 0) preco = Number(item?.preco) || 0;
     if (!Number.isFinite(custo) || custo < 0) custo = Number(item?.custo) || 0;
     return {
