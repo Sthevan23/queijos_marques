@@ -1806,7 +1806,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("despesa-filtro-data")?.addEventListener("change", renderDespesas);
-    document.getElementById("historico-filtro")?.addEventListener("change", renderHistorico);
+    document.querySelectorAll("[data-hist-filtro]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const valor = btn.getAttribute("data-hist-filtro") || "todas";
+            const hidden = document.getElementById("historico-filtro");
+            if (hidden) hidden.value = valor;
+            document.querySelectorAll("[data-hist-filtro]").forEach((b) => {
+                b.classList.toggle("is-active", b === btn);
+            });
+            renderHistorico();
+        });
+    });
 
     document.getElementById("btn-add-produto").addEventListener("click", async () => {
         const nome = document.getElementById("novo-prod-nome").value.trim();

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles/admin.css?v=35">
+    <link rel="stylesheet" href="styles/admin.css?v=36">
 </head>
 
 <body>
@@ -170,7 +170,12 @@
 
                     <div class="passo">
                         <p class="passo-label">2. Produtos</p>
-                        <input type="search" id="carga-busca" class="busca-grande" placeholder="Buscar…">
+                        <label class="filter-search filter-search--lg">
+                            <span class="filter-search__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                            </span>
+                            <input type="search" id="carga-busca" placeholder="Buscar produto…">
+                        </label>
                         <div id="lista-produtos-carga" class="lista-produtos-carga"></div>
                     </div>
 
@@ -363,11 +368,11 @@
                             <p class="card__note" style="margin:0.25rem 0 0">Total do dia selecionado.</p>
                         </div>
                         <div class="despesa-totais">
-                            <label class="inline-field">
-                                Dia
+                            <label class="filter-date">
+                                <span class="filter-date__label">Dia</span>
                                 <input type="date" id="despesa-filtro-data">
                             </label>
-                            <strong class="negativo" id="despesa-total">R$ 0,00</strong>
+                            <strong class="negativo despesa-total-pill" id="despesa-total">R$ 0,00</strong>
                         </div>
                     </div>
                     <div id="despesa-resumo-cats" class="despesa-cats"></div>
@@ -382,11 +387,19 @@
                         <h2 class="card__title">Preços</h2>
                         <button type="button" id="btn-salvar-custos" class="btn btn--primary">Salvar</button>
                     </div>
-                    <div class="toolbar">
-                        <input type="search" id="busca-produto" placeholder="Buscar produto…">
-                        <select id="filtro-categoria">
-                            <option value="">Todas</option>
-                        </select>
+                    <div class="filter-bar">
+                        <label class="filter-search">
+                            <span class="filter-search__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                            </span>
+                            <input type="search" id="busca-produto" placeholder="Buscar produto…">
+                        </label>
+                        <label class="filter-select">
+                            <span class="filter-select__label">Categoria</span>
+                            <select id="filtro-categoria">
+                                <option value="">Todas</option>
+                            </select>
+                        </label>
                     </div>
                     <div class="table-wrap">
                         <table class="admin-table admin-table--simple">
@@ -489,16 +502,14 @@
                 </div>
 
                 <div class="card">
-                    <div class="card__head">
+                    <div class="card__head card__head--filters">
                         <h2 class="card__title">Viagens</h2>
-                        <label class="inline-field">
-                            Filtro
-                            <select id="historico-filtro">
-                                <option value="todas">Todas</option>
-                                <option value="baixada">Baixadas</option>
-                                <option value="aberta">Abertas</option>
-                            </select>
-                        </label>
+                        <div class="filter-seg" role="group" aria-label="Filtro de viagens">
+                            <button type="button" class="filter-seg__btn is-active" data-hist-filtro="todas">Todas</button>
+                            <button type="button" class="filter-seg__btn" data-hist-filtro="baixada">Baixadas</button>
+                            <button type="button" class="filter-seg__btn" data-hist-filtro="aberta">Abertas</button>
+                        </div>
+                        <input type="hidden" id="historico-filtro" value="todas">
                     </div>
                     <div id="historico-lista" class="vendas-lista"></div>
                 </div>
@@ -509,8 +520,13 @@
                 <div class="card">
                     <h2 class="card__title">Planilha de custos</h2>
                     <p class="card__note">Custo, <strong>Onesio (amarelo)</strong> e Atacado. A viagem usa só Onesio.</p>
-                    <div class="toolbar">
-                        <input type="search" id="busca-planilha" placeholder="Buscar na planilha...">
+                    <div class="filter-bar">
+                        <label class="filter-search">
+                            <span class="filter-search__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                            </span>
+                            <input type="search" id="busca-planilha" placeholder="Buscar na planilha…">
+                        </label>
                     </div>
                     <div class="table-wrap">
                         <table class="admin-table">
@@ -543,9 +559,9 @@
         </main>
     </div>
 
-    <script src="custos.js?v=35"></script>
-    <script src="script.js?v=35"></script>
-    <script src="admin.js?v=35"></script>
+    <script src="custos.js?v=36"></script>
+    <script src="script.js?v=36"></script>
+    <script src="admin.js?v=36"></script>
 </body>
 
 </html>
