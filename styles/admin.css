@@ -1075,3 +1075,54 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 @media (max-width: 640px) {
     .hist-grid { grid-template-columns: 1fr; }
 }
+
+.hist-ranking-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+.hist-ranking-grid--card { margin: 12px 0 4px; }
+.hist-rank-col {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+}
+.hist-rank-col strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+.hist-rank-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.hist-rank-col li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 2px 6px;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.86rem;
+}
+.hist-rank-col li:last-child { border-bottom: 0; }
+.hist-rank-pos { color: var(--texto-claro); font-weight: 700; }
+.hist-rank-nome { font-weight: 600; }
+.hist-rank-meta {
+    grid-column: 2;
+    color: var(--texto-claro);
+    font-size: 0.8rem;
+}
+.hist-ranking-resumo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+@media (max-width: 900px) {
+    .hist-ranking-grid { grid-template-columns: 1fr; }
+}

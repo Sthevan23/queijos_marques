@@ -1252,6 +1252,18 @@ function analisarViagem(rota) {
         .filter((i) => i.vendeu > 0)
         .sort((a, b) => b.receita - a.receita)
         .slice(0, 8);
+    const maisVendeuQtd = linhas
+        .filter((i) => i.vendeu > 0)
+        .sort((a, b) => b.vendeu - a.vendeu || b.receita - a.receita)
+        .slice(0, 8);
+    const maisFaturou = linhas
+        .filter((i) => i.receita > 0)
+        .sort((a, b) => b.receita - a.receita)
+        .slice(0, 8);
+    const menosVendeu = linhas
+        .filter((i) => i.levou > 0)
+        .sort((a, b) => a.vendeu - b.vendeu || b.levou - a.levou || b.valorSobra - a.valorSobra)
+        .slice(0, 8);
     const zeroVenda = linhas.filter((i) => i.levou > 0 && i.vendeu === 0);
     return {
         rota,
@@ -1269,6 +1281,9 @@ function analisarViagem(rota) {
         custoCarga: totais.totalCusto,
         topSobra,
         topVenda,
+        maisVendeuQtd,
+        maisFaturou,
+        menosVendeu,
         zeroVenda,
         valorSobra: linhas.reduce((s, i) => s + i.valorSobra, 0)
     };
@@ -1353,6 +1368,50 @@ function gerarDicasHistorico(analises) {
     return dicas;
 }
 
+function htmlRankingColuna(titulo, itens, modo) {
+    if (!itens.length) {
+        return `<div class="hist-rank-col"><strong>${titulo}</strong><p class="muted">Sem dados</p></div>`;
+    }
+    const linhas = itens
+        .map((i, idx) => {
+            let detalhe = "";
+            if (modo === "qtd") detalhe = `${i.vendeu} un. · ${formatBRLAdmin(i.receita)}`;
+            else if (modo === "faturou") detalhe = `${formatBRLAdmin(i.receita)} · ${i.vendeu} un.`;
+            else detalhe = `vendeu ${i.vendeu}/${i.levou} · sobrou ${i.sobrou}`;
+            return `<li><span class="hist-rank-pos">${idx + 1}.</span><span class="hist-rank-nome">${i.nome}</span><span class="hist-rank-meta">${detalhe}</span></li>`;
+        })
+        .join("");
+    return `<div class="hist-rank-col"><strong>${titulo}</strong><ul>${linhas}</ul></div>`;
+}
+
+function renderHistoricoRanking(analise) {
+    const box = document.getElementById("historico-ranking");
+    const titulo = document.getElementById("historico-ranking-titulo");
+    if (!box) return;
+    if (!analise || !analise.baixada) {
+        box.innerHTML = `<div class="empty-state">Dê baixa numa viagem pra ver o ranking.</div>`;
+        if (titulo) titulo.textContent = "Última viagem baixada";
+        return;
+    }
+    const r = analise.rota;
+    const cidades = [...new Set((r.itens || []).map((i) => i.cidade).filter(Boolean))];
+    if (titulo) {
+        titulo.textContent = `${formatDataBR(r.data)}${cidades.length ? ` · ${cidades.join(", ")}` : ""} · faturou ${formatBRLAdmin(analise.receita)}`;
+    }
+    box.innerHTML = `
+        <div class="hist-ranking-grid">
+            ${htmlRankingColuna("Mais vendeu", analise.maisVendeuQtd.slice(0, 6), "qtd")}
+            ${htmlRankingColuna("Mais faturou", analise.maisFaturou.slice(0, 6), "faturou")}
+            ${htmlRankingColuna("Menos vendeu", analise.menosVendeu.slice(0, 6), "menos")}
+        </div>
+        <div class="hist-ranking-resumo">
+            <span>Vendeu <strong>${analise.pecasVendidas}</strong> de ${analise.pecasLevou} (${analise.giro}%)</span>
+            <span>Faturou <strong>${formatBRLAdmin(analise.receita)}</strong></span>
+            <span>Lucro <strong class="positivo">${formatBRLAdmin(analise.lucroLiquido)}</strong></span>
+        </div>
+    `;
+}
+
 function renderHistorico() {
     const filtro = document.getElementById("historico-filtro")?.value || "todas";
     const rotas = loadRotas()
@@ -1381,6 +1440,8 @@ function renderHistorico() {
     if (elL) elL.textContent = formatBRLAdmin(lucro);
     if (elG) elG.textContent = `${giro}%`;
 
+    renderHistoricoRanking(baixadas[0] || null);
+
     const dicasBox = document.getElementById("historico-dicas");
     if (dicasBox) {
         const dicas = gerarDicasHistorico(analises);
@@ -1398,28 +1459,11 @@ function renderHistorico() {
         .map((a) => {
             const r = a.rota;
             const cidades = [...new Set((r.itens || []).map((i) => i.cidade).filter(Boolean))];
-            const sobraHtml = a.baixada && a.topSobra.length
-                ? `<div class="hist-mini">
-                        <strong>Mais sobrou</strong>
-                        <ul>${a.topSobra
-                            .slice(0, 5)
-                            .map(
-                                (i) =>
-                                    `<li><span>${i.sobrou}× ${i.nome}</span><span>${formatBRLAdmin(i.valorSobra)}</span></li>`
-                            )
-                            .join("")}</ul>
-                   </div>`
-                : "";
-            const vendaHtml = a.baixada && a.topVenda.length
-                ? `<div class="hist-mini">
-                        <strong>Mais vendeu</strong>
-                        <ul>${a.topVenda
-                            .slice(0, 5)
-                            .map(
-                                (i) =>
-                                    `<li><span>${i.vendeu}× ${i.nome}</span><span>${formatBRLAdmin(i.receita)}</span></li>`
-                            )
-                            .join("")}</ul>
+            const rankingHtml = a.baixada
+                ? `<div class="hist-ranking-grid hist-ranking-grid--card">
+                        ${htmlRankingColuna("Mais vendeu", a.maisVendeuQtd.slice(0, 5), "qtd")}
+                        ${htmlRankingColuna("Mais faturou", a.maisFaturou.slice(0, 5), "faturou")}
+                        ${htmlRankingColuna("Menos vendeu", a.menosVendeu.slice(0, 5), "menos")}
                    </div>`
                 : "";
             return `
@@ -1442,10 +1486,11 @@ function renderHistorico() {
                         }
                     </div>
                 </header>
-                <div class="hist-grid">${vendaHtml}${sobraHtml}</div>
+                ${rankingHtml}
                 <div class="card-actions">
                     <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
                     <button type="button" class="btn-admin" data-baixa-rota="${r.id}">${a.baixada ? "Corrigir baixa" : "Dar baixa"}</button>
+                    ${a.baixada ? `<button type="button" class="btn-ghost" data-hist-ranking="${r.id}">Ver ranking</button>` : ""}
                 </div>
             </article>`;
         })
@@ -1456,6 +1501,15 @@ function renderHistorico() {
     });
     box.querySelectorAll("[data-baixa-rota]").forEach((btn) => {
         btn.addEventListener("click", () => abrirBaixa(Number(btn.dataset.baixaRota)));
+    });
+    box.querySelectorAll("[data-hist-ranking]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const id = Number(btn.dataset.histRanking);
+            const a = analises.find((x) => Number(x.rota.id) === id);
+            if (!a) return;
+            renderHistoricoRanking(a);
+            document.getElementById("historico-ranking")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
     });
 }
 
