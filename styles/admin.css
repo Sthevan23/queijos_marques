@@ -824,6 +824,74 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     font-size: 0.75rem;
     color: var(--texto-claro);
 }
+.baixa-despesas {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+.baixa-despesas__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.baixa-despesas__head p {
+    margin: 2px 0 0;
+    color: var(--texto-claro);
+    font-size: 0.82rem;
+}
+.baixa-despesas__total { text-align: right; }
+.baixa-despesas__total span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--texto-claro);
+}
+.baixa-despesas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.baixa-despesas-empty {
+    margin: 0;
+    color: var(--texto-claro);
+    font-size: 0.88rem;
+}
+.baixa-despesa-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+.baixa-despesa-item span {
+    display: block;
+    color: var(--texto-claro);
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+.baixa-despesa-item__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.baixa-despesa-form {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+}
+.baixa-despesa-form__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.btn--full { width: 100%; }
 .rota-resumo-grande {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
