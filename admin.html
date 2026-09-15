@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles/admin.css?v=28">
+    <link rel="stylesheet" href="styles/admin.css?v=30">
 </head>
 
 <body>
@@ -57,6 +57,7 @@
                 <a href="#" class="sidebar__link" data-page="aprazo"><i class="fas fa-hand-holding-dollar"></i> Fiado</a>
                 <a href="#" class="sidebar__link" data-page="contas"><i class="fas fa-receipt"></i> Contas</a>
                 <a href="#" class="sidebar__link" data-page="produtos"><i class="fas fa-tags"></i> Preços</a>
+                <a href="#" class="sidebar__link" data-page="historico"><i class="fas fa-chart-line"></i> Histórico</a>
             </nav>
             <div class="sidebar__footer">
                 <a href="#" class="sidebar__link sidebar__link--muted" data-page="mais"><i class="fas fa-ellipsis"></i> Outros</a>
@@ -116,10 +117,10 @@
                         <strong>Dar baixa</strong>
                         <span id="easy-baixa-hint">O que vendeu</span>
                     </button>
-                    <button type="button" class="easy-action" data-go-tab="aprazo">
-                        <i class="fas fa-hand-holding-dollar"></i>
-                        <strong>Anotar fiado</strong>
-                        <span>Paga depois</span>
+                    <button type="button" class="easy-action" data-go-tab="historico">
+                        <i class="fas fa-chart-line"></i>
+                        <strong>Histórico</strong>
+                        <span>Viagens e dicas</span>
                     </button>
                 </div>
 
@@ -436,6 +437,56 @@
                 </div>
             </section>
 
+            <!-- HISTÓRICO -->
+            <section id="tab-historico" class="admin-page">
+                <div class="stats-grid" id="historico-stats">
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Viagens</span>
+                            <strong class="stat-card__value" id="hist-viagens">0</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Faturou</span>
+                            <strong class="stat-card__value" id="hist-faturado">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">Lucro</span>
+                            <strong class="stat-card__value" id="hist-lucro">R$ 0,00</strong>
+                        </div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-card__info">
+                            <span class="stat-card__label">% vendido</span>
+                            <strong class="stat-card__value" id="hist-giro">0%</strong>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="card">
+                    <h2 class="card__title">O que melhorar</h2>
+                    <div id="historico-dicas" class="historico-dicas"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card__head">
+                        <h2 class="card__title">Viagens</h2>
+                        <label class="inline-field">
+                            Filtro
+                            <select id="historico-filtro">
+                                <option value="todas">Todas</option>
+                                <option value="baixada">Baixadas</option>
+                                <option value="aberta">Abertas</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div id="historico-lista" class="vendas-lista"></div>
+                </div>
+            </section>
+
             <!-- MAIS -->
             <section id="tab-mais" class="admin-page">
                 <div class="card">
@@ -475,9 +526,9 @@
         </main>
     </div>
 
-    <script src="custos.js?v=29"></script>
-    <script src="script.js?v=29"></script>
-    <script src="admin.js?v=29"></script>
+    <script src="custos.js?v=30"></script>
+    <script src="script.js?v=30"></script>
+    <script src="admin.js?v=30"></script>
 </body>
 
 </html>

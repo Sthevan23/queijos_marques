@@ -113,6 +113,7 @@ async function mostrarApp() {
     renderProdutosCustomLista();
     renderPlanilha();
     renderVendas();
+    renderHistorico();
     updateEasyBaixaHint();
     showTab("financeiro");
 }
@@ -1207,6 +1208,257 @@ function renderDespesas() {
     });
 }
 
+function analisarViagem(rota) {
+    const itens = aplicarPrecosPlanilhaNosItens(rota?.itens || []);
+    const totais = calcCargaTotais(itens);
+    const baixada = rota.status === "baixada";
+    const linhas = itens.map((i) => {
+        const levou = Number(i.qtd) || 0;
+        const vendeu = baixada ? Number(i.qtdVendida) || 0 : 0;
+        const sobrou = Math.max(0, levou - vendeu);
+        return {
+            nome: i.nome,
+            levou,
+            vendeu,
+            sobrou,
+            preco: Number(i.preco) || 0,
+            custo: Number(i.custo) || 0,
+            receita: vendeu * (Number(i.preco) || 0),
+            custoVendido: vendeu * (Number(i.custo) || 0),
+            valorSobra: sobrou * (Number(i.preco) || 0)
+        };
+    });
+    const pecasLevou = linhas.reduce((s, i) => s + i.levou, 0);
+    const pecasVendidas = baixada
+        ? Number(rota.pecasVendidas) || linhas.reduce((s, i) => s + i.vendeu, 0)
+        : 0;
+    const pecasSobra = Math.max(0, pecasLevou - pecasVendidas);
+    const receita = baixada
+        ? Number(rota.receitaReal) || linhas.reduce((s, i) => s + i.receita, 0)
+        : totais.totalReceita;
+    const custoVendido = baixada
+        ? Number(rota.custoVendido) || linhas.reduce((s, i) => s + i.custoVendido, 0)
+        : totais.totalCusto;
+    const lucro = baixada
+        ? Number(rota.lucroReal) || receita - custoVendido
+        : totais.lucroEstimado;
+    const despesas = totalDespesasBaixa(rota.data);
+    const giro = pecasLevou > 0 ? Math.round((pecasVendidas / pecasLevou) * 100) : 0;
+    const topSobra = linhas
+        .filter((i) => i.sobrou > 0)
+        .sort((a, b) => b.valorSobra - a.valorSobra || b.sobrou - a.sobrou)
+        .slice(0, 8);
+    const topVenda = linhas
+        .filter((i) => i.vendeu > 0)
+        .sort((a, b) => b.receita - a.receita)
+        .slice(0, 8);
+    const zeroVenda = linhas.filter((i) => i.levou > 0 && i.vendeu === 0);
+    return {
+        rota,
+        baixada,
+        pecasLevou,
+        pecasVendidas,
+        pecasSobra,
+        receita,
+        custoVendido,
+        lucro,
+        despesas,
+        lucroLiquido: lucro - despesas,
+        giro,
+        valorCarga: totais.totalReceita,
+        custoCarga: totais.totalCusto,
+        topSobra,
+        topVenda,
+        zeroVenda,
+        valorSobra: linhas.reduce((s, i) => s + i.valorSobra, 0)
+    };
+}
+
+function gerarDicasHistorico(analises) {
+    const dicas = [];
+    const baixadas = analises.filter((a) => a.baixada);
+    if (!analises.length) {
+        return ["Salve e baixe viagens pra aparecer o histórico e as dicas."];
+    }
+    if (!baixadas.length) {
+        dicas.push("Tem viagem aberta. Dê a baixa pra saber o que vendeu de verdade.");
+        return dicas;
+    }
+
+    const mediaGiro =
+        baixadas.reduce((s, a) => s + a.giro, 0) / Math.max(1, baixadas.length);
+    if (mediaGiro < 70) {
+        dicas.push(
+            `Giro médio ${Math.round(mediaGiro)}%. Leve menos variedade e mais do que sempre vende.`
+        );
+    } else if (mediaGiro >= 85) {
+        dicas.push(`Giro ótimo (${Math.round(mediaGiro)}%). Pode testar um pouco mais dos campeões de venda.`);
+    }
+
+    const sobraCount = {};
+    const vendaCount = {};
+    baixadas.forEach((a) => {
+        a.topSobra.forEach((i) => {
+            sobraCount[i.nome] = (sobraCount[i.nome] || 0) + i.sobrou;
+        });
+        a.topVenda.forEach((i) => {
+            vendaCount[i.nome] = (vendaCount[i.nome] || 0) + i.vendeu;
+        });
+        a.zeroVenda.forEach((i) => {
+            sobraCount[i.nome] = (sobraCount[i.nome] || 0) + i.levou;
+        });
+    });
+
+    const piores = Object.entries(sobraCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+    if (piores.length) {
+        dicas.push(
+            `Mais sobra: ${piores.map(([n, q]) => `${n} (${q})`).join(", ")}. Na próxima, leve menos.`
+        );
+    }
+
+    const melhores = Object.entries(vendaCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+    if (melhores.length) {
+        dicas.push(
+            `Mais vendeu: ${melhores.map(([n, q]) => `${n} (${q})`).join(", ")}. Priorize esses na montagem.`
+        );
+    }
+
+    const ultima = baixadas[0];
+    if (ultima && ultima.valorSobra > 3000) {
+        dicas.push(
+            `Última viagem: sobrou ${formatBRLAdmin(ultima.valorSobra)} em estoque. Corte kits/trufados/geleias que não giram.`
+        );
+    }
+    if (ultima && ultima.despesas > 0) {
+        dicas.push(
+            `Despesas da última viagem: ${formatBRLAdmin(ultima.despesas)}. Lucro líquido ${formatBRLAdmin(ultima.lucroLiquido)}.`
+        );
+    } else {
+        dicas.push("Anote hospedagem, Uber e comida em Contas pra ver o lucro líquido real.");
+    }
+
+    const lombos = piores.filter(([n]) => /lombo|frango/i.test(n));
+    if (lombos.length) {
+        dicas.push("Lombo/frango sobrou bastante no Rio — leve metade na próxima.");
+    }
+    const trufados = piores.filter(([n]) => /trufado|geleia|tropical/i.test(n));
+    if (trufados.length) {
+        dicas.push("Trufado, geleia e tropical: só repor o que o cliente pedir.");
+    }
+
+    return dicas;
+}
+
+function renderHistorico() {
+    const filtro = document.getElementById("historico-filtro")?.value || "todas";
+    const rotas = loadRotas()
+        .slice()
+        .sort((a, b) => String(b.data).localeCompare(String(a.data)) || Number(b.id) - Number(a.id));
+    const analises = rotas.map(analisarViagem);
+    const filtradas = analises.filter((a) => {
+        if (filtro === "baixada") return a.baixada;
+        if (filtro === "aberta") return !a.baixada;
+        return true;
+    });
+
+    const baixadas = analises.filter((a) => a.baixada);
+    const faturado = baixadas.reduce((s, a) => s + a.receita, 0);
+    const lucro = baixadas.reduce((s, a) => s + a.lucroLiquido, 0);
+    const levou = baixadas.reduce((s, a) => s + a.pecasLevou, 0);
+    const vendeu = baixadas.reduce((s, a) => s + a.pecasVendidas, 0);
+    const giro = levou > 0 ? Math.round((vendeu / levou) * 100) : 0;
+
+    const elV = document.getElementById("hist-viagens");
+    const elF = document.getElementById("hist-faturado");
+    const elL = document.getElementById("hist-lucro");
+    const elG = document.getElementById("hist-giro");
+    if (elV) elV.textContent = String(analises.length);
+    if (elF) elF.textContent = formatBRLAdmin(faturado);
+    if (elL) elL.textContent = formatBRLAdmin(lucro);
+    if (elG) elG.textContent = `${giro}%`;
+
+    const dicasBox = document.getElementById("historico-dicas");
+    if (dicasBox) {
+        const dicas = gerarDicasHistorico(analises);
+        dicasBox.innerHTML = dicas.map((d) => `<div class="historico-dica">${d}</div>`).join("");
+    }
+
+    const box = document.getElementById("historico-lista");
+    if (!box) return;
+    if (!filtradas.length) {
+        box.innerHTML = `<div class="empty-state">Nenhuma viagem neste filtro.</div>`;
+        return;
+    }
+
+    box.innerHTML = filtradas
+        .map((a) => {
+            const r = a.rota;
+            const cidades = [...new Set((r.itens || []).map((i) => i.cidade).filter(Boolean))];
+            const sobraHtml = a.baixada && a.topSobra.length
+                ? `<div class="hist-mini">
+                        <strong>Mais sobrou</strong>
+                        <ul>${a.topSobra
+                            .slice(0, 5)
+                            .map(
+                                (i) =>
+                                    `<li><span>${i.sobrou}× ${i.nome}</span><span>${formatBRLAdmin(i.valorSobra)}</span></li>`
+                            )
+                            .join("")}</ul>
+                   </div>`
+                : "";
+            const vendaHtml = a.baixada && a.topVenda.length
+                ? `<div class="hist-mini">
+                        <strong>Mais vendeu</strong>
+                        <ul>${a.topVenda
+                            .slice(0, 5)
+                            .map(
+                                (i) =>
+                                    `<li><span>${i.vendeu}× ${i.nome}</span><span>${formatBRLAdmin(i.receita)}</span></li>`
+                            )
+                            .join("")}</ul>
+                   </div>`
+                : "";
+            return `
+            <article class="venda-card ${a.baixada ? "baixada" : ""}">
+                <header>
+                    <div>
+                        <strong>Viagem ${formatDataBR(r.data)}</strong>
+                        <p>${cidades.join(", ") || "—"} · ${a.baixada ? "Baixada" : "Aberta"} · ${a.pecasLevou} peças</p>
+                    </div>
+                    <div class="venda-totais">
+                        ${
+                            a.baixada
+                                ? `<span>Vendeu ${a.pecasVendidas} (${a.giro}%)</span>
+                                   <span>Sobrou ${a.pecasSobra} · ${formatBRLAdmin(a.valorSobra)}</span>
+                                   <span>Faturou ${formatBRLAdmin(a.receita)}</span>
+                                   <strong class="positivo">Lucro ${formatBRLAdmin(a.lucroLiquido)}</strong>`
+                                : `<span>Valor carga ${formatBRLAdmin(a.valorCarga)}</span>
+                                   <span>Custo ${formatBRLAdmin(a.custoCarga)}</span>
+                                   <strong>Aguardando baixa</strong>`
+                        }
+                    </div>
+                </header>
+                <div class="hist-grid">${vendaHtml}${sobraHtml}</div>
+                <div class="card-actions">
+                    <button type="button" class="btn-ghost" data-ver-rota="${r.id}">Ver rota</button>
+                    <button type="button" class="btn-admin" data-baixa-rota="${r.id}">${a.baixada ? "Corrigir baixa" : "Dar baixa"}</button>
+                </div>
+            </article>`;
+        })
+        .join("");
+
+    box.querySelectorAll("[data-ver-rota]").forEach((btn) => {
+        btn.addEventListener("click", () => verRota(Number(btn.dataset.verRota)));
+    });
+    box.querySelectorAll("[data-baixa-rota]").forEach((btn) => {
+        btn.addEventListener("click", () => abrirBaixa(Number(btn.dataset.baixaRota)));
+    });
+}
+
 function showTab(tab) {
     const target = tab === "planilha" || tab === "vendas" ? "mais" : tab;
     const titles = {
@@ -1215,6 +1467,7 @@ function showTab(tab) {
         aprazo: "Fiado",
         contas: "Contas",
         produtos: "Preços",
+        historico: "Histórico",
         mais: "Outros"
     };
 
@@ -1226,7 +1479,7 @@ function showTab(tab) {
         b.classList.toggle("active", b.dataset.tab === target);
     });
 
-    ["financeiro", "rotas", "aprazo", "contas", "produtos", "mais"].forEach((name) => {
+    ["financeiro", "rotas", "aprazo", "contas", "produtos", "historico", "mais"].forEach((name) => {
         const el = document.getElementById(`tab-${name}`);
         if (!el) return;
         const on = name === target;
@@ -1258,6 +1511,7 @@ function showTab(tab) {
         renderProdutos();
         renderProdutosCustomLista();
     }
+    if (target === "historico") renderHistorico();
     if (target === "mais") {
         renderPlanilha();
         renderVendas();
@@ -1478,6 +1732,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("despesa-filtro-data")?.addEventListener("change", renderDespesas);
+    document.getElementById("historico-filtro")?.addEventListener("change", renderHistorico);
 
     document.getElementById("btn-add-produto").addEventListener("click", async () => {
         const nome = document.getElementById("novo-prod-nome").value.trim();
