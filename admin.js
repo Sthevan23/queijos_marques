@@ -900,6 +900,8 @@ function abrirBaixa(rotaId) {
         }
     };
 
+    const dataViagem = dataISO(rota.data) || hojeISO();
+
     const atualizarPreview = () => {
         let pecas = 0;
         let sobrouTotal = 0;
@@ -918,13 +920,22 @@ function abrirBaixa(rotaId) {
             const sobrouEl = box.querySelector(`[data-baixa-sobrou="${input.dataset.baixaKey}"]`);
             if (sobrouEl) sobrouEl.textContent = String(Math.max(0, max - q));
         });
+        const despesas = totalDespesasBaixa(dataViagem);
+        const custoTotal = custo + despesas;
         document.getElementById("baixa-pecas").textContent = String(pecas);
         const sobrouEl = document.getElementById("baixa-sobrou");
         if (sobrouEl) sobrouEl.textContent = String(sobrouTotal);
         document.getElementById("baixa-receita").textContent = formatBRLAdmin(receita);
-        document.getElementById("baixa-custo").textContent = formatBRLAdmin(custo);
-        document.getElementById("baixa-lucro").textContent = formatBRLAdmin(receita - custo);
+        document.getElementById("baixa-custo").textContent = formatBRLAdmin(custoTotal);
+        document.getElementById("baixa-lucro").textContent = formatBRLAdmin(receita - custoTotal);
+        const despTotalEl = document.getElementById("baixa-despesas-total");
+        if (despTotalEl) despTotalEl.textContent = formatBRLAdmin(despesas);
     };
+
+    window.__baixaAtualizarPreview = atualizarPreview;
+    window.__baixaDataViagem = dataViagem;
+    renderBaixaDespesas(dataViagem, atualizarPreview);
+    fecharFormBaixaDespesa();
 
     const ajustarValor = (input, delta) => {
         if (!input) return;
@@ -982,7 +993,80 @@ function abrirBaixa(rotaId) {
 
 function fecharBaixa() {
     rotaBaixaId = null;
+    window.__baixaAtualizarPreview = null;
+    window.__baixaDataViagem = null;
+    fecharFormBaixaDespesa();
     document.getElementById("baixa-modal").close();
+}
+
+function totalDespesasBaixa(dataViagem) {
+    const dia = dataISO(dataViagem) || hojeISO();
+    return loadDespesas()
+        .filter((i) => dataISO(i.data) === dia)
+        .reduce((s, i) => s + (Number(i.valor) || 0), 0);
+}
+
+function fecharFormBaixaDespesa() {
+    const form = document.getElementById("baixa-despesa-form");
+    if (!form) return;
+    form.hidden = true;
+    form.classList.add("hidden");
+    const valor = document.getElementById("baixa-despesa-valor");
+    const desc = document.getElementById("baixa-despesa-descricao");
+    if (valor) valor.value = "";
+    if (desc) desc.value = "";
+}
+
+function abrirFormBaixaDespesa() {
+    const form = document.getElementById("baixa-despesa-form");
+    if (!form) return;
+    form.hidden = false;
+    form.classList.remove("hidden");
+    document.getElementById("baixa-despesa-valor")?.focus();
+}
+
+function renderBaixaDespesas(dataViagem, onChange) {
+    const box = document.getElementById("baixa-despesas-lista");
+    const totalEl = document.getElementById("baixa-despesas-total");
+    if (!box) return;
+
+    const dia = dataISO(dataViagem) || hojeISO();
+    const lista = loadDespesas().filter((i) => dataISO(i.data) === dia);
+    const total = lista.reduce((s, i) => s + (Number(i.valor) || 0), 0);
+    if (totalEl) totalEl.textContent = formatBRLAdmin(total);
+
+    if (!lista.length) {
+        box.innerHTML = `<p class="baixa-despesas-empty">Nenhuma despesa nesta viagem ainda.</p>`;
+    } else {
+        box.innerHTML = lista
+            .map(
+                (item) => `
+            <div class="baixa-despesa-item">
+                <div>
+                    <strong>${item.categoria || "Outros"}</strong>
+                    <span>${item.descricao || "—"}</span>
+                </div>
+                <div class="baixa-despesa-item__right">
+                    <strong class="negativo">${formatBRLAdmin(item.valor)}</strong>
+                    <button type="button" class="btn-ghost danger btn--sm" data-del-baixa-despesa="${item.id}">Excluir</button>
+                </div>
+            </div>`
+            )
+            .join("");
+    }
+
+    box.querySelectorAll("[data-del-baixa-despesa]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            if (!confirm("Excluir esta despesa?")) return;
+            await removerDespesa(btn.dataset.delBaixaDespesa);
+            renderBaixaDespesas(dia, onChange);
+            renderDespesas();
+            renderStats();
+            if (typeof onChange === "function") onChange();
+        });
+    });
+
+    if (typeof onChange === "function") onChange();
 }
 
 async function confirmarBaixa() {
@@ -1319,6 +1403,30 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("baixa-form").addEventListener("submit", (e) => {
         e.preventDefault();
         confirmarBaixa();
+    });
+
+    document.getElementById("btn-baixa-add-despesa")?.addEventListener("click", abrirFormBaixaDespesa);
+    document.getElementById("btn-baixa-cancelar-despesa")?.addEventListener("click", fecharFormBaixaDespesa);
+    document.getElementById("btn-baixa-salvar-despesa")?.addEventListener("click", async () => {
+        const categoria = document.getElementById("baixa-despesa-categoria")?.value || "Outros";
+        const valor = Number(document.getElementById("baixa-despesa-valor")?.value) || 0;
+        const descricao = document.getElementById("baixa-despesa-descricao")?.value.trim() || "";
+        const data = window.__baixaDataViagem || hojeISO();
+        if (valor <= 0) {
+            alert("Informe o valor da despesa.");
+            return;
+        }
+        const btn = document.getElementById("btn-baixa-salvar-despesa");
+        if (btn) btn.disabled = true;
+        try {
+            await criarDespesa({ categoria, descricao, valor, data });
+            fecharFormBaixaDespesa();
+            renderBaixaDespesas(data, window.__baixaAtualizarPreview);
+            renderDespesas();
+            renderStats();
+        } finally {
+            if (btn) btn.disabled = false;
+        }
     });
 
     document.getElementById("btn-salvar-aprazo").addEventListener("click", () => {

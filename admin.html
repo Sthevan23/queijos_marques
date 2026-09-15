@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles/admin.css?v=27">
+    <link rel="stylesheet" href="styles/admin.css?v=28">
 </head>
 
 <body>
@@ -211,11 +211,53 @@
                         <div><span>Lucro estimado</span><strong class="positivo" id="baixa-carga-lucro">R$ 0,00</strong></div>
                     </div>
                     <div id="baixa-lista" class="baixa-lista"></div>
+
+                    <div class="baixa-despesas" id="baixa-despesas">
+                        <div class="baixa-despesas__head">
+                            <div>
+                                <strong>Despesas da viagem</strong>
+                                <p>Hospedagem, alimentação, Uber…</p>
+                            </div>
+                            <div class="baixa-despesas__total">
+                                <span>Total</span>
+                                <strong class="negativo" id="baixa-despesas-total">R$ 0,00</strong>
+                            </div>
+                        </div>
+                        <div id="baixa-despesas-lista" class="baixa-despesas-lista"></div>
+                        <button type="button" id="btn-baixa-add-despesa" class="btn btn--secondary btn--full">+ Adicionar despesa</button>
+                        <div id="baixa-despesa-form" class="baixa-despesa-form hidden" hidden>
+                            <div class="form-grid">
+                                <label>
+                                    Tipo
+                                    <select id="baixa-despesa-categoria">
+                                        <option value="Hospedagem">Hospedagem</option>
+                                        <option value="Alimentação">Alimentação</option>
+                                        <option value="Uber">Uber</option>
+                                        <option value="Combustível">Combustível</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    Valor (R$)
+                                    <input type="number" id="baixa-despesa-valor" min="0" step="0.01" placeholder="0,00" inputmode="decimal">
+                                </label>
+                                <label class="span-2">
+                                    Descrição
+                                    <input type="text" id="baixa-despesa-descricao" placeholder="Ex.: hotel, almoço, corrida…">
+                                </label>
+                            </div>
+                            <div class="baixa-despesa-form__actions">
+                                <button type="button" id="btn-baixa-salvar-despesa" class="btn btn--primary">Salvar despesa</button>
+                                <button type="button" id="btn-baixa-cancelar-despesa" class="btn btn--secondary">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="rota-resumo rota-resumo-grande">
                         <div><span>Vendeu</span><strong id="baixa-pecas">0</strong></div>
                         <div><span>Sobrou</span><strong id="baixa-sobrou">0</strong></div>
                         <div><span>Receita</span><strong id="baixa-receita">R$ 0,00</strong></div>
-                        <div><span>Custo vendido</span><strong id="baixa-custo">R$ 0,00</strong></div>
+                        <div><span>Custo + despesas</span><strong id="baixa-custo">R$ 0,00</strong></div>
                         <div><span>Lucro real</span><strong class="positivo" id="baixa-lucro">R$ 0,00</strong></div>
                     </div>
                     <button type="submit" id="btn-confirmar-baixa" class="btn btn--primary btn--xl btn--full">Confirmar baixa</button>
@@ -433,9 +475,9 @@
         </main>
     </div>
 
-    <script src="custos.js?v=27"></script>
-    <script src="script.js?v=27"></script>
-    <script src="admin.js?v=27"></script>
+    <script src="custos.js?v=28"></script>
+    <script src="script.js?v=28"></script>
+    <script src="admin.js?v=28"></script>
 </body>
 
 </html>
