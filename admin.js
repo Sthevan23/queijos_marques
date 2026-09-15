@@ -764,13 +764,40 @@ function toggleDetalheBaixa() {
     if (btn) btn.textContent = "Ocultar rota";
 }
 
+function htmlStepperBaixa(kind, key, value, extraAttrs = "") {
+    const keyAttr =
+        kind === "vendeu"
+            ? `data-baixa-key="${key}"`
+            : `data-baixa-levou-key="${key}" data-baixa-vendeu-for="${key}"`;
+    return `
+        <div class="baixa-stepper">
+            <button type="button" class="baixa-stepper__btn" data-step="-1" aria-label="Diminuir">−</button>
+            <input type="number" min="0" step="1" inputmode="numeric"
+                value="${value}" ${keyAttr} ${extraAttrs}>
+            <button type="button" class="baixa-stepper__btn" data-step="1" aria-label="Aumentar">+</button>
+        </div>
+    `;
+}
+
 function abrirBaixa(rotaId) {
     const rota = getRota(rotaId);
     if (!rota) return;
     rotaBaixaId = rotaId;
 
+    const itens = aplicarPrecosPlanilhaNosItens(rota.itens || []);
+    const totaisCarga = calcCargaTotais(itens);
+
     document.getElementById("baixa-subtitulo").textContent =
-        `Viagem de ${formatDataBR(rota.data)} — informe quanto levou e quanto vendeu.`;
+        `Viagem de ${formatDataBR(rota.data)} — preços do catálogo · custo da planilha.`;
+
+    const elLevou = document.getElementById("baixa-levou-total");
+    const elCargaRec = document.getElementById("baixa-carga-receita");
+    const elCargaCusto = document.getElementById("baixa-carga-custo");
+    const elCargaLucro = document.getElementById("baixa-carga-lucro");
+    if (elLevou) elLevou.textContent = String(totaisCarga.totalPecas);
+    if (elCargaRec) elCargaRec.textContent = formatBRLAdmin(totaisCarga.totalReceita);
+    if (elCargaCusto) elCargaCusto.textContent = formatBRLAdmin(totaisCarga.totalCusto);
+    if (elCargaLucro) elCargaLucro.textContent = formatBRLAdmin(totaisCarga.lucroEstimado);
 
     const detalhe = document.getElementById("baixa-rota-detalhe");
     if (detalhe) {
@@ -782,37 +809,57 @@ function abrirBaixa(rotaId) {
     if (btnVerRota) btnVerRota.textContent = "Ver rota";
 
     const box = document.getElementById("baixa-lista");
-    box.innerHTML = rota.itens
+    box.innerHTML = itens
         .map((item) => {
             const vendida = item.qtdVendida ?? 0;
             const key = `${item.cidade}|${item.produtoId}`;
+            const sobrou = Math.max(0, (Number(item.qtd) || 0) - (Number(vendida) || 0));
             return `
-                <div class="baixa-row">
-                    <div>
+                <div class="baixa-row" data-baixa-row="${key}">
+                    <div class="baixa-row__info">
                         <strong>${item.nome}</strong>
-                        <p>${item.cidade} · ${formatBRLAdmin(item.preco)} / un.</p>
+                        <p>${item.cidade} · ${formatBRLAdmin(item.preco)} / un. · custo ${formatBRLAdmin(item.custo)}</p>
                     </div>
                     <div class="baixa-row__inputs">
                         <label>
                             Levou
-                            <input type="number" min="0" step="1" inputmode="numeric"
-                                value="${item.qtd}"
-                                data-baixa-levou-key="${key}"
-                                data-baixa-vendeu-for="${key}">
+                            ${htmlStepperBaixa("levou", key, item.qtd)}
                         </label>
                         <label>
                             Vendeu
-                            <input type="number" min="0" max="${item.qtd}" step="1" inputmode="numeric"
-                                value="${vendida}"
-                                data-baixa-key="${key}"
-                                data-baixa-preco="${item.preco}"
-                                data-baixa-custo="${item.custo}">
+                            ${htmlStepperBaixa(
+                                "vendeu",
+                                key,
+                                vendida,
+                                `max="${item.qtd}" data-baixa-preco="${item.preco}" data-baixa-custo="${item.custo}"`
+                            )}
                         </label>
+                        <div class="baixa-sobrou-box">
+                            <span>Sobrou</span>
+                            <strong data-baixa-sobrou="${key}">${sobrou}</strong>
+                        </div>
                     </div>
                 </div>
             `;
         })
         .join("");
+
+    // Persiste preços corrigidos (catálogo + planilha) na viagem local e no site
+    const rotas = loadRotas().map((r) => {
+        if (r.id !== rotaId && String(r.id) !== String(rotaId)) return r;
+        const novos = aplicarPrecosPlanilhaNosItens(r.itens || []);
+        return { ...r, itens: novos, ...calcCargaTotais(novos) };
+    });
+    saveRotas(rotas);
+    const rotaCorrigida = rotas.find((r) => r.id === rotaId || String(r.id) === String(rotaId));
+    if (rotaCorrigida) {
+        apiRotas("PUT", {
+            id: rotaCorrigida.id,
+            status: rotaCorrigida.status || "aberta",
+            observacao: rotaCorrigida.observacao || "",
+            itens: rotaCorrigida.itens
+        }).catch(() => {});
+    }
 
     const syncVendeuMax = (levouInput) => {
         const key = levouInput.dataset.baixaLevouKey;
@@ -829,6 +876,7 @@ function abrirBaixa(rotaId) {
 
     const atualizarPreview = () => {
         let pecas = 0;
+        let sobrouTotal = 0;
         let receita = 0;
         let custo = 0;
         box.querySelectorAll("[data-baixa-key]").forEach((input) => {
@@ -838,14 +886,44 @@ function abrirBaixa(rotaId) {
             const max = levouInput ? Number(levouInput.value) || 0 : q;
             if (q > max) q = max;
             pecas += q;
+            sobrouTotal += Math.max(0, max - q);
             receita += q * (Number(input.dataset.baixaPreco) || 0);
             custo += q * (Number(input.dataset.baixaCusto) || 0);
+            const sobrouEl = box.querySelector(`[data-baixa-sobrou="${input.dataset.baixaKey}"]`);
+            if (sobrouEl) sobrouEl.textContent = String(Math.max(0, max - q));
         });
         document.getElementById("baixa-pecas").textContent = String(pecas);
+        const sobrouEl = document.getElementById("baixa-sobrou");
+        if (sobrouEl) sobrouEl.textContent = String(sobrouTotal);
         document.getElementById("baixa-receita").textContent = formatBRLAdmin(receita);
         document.getElementById("baixa-custo").textContent = formatBRLAdmin(custo);
         document.getElementById("baixa-lucro").textContent = formatBRLAdmin(receita - custo);
     };
+
+    const ajustarValor = (input, delta) => {
+        if (!input) return;
+        const isLevou = input.hasAttribute("data-baixa-levou-key");
+        let val = Number(input.value) || 0;
+        val += delta;
+        if (val < 0) val = 0;
+        if (!isLevou) {
+            const key = input.dataset.baixaKey;
+            const levouInput = box.querySelector(`[data-baixa-levou-key="${key}"]`);
+            const max = levouInput ? Number(levouInput.value) || 0 : val;
+            if (val > max) val = max;
+        }
+        input.value = val;
+        if (isLevou) syncVendeuMax(input);
+        atualizarPreview();
+    };
+
+    box.querySelectorAll(".baixa-stepper__btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const stepper = btn.closest(".baixa-stepper");
+            const input = stepper?.querySelector("input");
+            ajustarValor(input, Number(btn.dataset.step) || 0);
+        });
+    });
 
     box.querySelectorAll("[data-baixa-levou-key]").forEach((input) => {
         input.addEventListener("input", () => {

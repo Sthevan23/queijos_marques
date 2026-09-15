@@ -366,6 +366,92 @@ function getPreco(id, lista = typeof produtos !== "undefined" ? produtos : []) {
     return getPrecoPadrao(id, lista);
 }
 
+/** Alias de SKUs da carga (WhatsApp/planilha) → id do catálogo + fator (ex.: metade = 0.5). */
+const CARGA_PRECO_ALIAS = {
+    9001: { id: 0 },
+    9002: { id: 0 },
+    9003: { id: 13 },
+    9004: { id: 13 },
+    9005: { id: 2 },
+    9006: { id: 6 },
+    9007: { id: 6 },
+    9008: { id: 1 },
+    9009: { id: 5 },
+    9010: { id: 5 },
+    9011: { id: 5 },
+    9012: { id: 12, fator: 0.5 },
+    9013: { id: 42, fator: 0.5 },
+    9014: { id: 7 },
+    9015: { id: 17 },
+    9016: { id: 43 },
+    9017: { id: 89 },
+    9018: { id: 86 },
+    9019: { id: 86 },
+    9020: { id: 86 },
+    9021: { id: 86 },
+    9022: { id: 70 },
+    9023: { id: 37 },
+    9024: { id: 37 },
+    9025: { id: 37 }
+};
+
+/** Custo da planilha por SKU custom (quando não bate 1:1 com o catálogo). */
+const CARGA_CUSTO_OVERRIDE = {
+    9001: 19.2,
+    9002: 19.2,
+    9003: 5,
+    9004: 5,
+    9005: 19.2,
+    9006: 25.6,
+    9007: 25.6,
+    9008: 19.2,
+    9009: 19.2,
+    9010: 19.2,
+    9011: 19.2,
+    9012: 13.2,
+    9013: 25.5,
+    9014: 32,
+    9015: 11,
+    9016: 20.35,
+    9017: 18.98,
+    9018: 16,
+    9019: 16,
+    9020: 16,
+    9021: 16,
+    9022: 10,
+    9023: 18.99,
+    9024: 18.99,
+    9025: 18.99,
+    16: 16.06,
+    34: 30.34,
+    86: 16.31
+};
+
+function resolverPrecoCustoItem(item, lista = typeof produtos !== "undefined" ? produtos : []) {
+    const pid = Number(item?.produtoId ?? item?.id);
+    const alias = CARGA_PRECO_ALIAS[pid];
+    const baseId = alias ? Number(alias.id) : pid;
+    const fator = alias && alias.fator != null ? Number(alias.fator) : 1;
+    let preco = getPreco(baseId, lista) * fator;
+    let custo =
+        CARGA_CUSTO_OVERRIDE[pid] != null
+            ? Number(CARGA_CUSTO_OVERRIDE[pid])
+            : getCusto(baseId) * fator;
+    if (!Number.isFinite(preco) || preco < 0) preco = Number(item?.preco) || 0;
+    if (!Number.isFinite(custo) || custo < 0) custo = Number(item?.custo) || 0;
+    return {
+        preco: Math.round(preco * 100) / 100,
+        custo: Math.round(custo * 100) / 100
+    };
+}
+
+function aplicarPrecosPlanilhaNosItens(itens, lista = typeof produtos !== "undefined" ? produtos : []) {
+    return (itens || []).map((item) => {
+        const { preco, custo } = resolverPrecoCustoItem(item, lista);
+        return { ...item, preco, custo };
+    });
+}
+
 function aplicarPrecosCatalogo(lista) {
     try {
         localStorage.removeItem("marques_precos_v1");
