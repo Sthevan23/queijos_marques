@@ -799,6 +799,31 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     font-size: 1.15rem;
     color: var(--danger, #b42318);
 }
+.carga-valores {
+    margin-top: 6px !important;
+    color: var(--texto, #1a1a1a) !important;
+    font-size: 0.9rem !important;
+}
+.rota-carga-valores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.rota-carga-valores > span {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.rota-carga-valores em {
+    font-style: normal;
+    font-size: 0.75rem;
+    color: var(--texto-claro);
+}
 .rota-resumo-grande {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -817,6 +842,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 @media (max-width: 640px) {
     .baixa-carga-resumo { grid-template-columns: 1fr 1fr; }
     .rota-resumo-grande { grid-template-columns: 1fr 1fr; }
+    .rota-carga-valores { grid-template-columns: 1fr 1fr; }
     .baixa-row__inputs { grid-template-columns: 1fr 1fr; }
     .baixa-sobrou-box { grid-column: 1 / -1; }
 }

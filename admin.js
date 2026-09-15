@@ -299,12 +299,17 @@ function renderFinanceiro() {
         boxPend.innerHTML = pendentes
             .map((r) => {
                 const deHoje = dataISO(r.data) === dia;
+                const totais = totaisRotaExibicao(r);
                 return `
                     <article class="venda-card fin-baixa-card">
                         <header>
                             <div>
                                 <strong>Viagem ${formatDataBR(r.data)}${deHoje ? "" : " (outro dia)"}</strong>
-                                <p>${r.observacao || "Sem observação"} · ${r.totalPecas || 0} peças · carga ${formatBRLAdmin(r.totalReceita)}</p>
+                                <p>${r.observacao || "Sem observação"} · ${totais.totalPecas || 0} peças</p>
+                                <p class="carga-valores">
+                                    Valor carga <strong>${formatBRLAdmin(totais.totalReceita)}</strong>
+                                    · Custo <strong>${formatBRLAdmin(totais.totalCusto)}</strong>
+                                </p>
                             </div>
                         </header>
                         <div class="card-actions">
@@ -606,6 +611,11 @@ function renderTotaisCarga() {
     document.getElementById("draft-lucro").textContent = formatBRLAdmin(totais.lucroEstimado);
 }
 
+function totaisRotaExibicao(rota) {
+    const itens = aplicarPrecosPlanilhaNosItens(rota?.itens || []);
+    return { itens, ...calcCargaTotais(itens) };
+}
+
 function renderRotas() {
     const box = document.getElementById("rotas-lista");
     const rotas = loadRotas();
@@ -618,8 +628,9 @@ function renderRotas() {
     box.innerHTML = rotas
         .map((r) => {
             const baixada = r.status === "baixada";
+            const totais = totaisRotaExibicao(r);
             const porCidade = {};
-            r.itens.forEach((i) => {
+            totais.itens.forEach((i) => {
                 if (!porCidade[i.cidade]) porCidade[i.cidade] = [];
                 porCidade[i.cidade].push(i);
             });
@@ -654,12 +665,14 @@ function renderRotas() {
                             <p>${r.observacao || "Sem observação"} · ${baixada ? "Baixada" : "Aguardando baixa"}</p>
                         </div>
                         <div class="venda-totais">
-                            <span>Carga ${formatBRLAdmin(r.totalReceita)} (${r.totalPecas || 0} peças)</span>
+                            <span>${totais.totalPecas || 0} peças levadas</span>
+                            <span>Valor carga ${formatBRLAdmin(totais.totalReceita)}</span>
+                            <span>Custo carga ${formatBRLAdmin(totais.totalCusto)}</span>
                             ${
                                 baixada
                                     ? `<span>Vendeu ${r.pecasVendidas || 0} · ${formatBRLAdmin(r.receitaReal || 0)}</span>
                                        <strong class="positivo">Lucro ${formatBRLAdmin(r.lucroReal || 0)}</strong>`
-                                    : `<strong>Lucro após a baixa</strong>`
+                                    : `<strong class="positivo">Lucro est. ${formatBRLAdmin(totais.lucroEstimado)}</strong>`
                             }
                         </div>
                     </header>
@@ -701,15 +714,24 @@ function renderRotas() {
 }
 
 function htmlDetalheRota(rota) {
+    const totais = totaisRotaExibicao(rota);
     const porCidade = {};
-    rota.itens.forEach((i) => {
+    totais.itens.forEach((i) => {
         if (!porCidade[i.cidade]) porCidade[i.cidade] = [];
         porCidade[i.cidade].push(i);
     });
 
     const baixada = rota.status === "baixada";
+    const resumo = `
+        <div class="rota-carga-valores">
+            <span><em>Peças</em><strong>${totais.totalPecas}</strong></span>
+            <span><em>Valor da carga</em><strong>${formatBRLAdmin(totais.totalReceita)}</strong></span>
+            <span><em>Custo da carga</em><strong>${formatBRLAdmin(totais.totalCusto)}</strong></span>
+            <span><em>Lucro est.</em><strong class="positivo">${formatBRLAdmin(totais.lucroEstimado)}</strong></span>
+        </div>
+    `;
 
-    return Object.entries(porCidade)
+    const blocos = Object.entries(porCidade)
         .map(([cidade, itens]) => {
             const pecas = itens.reduce((s, i) => s + (Number(i.qtd) || 0), 0);
             const vendidas = itens.reduce((s, i) => s + (Number(i.qtdVendida) || 0), 0);
@@ -730,15 +752,19 @@ function htmlDetalheRota(rota) {
             `;
         })
         .join("");
+
+    return resumo + blocos;
 }
 
 function verRota(rotaId) {
     const rota = getRota(rotaId);
     if (!rota) return;
+    const totais = totaisRotaExibicao(rota);
 
     document.getElementById("rota-view-titulo").textContent = `Rota ${formatDataBR(rota.data)}`;
     document.getElementById("rota-view-subtitulo").textContent =
-        rota.observacao || `${rota.totalPecas || 0} peças · carga ${formatBRLAdmin(rota.totalReceita)}`;
+        rota.observacao ||
+        `${totais.totalPecas} peças · valor ${formatBRLAdmin(totais.totalReceita)} · custo ${formatBRLAdmin(totais.totalCusto)}`;
     document.getElementById("rota-view-conteudo").innerHTML = htmlDetalheRota(rota);
     document.getElementById("rota-view-modal").showModal();
 }
