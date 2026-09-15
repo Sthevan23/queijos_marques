@@ -61,6 +61,21 @@ CREATE TABLE IF NOT EXISTS produtos_custom (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1000;
 
 -- ---------------------------------------------------------
+-- Despesas / contas (hospedagem, alimentação, Uber…)
+-- ---------------------------------------------------------
+CREATE TABLE IF NOT EXISTS despesas (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  categoria VARCHAR(80) NOT NULL,
+  descricao VARCHAR(255) NOT NULL DEFAULT '',
+  valor DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+  data_despesa DATE NOT NULL,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_despesas_data (data_despesa),
+  KEY idx_despesas_categoria (categoria)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ---------------------------------------------------------
 -- Produtos (espelho do catálogo / custos)
 -- ---------------------------------------------------------
 CREATE TABLE IF NOT EXISTS produtos (

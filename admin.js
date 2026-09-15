@@ -77,6 +77,10 @@ async function mostrarApp() {
     document.getElementById("rota-data").value = hojeISO();
     document.getElementById("aprazo-data").value = hojeISO();
     document.getElementById("financeiro-data").value = hojeISO();
+    const despesaData = document.getElementById("despesa-data");
+    const despesaFiltro = document.getElementById("despesa-filtro-data");
+    if (despesaData) despesaData.value = hojeISO();
+    if (despesaFiltro) despesaFiltro.value = hojeISO();
 
     setSyncStatus("Carregando…");
     const syncProdutos = await sincronizarProdutosCustom(
@@ -84,6 +88,7 @@ async function mostrarApp() {
     );
     const sync = await inicializarRotasServidor();
     const syncPrecos = await sincronizarPrecosDoServidor(produtos, { migrarLocal: true });
+    await syncDespesasDoServidor();
     precosAtuais = loadPrecos();
     custosAtuais = loadCustos();
     if (sync.ok && syncPrecos.ok && syncProdutos.ok) {
@@ -103,6 +108,7 @@ async function mostrarApp() {
     renderFinanceiro();
     renderRotas();
     renderAprazo();
+    renderDespesas();
     renderProdutos();
     renderProdutosCustomLista();
     renderPlanilha();
@@ -950,12 +956,76 @@ function renderAprazo() {
     });
 }
 
+function renderDespesas() {
+    const box = document.getElementById("despesa-lista");
+    const catsBox = document.getElementById("despesa-resumo-cats");
+    const totalEl = document.getElementById("despesa-total");
+    if (!box) return;
+
+    const filtro = document.getElementById("despesa-filtro-data")?.value || hojeISO();
+    const lista = loadDespesas().filter((i) => i.data === filtro);
+    const total = lista.reduce((s, i) => s + (Number(i.valor) || 0), 0);
+    if (totalEl) totalEl.textContent = formatBRLAdmin(total);
+
+    const porCat = {};
+    lista.forEach((i) => {
+        const k = i.categoria || "Outros";
+        porCat[k] = (porCat[k] || 0) + (Number(i.valor) || 0);
+    });
+    if (catsBox) {
+        const keys = Object.keys(porCat);
+        catsBox.innerHTML = keys.length
+            ? keys
+                  .map(
+                      (k) =>
+                          `<div class="despesa-cat-chip"><span>${k}</span><strong>${formatBRLAdmin(porCat[k])}</strong></div>`
+                  )
+                  .join("")
+            : "";
+    }
+
+    if (!lista.length) {
+        box.innerHTML = `<div class="empty-state">Nenhuma despesa neste dia.<br>Adicione hospedagem, alimentação, Uber…</div>`;
+        return;
+    }
+
+    box.innerHTML = lista
+        .map(
+            (item) => `
+        <article class="venda-card">
+            <header>
+                <div>
+                    <strong>${item.categoria || "Outros"}</strong>
+                    <p>${formatDataBR(item.data)}${item.descricao ? ` · ${item.descricao}` : ""}</p>
+                </div>
+                <div class="venda-totais">
+                    <strong class="negativo">${formatBRLAdmin(item.valor)}</strong>
+                </div>
+            </header>
+            <div class="card-actions">
+                <button type="button" class="btn-ghost danger" data-del-despesa="${item.id}">Excluir</button>
+            </div>
+        </article>`
+        )
+        .join("");
+
+    box.querySelectorAll("[data-del-despesa]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            if (!confirm("Excluir esta despesa?")) return;
+            await removerDespesa(btn.dataset.delDespesa);
+            renderDespesas();
+            renderStats();
+        });
+    });
+}
+
 function showTab(tab) {
     const target = tab === "planilha" || tab === "vendas" ? "mais" : tab;
     const titles = {
         financeiro: "Início",
         rotas: "Viagem",
         aprazo: "Fiado",
+        contas: "Contas",
         produtos: "Preços",
         mais: "Outros"
     };
@@ -968,7 +1038,7 @@ function showTab(tab) {
         b.classList.toggle("active", b.dataset.tab === target);
     });
 
-    ["financeiro", "rotas", "aprazo", "produtos", "mais"].forEach((name) => {
+    ["financeiro", "rotas", "aprazo", "contas", "produtos", "mais"].forEach((name) => {
         const el = document.getElementById(`tab-${name}`);
         if (!el) return;
         const on = name === target;
@@ -995,6 +1065,7 @@ function showTab(tab) {
         fillCidadeSelects();
         renderAprazo();
     }
+    if (target === "contas") renderDespesas();
     if (target === "produtos") {
         renderProdutos();
         renderProdutosCustomLista();
@@ -1168,6 +1239,33 @@ document.addEventListener("DOMContentLoaded", () => {
         renderStats();
         alert("Fiado anotado!");
     });
+
+    document.getElementById("btn-salvar-despesa").addEventListener("click", async () => {
+        const categoria = document.getElementById("despesa-categoria").value;
+        const valor = Number(document.getElementById("despesa-valor").value) || 0;
+        const descricao = document.getElementById("despesa-descricao").value.trim();
+        const data = document.getElementById("despesa-data").value || hojeISO();
+        if (valor <= 0) {
+            alert("Informe o valor da despesa.");
+            return;
+        }
+        const btn = document.getElementById("btn-salvar-despesa");
+        btn.disabled = true;
+        try {
+            const res = await criarDespesa({ categoria, descricao, valor, data });
+            document.getElementById("despesa-valor").value = "";
+            document.getElementById("despesa-descricao").value = "";
+            const filtro = document.getElementById("despesa-filtro-data");
+            if (filtro) filtro.value = data;
+            renderDespesas();
+            renderStats();
+            alert(res.salvaNoSite ? "Despesa salva no site." : "Despesa salva neste aparelho.");
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    document.getElementById("despesa-filtro-data")?.addEventListener("change", renderDespesas);
 
     document.getElementById("btn-add-produto").addEventListener("click", async () => {
         const nome = document.getElementById("novo-prod-nome").value.trim();

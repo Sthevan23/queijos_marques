@@ -947,3 +947,111 @@ function totalAprazoPendente() {
         .filter((i) => i.status === "pendente")
         .reduce((s, i) => s + (Number(i.valor) || 0), 0);
 }
+
+/* ——— Despesas / Contas ——— */
+const DESPESAS_STORAGE_KEY = "marques_despesas_v1";
+const DESPESAS_CATEGORIAS = ["Hospedagem", "Alimentação", "Uber", "Combustível", "Outros"];
+
+function apiDespesasUrl() {
+    try {
+        return new URL("api/despesas.php", window.location.href).href;
+    } catch {
+        return "api/despesas.php";
+    }
+}
+
+function loadDespesas() {
+    try {
+        const saved = localStorage.getItem(DESPESAS_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+        console.error("Erro ao carregar despesas:", e);
+        return [];
+    }
+}
+
+function saveDespesas(lista) {
+    localStorage.setItem(DESPESAS_STORAGE_KEY, JSON.stringify(lista || []));
+}
+
+async function apiDespesas(method, body = null, query = "") {
+    const opts = {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Pin": ADMIN_API_PIN
+        }
+    };
+    if (body != null) opts.body = JSON.stringify(body);
+    const res = await fetch(apiDespesasUrl() + query, opts);
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return json.data;
+}
+
+async function syncDespesasDoServidor() {
+    try {
+        const remoto = await apiDespesas("GET");
+        const lista = Array.isArray(remoto) ? remoto : [];
+        saveDespesas(lista);
+        return { ok: true, lista };
+    } catch (e) {
+        return { ok: false, erro: e.message || "sem conexão", lista: loadDespesas() };
+    }
+}
+
+async function criarDespesa({ categoria, descricao, valor, data }) {
+    const payload = {
+        categoria: (categoria || "").trim() || "Outros",
+        descricao: (descricao || "").trim(),
+        valor: Number(valor) || 0,
+        data: data || new Date().toISOString().slice(0, 10)
+    };
+    try {
+        const criada = await apiDespesas("POST", payload);
+        const lista = loadDespesas();
+        lista.unshift(criada);
+        saveDespesas(lista);
+        return { ok: true, item: criada, salvaNoSite: true };
+    } catch (e) {
+        const item = {
+            id: Date.now(),
+            ...payload,
+            localOnly: true
+        };
+        const lista = loadDespesas();
+        lista.unshift(item);
+        saveDespesas(lista);
+        return { ok: true, item, salvaNoSite: false, erro: e.message || "offline" };
+    }
+}
+
+async function removerDespesa(id) {
+    try {
+        await apiDespesas("DELETE", null, `?id=${encodeURIComponent(id)}`);
+    } catch (e) {
+        // continua e remove local
+    }
+    saveDespesas(loadDespesas().filter((i) => Number(i.id) !== Number(id)));
+}
+
+function totalDespesas(filtroData = null) {
+    return loadDespesas()
+        .filter((i) => !filtroData || i.data === filtroData)
+        .reduce((s, i) => s + (Number(i.valor) || 0), 0);
+}
+
+function totalDespesasPorCategoria(filtroData = null) {
+    const mapa = {};
+    loadDespesas()
+        .filter((i) => !filtroData || i.data === filtroData)
+        .forEach((i) => {
+            const k = i.categoria || "Outros";
+            mapa[k] = (mapa[k] || 0) + (Number(i.valor) || 0);
+        });
+    return mapa;
+}

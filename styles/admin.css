@@ -742,6 +742,31 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     .viagem-panel { padding-bottom: 170px; }
 }
 
+.despesa-totais {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.despesa-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.despesa-cat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+}
+.despesa-cat-chip strong { color: var(--danger); }
+.negativo { color: var(--danger); }
+
 .sr-only {
     position: absolute !important;
     width: 1px; height: 1px;
