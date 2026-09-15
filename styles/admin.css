@@ -652,6 +652,47 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     gap: 8px;
     font-size: 0.9rem;
 }
+.cidade-bloco {
+    margin-top: 10px;
+}
+.cidade-bloco__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.rota-itens-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.rota-item-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 10px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+.rota-item-nome {
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+}
+.rota-item-meta {
+    color: var(--texto-claro);
+    white-space: nowrap;
+    text-align: right;
+    font-size: 0.82rem;
+}
 .card-actions {
     display: flex;
     flex-wrap: wrap;

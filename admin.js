@@ -643,16 +643,25 @@ function renderRotas() {
                     const linhas = itens
                         .map((i) => {
                             if (baixada) {
-                                return `<li><span>${i.nome}</span><span>levou ${i.qtd} · vendeu ${i.qtdVendida || 0}</span></li>`;
+                                const sobrou = Math.max(0, (Number(i.qtd) || 0) - (Number(i.qtdVendida) || 0));
+                                return `<li class="rota-item-line">
+                                    <span class="rota-item-nome">${i.nome}</span>
+                                    <span class="rota-item-meta">levou ${i.qtd} · vendeu ${i.qtdVendida || 0} · sobrou ${sobrou}</span>
+                                </li>`;
                             }
-                            return `<li><span>${i.qtd}× ${i.nome}</span><span>${formatBRLAdmin(i.preco * i.qtd)}</span></li>`;
+                            return `<li class="rota-item-line">
+                                <span class="rota-item-nome">${i.qtd}× ${i.nome}</span>
+                                <span class="rota-item-meta">${formatBRLAdmin(i.preco * i.qtd)}</span>
+                            </li>`;
                         })
                         .join("");
                     return `
                         <div class="cidade-bloco">
-                            <strong>${cidade}</strong>
-                            <span class="muted">(${baixada ? `${vendidas}/${pecas} vendidas` : `${pecas} peças`})</span>
-                            <ul>${linhas}</ul>
+                            <div class="cidade-bloco__head">
+                                <strong>${cidade}</strong>
+                                <span class="muted">${baixada ? `${vendidas}/${pecas} vendidas` : `${pecas} peças`}</span>
+                            </div>
+                            <ul class="rota-itens-lista">${linhas}</ul>
                         </div>
                     `;
                 })
@@ -663,7 +672,7 @@ function renderRotas() {
                     <header>
                         <div>
                             <strong>Viagem ${formatDataBR(r.data)}</strong>
-                            <p>${r.observacao || "Sem observação"} · ${baixada ? "Baixada" : "Aguardando baixa"}</p>
+                            <p>${(r.observacao || "Sem observação").split("\n")[0].slice(0, 90)}${(r.observacao || "").length > 90 ? "…" : ""} · ${baixada ? "Baixada" : "Aguardando baixa"}</p>
                         </div>
                         <div class="venda-totais">
                             <span>${totais.totalPecas || 0} peças levadas</span>
@@ -739,16 +748,25 @@ function htmlDetalheRota(rota) {
             const linhas = itens
                 .map((i) => {
                     if (baixada) {
-                        return `<li><span>${i.nome}</span><span>levou ${i.qtd} · vendeu ${i.qtdVendida || 0}</span></li>`;
+                        const sobrou = Math.max(0, (Number(i.qtd) || 0) - (Number(i.qtdVendida) || 0));
+                        return `<li class="rota-item-line">
+                            <span class="rota-item-nome">${i.nome}</span>
+                            <span class="rota-item-meta">levou ${i.qtd} · vendeu ${i.qtdVendida || 0} · sobrou ${sobrou}</span>
+                        </li>`;
                     }
-                    return `<li><span>${i.qtd}× ${i.nome}</span><span>${formatBRLAdmin(i.preco * i.qtd)}</span></li>`;
+                    return `<li class="rota-item-line">
+                        <span class="rota-item-nome">${i.qtd}× ${i.nome}</span>
+                        <span class="rota-item-meta">${formatBRLAdmin(i.preco * i.qtd)}</span>
+                    </li>`;
                 })
                 .join("");
             return `
                 <div class="cidade-bloco">
-                    <strong>${cidade}</strong>
-                    <span class="muted">(${baixada ? `${vendidas}/${pecas} vendidas` : `${pecas} peças`})</span>
-                    <ul>${linhas}</ul>
+                    <div class="cidade-bloco__head">
+                        <strong>${cidade}</strong>
+                        <span class="muted">${baixada ? `${vendidas}/${pecas} vendidas` : `${pecas} peças`}</span>
+                    </div>
+                    <ul class="rota-itens-lista">${linhas}</ul>
                 </div>
             `;
         })
@@ -761,11 +779,13 @@ function verRota(rotaId) {
     const rota = getRota(rotaId);
     if (!rota) return;
     const totais = totaisRotaExibicao(rota);
+    const cidades = [...new Set((rota.itens || []).map((i) => i.cidade).filter(Boolean))];
+    const baixada = rota.status === "baixada";
 
     document.getElementById("rota-view-titulo").textContent = `Rota ${formatDataBR(rota.data)}`;
-    document.getElementById("rota-view-subtitulo").textContent =
-        rota.observacao ||
-        `${totais.totalPecas} peças · valor ${formatBRLAdmin(totais.totalReceita)} · custo ${formatBRLAdmin(totais.totalCusto)}`;
+    document.getElementById("rota-view-subtitulo").textContent = baixada
+        ? `${cidades.join(", ") || "—"} · vendeu ${rota.pecasVendidas || 0}/${totais.totalPecas} · faturou ${formatBRLAdmin(rota.receitaReal || 0)}`
+        : `${cidades.join(", ") || "—"} · ${totais.totalPecas} peças · valor ${formatBRLAdmin(totais.totalReceita)} · custo ${formatBRLAdmin(totais.totalCusto)}`;
     document.getElementById("rota-view-conteudo").innerHTML = htmlDetalheRota(rota);
     document.getElementById("rota-view-modal").showModal();
 }
