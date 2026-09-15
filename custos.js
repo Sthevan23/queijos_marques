@@ -406,44 +406,56 @@ const CARGA_PRECO_ALIAS = {
 
 /** Custo da planilha por SKU custom (quando não bate 1:1 com o catálogo). */
 const CARGA_CUSTO_OVERRIDE = {
+    // Palitos / trança / provolone / golda (planilha)
     9001: 19.2,
     9002: 19.2,
-    9003: 5,
-    9004: 5,
     9005: 19.2,
-    9006: 25.6,
-    9007: 25.6,
     9008: 19.2,
     9009: 19.2,
     9010: 19.2,
     9011: 19.2,
-    9012: 13.2,
-    9013: 25.5,
-    9014: 32,
-    9015: 11,
+    // Frescal light (planilha)
+    9003: 5.0,
+    9004: 5.0,
+    // Kits
+    9006: 25.6, // Kit Provoleto
+    9007: 25.6,
+    9014: 32.0, // Kit provolone c salame
+    // Metades
+    9012: 13.2, // metade minas (26.4/2)
+    9013: 12.75, // metade canastra divino (25.5/2)
+    // Desidratados
+    9015: 11.0,
+    // Parmesão capa preta (planilha)
     9016: 20.35,
-    9017: 18.98,
-    9018: 16,
-    9019: 16,
-    9020: 16,
-    9021: 16,
-    9022: 10,
+    // Doces / fadune / tropical (planilha próxima)
+    9017: 18.98, // Banana faduni zero
+    9018: 16.31, // approx banana/doce
+    9019: 16.31,
+    9020: 16.31,
+    9021: 16.31,
+    9022: 10.0, // Beliscao e Casadinho
+    // Trufado musa (planilha)
     9023: 18.99,
     9024: 18.99,
     9025: 18.99,
-    9026: 12.72,
-    9027: 16.06,
-    9028: 24.9,
-    9029: 18.99,
-    9030: 10,
-    9031: 22.01,
-    9032: 8.79,
+    // Lombo / embutidos
+    9026: 12.72, // Lombo
+    9027: 16.06, // Requeijão musa
+    9028: 24.9, // Trufado Doces
+    9029: 28.86, // Trufado Azeitona
+    9030: 10.0,
+    9031: 22.01, // Goiabada Zelia
+    9032: 8.79, // Geleia defumada
     9033: 8.79,
-    9034: 22.55,
-    16: 16.06,
-    34: 30.34,
+    9034: 22.55, // Doce leite blue zero
+    // Catálogo ids com custo específico da planilha
+    16: 16.06, // Musa barra = Requeijão musa
+    34: 30.34, // Trufado cheddar (carne seca na planilha)
     36: 30.34,
-    86: 16.31
+    67: 17.0, // Mel bisnaga
+    8: 19.2, // 4 Queijo
+    52: 37.38 // Kit parmesão
 };
 
 function resolverPrecoCustoItem(item, lista = typeof produtos !== "undefined" ? produtos : []) {
@@ -451,11 +463,12 @@ function resolverPrecoCustoItem(item, lista = typeof produtos !== "undefined" ? 
     const alias = CARGA_PRECO_ALIAS[pid];
     const baseId = alias ? Number(alias.id) : pid;
     const fator = alias && alias.fator != null ? Number(alias.fator) : 1;
-    let preco = getPreco(baseId, lista) * fator;
+    // Catálogo Marques (PDF) — sem override local, pra carga/histórico bater certo
+    let preco = getPrecoPadrao(baseId, lista) * fator;
     let custo =
         CARGA_CUSTO_OVERRIDE[pid] != null
             ? Number(CARGA_CUSTO_OVERRIDE[pid])
-            : getCusto(baseId) * fator;
+            : getCusto(baseId, CUSTOS_PADRAO) * fator;
     if (!Number.isFinite(preco) || preco < 0) preco = Number(item?.preco) || 0;
     if (!Number.isFinite(custo) || custo < 0) custo = Number(item?.custo) || 0;
     return {
