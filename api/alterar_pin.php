@@ -48,4 +48,13 @@ if (file_put_contents($path, $php) === false) {
     json_erro('Não foi possível gravar config.php.', 500);
 }
 
-json_ok(['mensagem' => 'PIN atualizado.']);
+// Invalida todas as sessões abertas após trocar a senha
+try {
+    $pdo = db();
+    ensure_auth_tables($pdo);
+    $pdo->exec('DELETE FROM admin_tokens');
+} catch (Throwable $e) {
+    // pin já foi gravado; sessão antiga cai no próximo request se falhar
+}
+
+json_ok(['mensagem' => 'PIN atualizado. Sessões anteriores encerradas.']);
