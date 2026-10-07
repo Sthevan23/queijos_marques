@@ -64,7 +64,7 @@ if (banco_acessivel($cfg)) {
     exit;
 }
 
-$esperado = (string) (($cfg['admin_pin'] ?? null) ?: '2025');
+$esperado = (string) (($cfg['admin_pin'] ?? null) ?: '2026');
 $pin = $_SERVER['HTTP_X_ADMIN_PIN'] ?? ($_GET['pin'] ?? '');
 if ($pin === '' || !hash_equals($esperado, (string) $pin)) {
     http_response_code(401);

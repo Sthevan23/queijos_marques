@@ -1,7 +1,7 @@
 <?php
 /**
  * API de viagens/rotas — salva no MySQL da Hostinger.
- * GET    ?pin=2025           → lista viagens
+ * GET    ?pin=2026           → lista viagens
  * POST   body JSON + pin     → criar viagem
  * PUT    body JSON + pin     → atualizar / dar baixa
  * DELETE ?id=&pin=           → excluir viagem

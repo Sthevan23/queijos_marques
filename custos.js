@@ -224,7 +224,7 @@ const CUSTOS_PADRAO = {
 
 const CUSTOS_STORAGE_KEY = "marques_custos_v3";
 const VENDAS_STORAGE_KEY = "marques_vendas";
-const ADMIN_PIN = "2025";
+const ADMIN_PIN = "2026";
 
 function loadCustos() {
     try {
@@ -249,7 +249,7 @@ function getCusto(id, custos = loadCustos()) {
 
 /* ——— Preços de venda (editáveis no admin e no site) ——— */
 const PRECOS_STORAGE_KEY = "marques_precos_v4";
-const ADMIN_API_PIN = typeof ADMIN_PIN !== "undefined" ? ADMIN_PIN : "2025";
+const ADMIN_API_PIN = typeof ADMIN_PIN !== "undefined" ? ADMIN_PIN : "2026";
 
 function apiPrecosUrl() {
     try {
