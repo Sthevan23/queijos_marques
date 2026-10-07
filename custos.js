@@ -224,7 +224,99 @@ const CUSTOS_PADRAO = {
 
 const CUSTOS_STORAGE_KEY = "marques_custos_v3";
 const VENDAS_STORAGE_KEY = "marques_vendas";
-const ADMIN_PIN = "2026";
+const ADMIN_TOKEN_KEY = "marques_admin_token";
+
+function getAdminToken() {
+    try {
+        return sessionStorage.getItem(ADMIN_TOKEN_KEY) || "";
+    } catch (e) {
+        return "";
+    }
+}
+
+function setAdminToken(token) {
+    try {
+        if (token) sessionStorage.setItem(ADMIN_TOKEN_KEY, String(token));
+        else sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    } catch (e) {
+        /* ignore */
+    }
+}
+
+function clearAdminToken() {
+    setAdminToken("");
+    try {
+        sessionStorage.removeItem("marques_admin");
+    } catch (e) {
+        /* ignore */
+    }
+}
+
+function adminAuthHeaders(extra = {}) {
+    const headers = { ...extra };
+    const token = getAdminToken();
+    if (token) headers["X-Admin-Token"] = token;
+    return headers;
+}
+
+function apiAuthUrl() {
+    try {
+        return new URL("api/auth.php", window.location.href).href;
+    } catch {
+        return "api/auth.php";
+    }
+}
+
+async function loginAdmin(pin) {
+    const res = await fetch(apiAuthUrl(), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin: String(pin || "").trim() })
+    });
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida" }));
+    if (!res.ok || !json.ok || !json.data?.token) {
+        const err = new Error(json.erro || "PIN incorreto");
+        err.status = res.status;
+        throw err;
+    }
+    setAdminToken(json.data.token);
+    return json.data;
+}
+
+async function validarSessaoAdmin() {
+    const token = getAdminToken();
+    if (!token) return false;
+    try {
+        const res = await fetch(apiAuthUrl(), {
+            method: "GET",
+            headers: adminAuthHeaders(),
+            cache: "no-store"
+        });
+        const json = await res.json().catch(() => ({ ok: false }));
+        if (!res.ok || !json.ok) {
+            clearAdminToken();
+            return false;
+        }
+        return true;
+    } catch (e) {
+        return !!getAdminToken();
+    }
+}
+
+async function logoutAdmin() {
+    const token = getAdminToken();
+    if (token) {
+        try {
+            await fetch(apiAuthUrl(), {
+                method: "DELETE",
+                headers: adminAuthHeaders()
+            });
+        } catch (e) {
+            /* ignore */
+        }
+    }
+    clearAdminToken();
+}
 
 function loadCustos() {
     try {
@@ -249,7 +341,6 @@ function getCusto(id, custos = loadCustos()) {
 
 /* ——— Preços de venda (editáveis no admin e no site) ——— */
 const PRECOS_STORAGE_KEY = "marques_precos_v4";
-const ADMIN_API_PIN = typeof ADMIN_PIN !== "undefined" ? ADMIN_PIN : "2026";
 
 function apiPrecosUrl() {
     try {
@@ -297,10 +388,7 @@ async function fetchPrecosDoServidor() {
 async function salvarPrecosNoServidor(precos) {
     const res = await fetch(apiPrecosUrl(), {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "X-Admin-Pin": ADMIN_API_PIN
-        },
+        headers: adminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({ precos: normalizarMapaPrecos(precos) })
     });
     const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
@@ -316,7 +404,7 @@ async function salvarPrecosNoServidor(precos) {
 async function limparPrecosNoServidor() {
     const res = await fetch(apiPrecosUrl(), {
         method: "DELETE",
-        headers: { "X-Admin-Pin": ADMIN_API_PIN }
+        headers: adminAuthHeaders()
     });
     const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
     if (!res.ok || !json.ok) {
@@ -644,7 +732,7 @@ function normalizarProdutoCustom(p) {
 async function fetchProdutosCustom(todos = false) {
     const url = apiProdutosUrl() + (todos ? "?todos=1" : "");
     const headers = {};
-    if (todos) headers["X-Admin-Pin"] = ADMIN_API_PIN;
+    if (todos) Object.assign(headers, adminAuthHeaders());
     const res = await fetch(url, { method: "GET", cache: "no-store", headers });
     const json = await res.json().catch(() => ({ ok: false }));
     if (!res.ok || !json.ok) {
@@ -659,8 +747,7 @@ async function criarProdutoCustom(payload) {
     const res = await fetch(apiProdutosUrl(), {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            "X-Admin-Pin": ADMIN_API_PIN
+            ...adminAuthHeaders({ "Content-Type": "application/json" })
         },
         body: JSON.stringify(payload)
     });
@@ -676,7 +763,7 @@ async function criarProdutoCustom(payload) {
 async function removerProdutoCustom(id) {
     const res = await fetch(apiProdutosUrl() + `?id=${encodeURIComponent(id)}`, {
         method: "DELETE",
-        headers: { "X-Admin-Pin": ADMIN_API_PIN }
+        headers: adminAuthHeaders()
     });
     const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida" }));
     if (!res.ok || !json.ok) {
@@ -692,7 +779,7 @@ async function uploadImagemProduto(file) {
     fd.append("imagem", file);
     const res = await fetch(apiUploadImagemUrl(), {
         method: "POST",
-        headers: { "X-Admin-Pin": ADMIN_API_PIN },
+        headers: adminAuthHeaders(),
         body: fd
     });
     const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida" }));
@@ -806,8 +893,7 @@ async function apiRotas(method, body = null, query = "") {
     const opts = {
         method,
         headers: {
-            "Content-Type": "application/json",
-            "X-Admin-Pin": ADMIN_API_PIN
+            ...adminAuthHeaders({ "Content-Type": "application/json" })
         }
     };
     if (body != null) opts.body = JSON.stringify(body);
@@ -1130,8 +1216,7 @@ async function apiAprazo(method, body = null, query = "") {
     const opts = {
         method,
         headers: {
-            "Content-Type": "application/json",
-            "X-Admin-Pin": ADMIN_API_PIN
+            ...adminAuthHeaders({ "Content-Type": "application/json" })
         }
     };
     if (body != null) opts.body = JSON.stringify(body);
@@ -1326,8 +1411,7 @@ async function apiDespesas(method, body = null, query = "") {
     const opts = {
         method,
         headers: {
-            "Content-Type": "application/json",
-            "X-Admin-Pin": ADMIN_API_PIN
+            ...adminAuthHeaders({ "Content-Type": "application/json" })
         }
     };
     if (body != null) opts.body = JSON.stringify(body);

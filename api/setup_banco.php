@@ -64,7 +64,12 @@ if (banco_acessivel($cfg)) {
     exit;
 }
 
-$esperado = (string) (($cfg['admin_pin'] ?? null) ?: '2026');
+$esperado = (string) (($cfg['admin_pin'] ?? null) ?: '');
+if ($esperado === '') {
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'erro' => 'admin_pin não configurado.'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 $pin = $_SERVER['HTTP_X_ADMIN_PIN'] ?? ($_GET['pin'] ?? '');
 if ($pin === '' || !hash_equals($esperado, (string) $pin)) {
     http_response_code(401);

@@ -18,15 +18,11 @@ let cidadeAtiva = "";
 let rotaBaixaId = null;
 
 function isAutenticado() {
-    return sessionStorage.getItem("marques_admin") === "1";
+    return !!getAdminToken();
 }
 
-function autenticar() {
-    sessionStorage.setItem("marques_admin", "1");
-}
-
-function sair() {
-    sessionStorage.removeItem("marques_admin");
+async function sair() {
+    await logoutAdmin();
     location.reload();
 }
 
@@ -1793,23 +1789,40 @@ function abrirPrimeiraBaixa() {
     abrirBaixa(abertas[0].id);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (isAutenticado()) mostrarApp();
+document.addEventListener("DOMContentLoaded", async () => {
+    const err = document.getElementById("login-error");
+    if (isAutenticado()) {
+        const ok = await validarSessaoAdmin();
+        if (ok) mostrarApp();
+    }
 
-    document.getElementById("login-form").addEventListener("submit", (e) => {
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
         e.preventDefault();
         const pin = document.getElementById("admin-pin").value.trim();
-        const err = document.getElementById("login-error");
-        if (pin === ADMIN_PIN) {
-            autenticar();
-            err.classList.add("hidden");
-            mostrarApp();
-        } else {
+        const btn = e.target.querySelector('button[type="submit"]');
+        if (!pin) {
+            err.textContent = "Digite o PIN";
             err.classList.remove("hidden");
+            return;
+        }
+        if (btn) btn.disabled = true;
+        try {
+            await loginAdmin(pin);
+            err.classList.add("hidden");
+            document.getElementById("admin-pin").value = "";
+            mostrarApp();
+        } catch (ex) {
+            err.textContent = ex.message || "PIN incorreto";
+            err.classList.remove("hidden");
+            clearAdminToken();
+        } finally {
+            if (btn) btn.disabled = false;
         }
     });
 
-    document.getElementById("btn-logout").addEventListener("click", sair);
+    document.getElementById("btn-logout").addEventListener("click", () => {
+        sair();
+    });
 
     document.querySelectorAll(".tab[data-tab]").forEach((btn) => {
         btn.addEventListener("click", () => showTab(btn.dataset.tab));

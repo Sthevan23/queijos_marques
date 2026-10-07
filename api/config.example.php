@@ -9,6 +9,6 @@ return [
     'db_user' => 'u586160337_queijos',
     'db_pass' => 'SUA_SENHA_AQUI',
     'db_charset' => 'utf8mb4',
-    'admin_pin' => '2026',
+    'admin_pin' => 'SEU_PIN_AQUI',
     'cors_origin' => 'https://marquesmineiro.com.br',
 ];
