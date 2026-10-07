@@ -883,6 +883,117 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 .venda-card.baixada { opacity: 0.85; }
 .venda-card.pago { border-color: #c8e6c9; background: #f1f8f2; }
 
+/* —— Fiado —— */
+.fiado-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.fiado-resumo__card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.fiado-resumo__card span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--texto-claro);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.fiado-resumo__card strong {
+    font-size: 1.15rem;
+    color: var(--brand-dark);
+}
+.fiado-resumo__card--warn strong { color: #c62828; }
+.fiado-feedback {
+    margin: 10px 0 0;
+    font-weight: 600;
+    color: var(--brand-primary);
+}
+.fiado-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.fiado-grupo__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 4px 2px;
+}
+.fiado-grupo__head strong { font-size: 1.05rem; }
+.fiado-grupo__head p {
+    margin: 2px 0 0;
+    color: var(--texto-claro);
+    font-size: 0.85rem;
+}
+.fiado-grupo__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.fiado-grupo__total {
+    font-weight: 700;
+    color: #c62828;
+    white-space: nowrap;
+}
+.fiado-grupo__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.fiado-card--atrasado {
+    border-color: #ef9a9a;
+    background: #fff5f5;
+}
+.fiado-card__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+.fiado-card__meta {
+    color: var(--texto-claro);
+    font-size: 0.82rem;
+}
+.fiado-card__obs {
+    margin-top: 4px !important;
+    color: var(--texto) !important;
+    font-weight: 500;
+}
+.fiado-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.fiado-badge--pendente { background: #fff3e0; color: #e65100; }
+.fiado-badge--atrasado { background: #ffebee; color: #c62828; }
+.fiado-badge--pago { background: #e8f5e9; color: #2e7d32; }
+.stat-card--click { cursor: pointer; }
+.stat-card--click:hover { box-shadow: 0 4px 14px rgba(15, 47, 38, 0.1); }
+
+@media (max-width: 640px) {
+    .fiado-resumo { grid-template-columns: 1fr; }
+    .fiado-grupo__head { flex-direction: column; }
+    .fiado-grupo__acoes { justify-content: flex-start; }
+}
+
 /* —— Modal baixa —— */
 .baixa-modal {
     border: none;

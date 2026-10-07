@@ -75,8 +75,8 @@ async function mostrarApp() {
     document.body.classList.remove("login-page");
 
     document.getElementById("rota-data").value = hojeISO();
-    document.getElementById("aprazo-data").value = hojeISO();
     document.getElementById("financeiro-data").value = hojeISO();
+    prepararFormAprazo();
     const despesaData = document.getElementById("despesa-data");
     const despesaFiltro = document.getElementById("despesa-filtro-data");
     if (despesaData) despesaData.value = hojeISO();
@@ -1120,37 +1120,144 @@ async function confirmarBaixa() {
     }
 }
 
+let aprazoFiltro = "pendente";
+
+function diasVencimentoPadrao(dias = 7) {
+    const d = new Date();
+    d.setDate(d.getDate() + dias);
+    return d.toISOString().slice(0, 10);
+}
+
+function prepararFormAprazo() {
+    const dataEl = document.getElementById("aprazo-data");
+    const vencEl = document.getElementById("aprazo-vencimento");
+    if (dataEl && !dataEl.value) dataEl.value = hojeISO();
+    if (vencEl && !vencEl.value) vencEl.value = diasVencimentoPadrao(7);
+}
+
+function statusAprazoBadge(item) {
+    if (item.status === "pago") return `<span class="fiado-badge fiado-badge--pago">Pago</span>`;
+    if (isAprazoAtrasado(item)) return `<span class="fiado-badge fiado-badge--atrasado">Atrasado</span>`;
+    return `<span class="fiado-badge fiado-badge--pendente">Pendente</span>`;
+}
+
 function renderAprazo() {
     const box = document.getElementById("aprazo-lista");
-    const lista = loadAprazo();
-    document.getElementById("aprazo-total-pendente").textContent = formatBRLAdmin(totalAprazoPendente());
+    if (!box) return;
 
-    if (!lista.length) {
-        box.innerHTML = `<div class="empty-state">Nenhum fiado.<br>Anote acima quando alguém ficar pra pagar depois.</div>`;
+    const lista = loadAprazo();
+    const busca = (document.getElementById("busca-aprazo")?.value || "").trim().toLowerCase();
+    const hoje = hojeISO();
+
+    document.getElementById("aprazo-total-pendente").textContent = formatBRLAdmin(totalAprazoPendente());
+    const atrasadoEl = document.getElementById("aprazo-total-atrasado");
+    if (atrasadoEl) atrasadoEl.textContent = formatBRLAdmin(totalAprazoAtrasado());
+    const clientesEl = document.getElementById("aprazo-qtd-clientes");
+    if (clientesEl) clientesEl.textContent = String(qtdClientesAprazoPendente());
+
+    let filtrada = lista.filter((item) => {
+        if (aprazoFiltro === "pendente") return item.status === "pendente";
+        if (aprazoFiltro === "pago") return item.status === "pago";
+        if (aprazoFiltro === "atrasado") return isAprazoAtrasado(item, hoje);
+        return true;
+    });
+
+    if (busca) {
+        filtrada = filtrada.filter((item) => {
+            const blob = `${item.cliente || ""} ${item.cidade || ""} ${item.observacao || ""} ${item.telefone || ""}`.toLowerCase();
+            return blob.includes(busca);
+        });
+    }
+
+    filtrada.sort((a, b) => {
+        const aAtr = isAprazoAtrasado(a, hoje) ? 0 : 1;
+        const bAtr = isAprazoAtrasado(b, hoje) ? 0 : 1;
+        if (aAtr !== bAtr) return aAtr - bAtr;
+        const aPen = a.status === "pendente" ? 0 : 1;
+        const bPen = b.status === "pendente" ? 0 : 1;
+        if (aPen !== bPen) return aPen - bPen;
+        return String(b.data || "").localeCompare(String(a.data || ""));
+    });
+
+    if (!filtrada.length) {
+        const msg =
+            aprazoFiltro === "atrasado"
+                ? "Nenhum fiado atrasado. Bom sinal!"
+                : aprazoFiltro === "pago"
+                  ? "Nenhum pagamento registrado ainda."
+                  : "Nenhum fiado aqui.<br>Anote acima quando alguém ficar pra pagar depois.";
+        box.innerHTML = `<div class="empty-state">${msg}</div>`;
         return;
     }
 
-    box.innerHTML = lista
-        .map((item) => {
-            const pendente = item.status === "pendente";
+    const grupos = new Map();
+    filtrada.forEach((item) => {
+        const chave = (item.cliente || "Sem nome").trim().toLowerCase() || "sem nome";
+        if (!grupos.has(chave)) {
+            grupos.set(chave, {
+                nome: item.cliente || "Sem nome",
+                telefone: item.telefone || "",
+                itens: [],
+                totalPendente: 0
+            });
+        }
+        const g = grupos.get(chave);
+        g.itens.push(item);
+        if (item.telefone && !g.telefone) g.telefone = item.telefone;
+        if (item.status === "pendente") g.totalPendente += Number(item.valor) || 0;
+    });
+
+    box.innerHTML = [...grupos.values()]
+        .map((g) => {
+            const wa = telefoneWhatsApp(g.telefone);
+            const itensHtml = g.itens
+                .map((item) => {
+                    const pendente = item.status === "pendente";
+                    const atrasado = isAprazoAtrasado(item, hoje);
+                    return `
+                        <article class="venda-card fiado-card ${pendente ? "" : "pago"} ${atrasado ? "fiado-card--atrasado" : ""}">
+                            <header>
+                                <div>
+                                    <div class="fiado-card__top">
+                                        ${statusAprazoBadge(item)}
+                                        <span class="fiado-card__meta">${item.cidade || "—"} · ${formatDataBR(item.data)}</span>
+                                    </div>
+                                    <p>${item.vencimento ? (atrasado ? `Venceu ${formatDataBR(item.vencimento)}` : `Vence ${formatDataBR(item.vencimento)}`) : "Sem data de vencimento"}</p>
+                                    ${item.observacao ? `<p class="fiado-card__obs">${item.observacao}</p>` : ""}
+                                </div>
+                                <div class="venda-totais">
+                                    <strong class="${pendente ? (atrasado ? "negativo" : "") : "positivo"}">${formatBRLAdmin(item.valor)}</strong>
+                                    <span>${pendente ? "A receber" : `Pago em ${formatDataBR(item.pagoEm)}`}</span>
+                                </div>
+                            </header>
+                            <div class="card-actions">
+                                ${
+                                    pendente
+                                        ? `<button type="button" class="btn-admin" data-pagar-aprazo="${item.id}">Recebeu tudo</button>
+                                           <button type="button" class="btn-ghost" data-parcial-aprazo="${item.id}">Recebeu parcial</button>`
+                                        : ""
+                                }
+                                <button type="button" class="btn-ghost danger" data-del-aprazo="${item.id}">Excluir</button>
+                            </div>
+                        </article>
+                    `;
+                })
+                .join("");
+
             return `
-                <article class="venda-card ${pendente ? "" : "pago"}">
-                    <header>
+                <section class="fiado-grupo">
+                    <header class="fiado-grupo__head">
                         <div>
-                            <strong>${item.cliente || "Sem nome"}</strong>
-                            <p>${item.cidade || "—"} · ${formatDataBR(item.data)}${item.vencimento ? ` · vence ${formatDataBR(item.vencimento)}` : ""}</p>
-                            ${item.observacao ? `<p>${item.observacao}</p>` : ""}
+                            <strong>${g.nome}</strong>
+                            ${g.telefone ? `<p>${g.telefone}</p>` : ""}
                         </div>
-                        <div class="venda-totais">
-                            <strong class="${pendente ? "negativo" : "positivo"}">${formatBRLAdmin(item.valor)}</strong>
-                            <span>${pendente ? "Pendente" : `Pago em ${formatDataBR(item.pagoEm)}`}</span>
+                        <div class="fiado-grupo__acoes">
+                            ${g.totalPendente > 0 ? `<span class="fiado-grupo__total">Deve ${formatBRLAdmin(g.totalPendente)}</span>` : `<span class="fiado-grupo__total positivo">Em dia</span>`}
+                            ${wa ? `<a class="btn-ghost" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>` : ""}
                         </div>
                     </header>
-                    <div class="card-actions">
-                        ${pendente ? `<button type="button" class="btn-admin" data-pagar-aprazo="${item.id}">Já pagou</button>` : ""}
-                        <button type="button" class="btn-ghost danger" data-del-aprazo="${item.id}">Excluir</button>
-                    </div>
-                </article>
+                    <div class="fiado-grupo__lista">${itensHtml}</div>
+                </section>
             `;
         })
         .join("");
@@ -1163,9 +1270,30 @@ function renderAprazo() {
         });
     });
 
+    box.querySelectorAll("[data-parcial-aprazo]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const id = Number(btn.dataset.parcialAprazo);
+            const item = loadAprazo().find((i) => i.id === id);
+            if (!item) return;
+            const raw = prompt(
+                `Quanto ${item.cliente || "o cliente"} pagou agora?\nValor atual: ${formatBRLAdmin(item.valor)}`,
+                String(item.valor)
+            );
+            if (raw == null) return;
+            const valor = Number(String(raw).replace(",", ".")) || 0;
+            if (valor <= 0) {
+                alert("Informe um valor válido.");
+                return;
+            }
+            receberAprazoParcial(id, valor);
+            renderAprazo();
+            renderStats();
+        });
+    });
+
     box.querySelectorAll("[data-del-aprazo]").forEach((btn) => {
         btn.addEventListener("click", () => {
-            if (!confirm("Excluir este registro a prazo?")) return;
+            if (!confirm("Excluir este fiado?")) return;
             removerAprazo(Number(btn.dataset.delAprazo));
             renderAprazo();
             renderStats();
@@ -1586,7 +1714,9 @@ function showTab(tab) {
     }
     if (target === "aprazo") {
         fillCidadeSelects();
+        prepararFormAprazo();
         renderAprazo();
+        document.getElementById("aprazo-cliente")?.focus();
     }
     if (target === "contas") renderDespesas();
     if (target === "produtos") {
@@ -1774,19 +1904,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         criarAprazo({
             cliente,
+            telefone: document.getElementById("aprazo-telefone").value.trim(),
             cidade: document.getElementById("aprazo-cidade").value,
             valor,
             data: document.getElementById("aprazo-data").value || hojeISO(),
-            vencimento: document.getElementById("aprazo-vencimento").value,
+            vencimento: document.getElementById("aprazo-vencimento").value || diasVencimentoPadrao(7),
             observacao: document.getElementById("aprazo-obs").value.trim()
         });
         document.getElementById("aprazo-cliente").value = "";
+        document.getElementById("aprazo-telefone").value = "";
         document.getElementById("aprazo-valor").value = "";
         document.getElementById("aprazo-obs").value = "";
+        document.getElementById("aprazo-vencimento").value = diasVencimentoPadrao(7);
+        aprazoFiltro = "pendente";
+        document.querySelectorAll("[data-aprazo-filtro]").forEach((b) => {
+            b.classList.toggle("is-active", b.dataset.aprazoFiltro === "pendente");
+        });
         renderAprazo();
         renderStats();
-        alert("Fiado anotado!");
+        const feedback = document.getElementById("aprazo-feedback");
+        if (feedback) {
+            feedback.textContent = "Fiado anotado!";
+            feedback.classList.remove("hidden");
+            setTimeout(() => feedback.classList.add("hidden"), 2200);
+        }
+        document.getElementById("aprazo-cliente")?.focus();
     });
+
+    document.querySelectorAll("[data-aprazo-filtro]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            aprazoFiltro = btn.dataset.aprazoFiltro || "pendente";
+            document.querySelectorAll("[data-aprazo-filtro]").forEach((b) => {
+                b.classList.toggle("is-active", b === btn);
+            });
+            renderAprazo();
+        });
+    });
+
+    document.getElementById("busca-aprazo")?.addEventListener("input", renderAprazo);
 
     document.getElementById("btn-salvar-despesa").addEventListener("click", async () => {
         const categoria = document.getElementById("despesa-categoria").value;

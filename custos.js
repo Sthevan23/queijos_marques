@@ -1118,10 +1118,11 @@ function saveAprazo(lista) {
     localStorage.setItem(APRAZO_STORAGE_KEY, JSON.stringify(lista));
 }
 
-function criarAprazo({ cliente, cidade, valor, data, vencimento, rotaId, observacao }) {
+function criarAprazo({ cliente, cidade, valor, data, vencimento, rotaId, observacao, telefone }) {
     const item = {
         id: Date.now(),
         cliente: (cliente || "").trim(),
+        telefone: String(telefone || "").trim(),
         cidade: cidade || "",
         valor: Number(valor) || 0,
         data: data || new Date().toISOString().slice(0, 10),
@@ -1146,14 +1147,60 @@ function marcarAprazoPago(id) {
     saveAprazo(lista);
 }
 
+function receberAprazoParcial(id, valorRecebido) {
+    const pago = Number(valorRecebido) || 0;
+    if (pago <= 0) return null;
+    const lista = loadAprazo();
+    const idx = lista.findIndex((i) => i.id === id);
+    if (idx < 0) return null;
+    const item = lista[idx];
+    if (item.status !== "pendente") return null;
+    const resto = Math.max(0, Math.round(((Number(item.valor) || 0) - pago) * 100) / 100);
+    const hoje = new Date().toISOString().slice(0, 10);
+    if (resto <= 0) {
+        lista[idx] = { ...item, valor: Number(item.valor) || 0, status: "pago", pagoEm: hoje };
+    } else {
+        lista[idx] = { ...item, valor: resto };
+    }
+    saveAprazo(lista);
+    return lista[idx];
+}
+
 function removerAprazo(id) {
     saveAprazo(loadAprazo().filter((i) => i.id !== id));
+}
+
+function isAprazoAtrasado(item, hoje = new Date().toISOString().slice(0, 10)) {
+    return item.status === "pendente" && !!item.vencimento && item.vencimento < hoje;
 }
 
 function totalAprazoPendente() {
     return loadAprazo()
         .filter((i) => i.status === "pendente")
         .reduce((s, i) => s + (Number(i.valor) || 0), 0);
+}
+
+function totalAprazoAtrasado() {
+    return loadAprazo()
+        .filter((i) => isAprazoAtrasado(i))
+        .reduce((s, i) => s + (Number(i.valor) || 0), 0);
+}
+
+function qtdClientesAprazoPendente() {
+    const nomes = new Set(
+        loadAprazo()
+            .filter((i) => i.status === "pendente")
+            .map((i) => (i.cliente || "").trim().toLowerCase())
+            .filter(Boolean)
+    );
+    return nomes.size;
+}
+
+function telefoneWhatsApp(tel) {
+    const digits = String(tel || "").replace(/\D/g, "");
+    if (digits.length < 10) return "";
+    const comPais = digits.startsWith("55") ? digits : `55${digits}`;
+    return `https://wa.me/${comPais}`;
 }
 
 /* ——— Despesas / Contas ——— */
