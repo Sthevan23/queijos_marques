@@ -947,6 +947,14 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     color: #c62828;
     white-space: nowrap;
 }
+.fiado-grupo__total.positivo { color: #2e7d32; }
+.card__head--filters {
+    flex-wrap: wrap;
+}
+#aprazo-filtros {
+    flex-wrap: wrap;
+    max-width: 100%;
+}
 .fiado-grupo__lista {
     display: flex;
     flex-direction: column;

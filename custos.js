@@ -1104,6 +1104,14 @@ function totalRotasSemBaixa() {
     return loadRotas().filter((r) => r.status !== "baixada").length;
 }
 
+function apiAprazoUrl() {
+    try {
+        return new URL("api/aprazo.php", window.location.href).href;
+    } catch {
+        return "api/aprazo.php";
+    }
+}
+
 function loadAprazo() {
     try {
         const saved = localStorage.getItem(APRAZO_STORAGE_KEY);
@@ -1115,59 +1123,144 @@ function loadAprazo() {
 }
 
 function saveAprazo(lista) {
-    localStorage.setItem(APRAZO_STORAGE_KEY, JSON.stringify(lista));
+    localStorage.setItem(APRAZO_STORAGE_KEY, JSON.stringify(lista || []));
 }
 
-function criarAprazo({ cliente, cidade, valor, data, vencimento, rotaId, observacao, telefone }) {
-    const item = {
-        id: Date.now(),
+async function apiAprazo(method, body = null, query = "") {
+    const opts = {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Pin": ADMIN_API_PIN
+        }
+    };
+    if (body != null) opts.body = JSON.stringify(body);
+    const res = await fetch(apiAprazoUrl() + query, opts);
+    const json = await res.json().catch(() => ({ ok: false, erro: "Resposta inválida da API" }));
+    if (!res.ok || !json.ok) {
+        const err = new Error(json.erro || `Erro HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+    }
+    return json.data;
+}
+
+async function syncAprazoDoServidor() {
+    try {
+        let remoto = await apiAprazo("GET");
+        let lista = Array.isArray(remoto) ? remoto : [];
+
+        // Migra fiados antigos que estavam só no celular
+        if (lista.length === 0) {
+            const local = loadAprazo().filter((i) => i && i.cliente && Number(i.valor) > 0);
+            for (const item of local) {
+                try {
+                    const criado = await apiAprazo("POST", {
+                        cliente: item.cliente,
+                        telefone: item.telefone || "",
+                        cidade: item.cidade || "",
+                        valor: item.valor,
+                        data: item.data,
+                        vencimento: item.vencimento || "",
+                        observacao: item.observacao || "",
+                        status: item.status === "pago" ? "pago" : "pendente",
+                        pagoEm: item.pagoEm || null
+                    });
+                    lista.unshift(criado);
+                } catch (e) {
+                    // segue com os demais
+                }
+            }
+            if (lista.length) {
+                remoto = await apiAprazo("GET");
+                lista = Array.isArray(remoto) ? remoto : lista;
+            }
+        }
+
+        saveAprazo(lista);
+        return { ok: true, lista };
+    } catch (e) {
+        return { ok: false, erro: e.message || "sem conexão", lista: loadAprazo() };
+    }
+}
+
+async function criarAprazo({ cliente, cidade, valor, data, vencimento, observacao, telefone }) {
+    const payload = {
         cliente: (cliente || "").trim(),
         telefone: String(telefone || "").trim(),
         cidade: cidade || "",
         valor: Number(valor) || 0,
         data: data || new Date().toISOString().slice(0, 10),
         vencimento: vencimento || "",
-        rotaId: rotaId || null,
         observacao: observacao || "",
         status: "pendente",
         pagoEm: null
     };
-    const lista = loadAprazo();
-    lista.unshift(item);
-    saveAprazo(lista);
-    return item;
+    try {
+        const item = await apiAprazo("POST", payload);
+        const lista = loadAprazo();
+        lista.unshift(item);
+        saveAprazo(lista);
+        return { ok: true, item, salvaNoSite: true };
+    } catch (e) {
+        const item = { id: Date.now(), ...payload, localOnly: true };
+        const lista = loadAprazo();
+        lista.unshift(item);
+        saveAprazo(lista);
+        return { ok: true, item, salvaNoSite: false, erro: e.message || "offline" };
+    }
 }
 
-function marcarAprazoPago(id) {
-    const lista = loadAprazo().map((item) =>
-        item.id === id
-            ? { ...item, status: "pago", pagoEm: new Date().toISOString().slice(0, 10) }
-            : item
-    );
-    saveAprazo(lista);
+async function marcarAprazoPago(id) {
+    const hoje = new Date().toISOString().slice(0, 10);
+    try {
+        const atualizado = await apiAprazo("PUT", { id: Number(id), status: "pago", pagoEm: hoje });
+        saveAprazo(loadAprazo().map((i) => (Number(i.id) === Number(id) ? atualizado : i)));
+        return atualizado;
+    } catch (e) {
+        const lista = loadAprazo().map((item) =>
+            Number(item.id) === Number(id) ? { ...item, status: "pago", pagoEm: hoje } : item
+        );
+        saveAprazo(lista);
+        return lista.find((i) => Number(i.id) === Number(id)) || null;
+    }
 }
 
-function receberAprazoParcial(id, valorRecebido) {
+async function receberAprazoParcial(id, valorRecebido) {
     const pago = Number(valorRecebido) || 0;
     if (pago <= 0) return null;
     const lista = loadAprazo();
-    const idx = lista.findIndex((i) => i.id === id);
-    if (idx < 0) return null;
-    const item = lista[idx];
-    if (item.status !== "pendente") return null;
+    const item = lista.find((i) => Number(i.id) === Number(id));
+    if (!item || item.status !== "pendente") return null;
     const resto = Math.max(0, Math.round(((Number(item.valor) || 0) - pago) * 100) / 100);
     const hoje = new Date().toISOString().slice(0, 10);
-    if (resto <= 0) {
-        lista[idx] = { ...item, valor: Number(item.valor) || 0, status: "pago", pagoEm: hoje };
-    } else {
-        lista[idx] = { ...item, valor: resto };
+    const patch =
+        resto <= 0
+            ? { id: Number(id), status: "pago", pagoEm: hoje, valor: Number(item.valor) || 0 }
+            : { id: Number(id), valor: resto, status: "pendente", pagoEm: null };
+    try {
+        const atualizado = await apiAprazo("PUT", patch);
+        saveAprazo(loadAprazo().map((i) => (Number(i.id) === Number(id) ? atualizado : i)));
+        return atualizado;
+    } catch (e) {
+        const nova = loadAprazo().map((i) => {
+            if (Number(i.id) !== Number(id)) return i;
+            return resto <= 0
+                ? { ...i, status: "pago", pagoEm: hoje }
+                : { ...i, valor: resto };
+        });
+        saveAprazo(nova);
+        return nova.find((i) => Number(i.id) === Number(id)) || null;
     }
-    saveAprazo(lista);
-    return lista[idx];
 }
 
-function removerAprazo(id) {
-    saveAprazo(loadAprazo().filter((i) => i.id !== id));
+async function removerAprazo(id) {
+    try {
+        await apiAprazo("DELETE", null, `?id=${encodeURIComponent(id)}`);
+    } catch (e) {
+        // remove local mesmo offline
+    }
+    saveAprazo(loadAprazo().filter((i) => Number(i.id) !== Number(id)));
 }
 
 function isAprazoAtrasado(item, hoje = new Date().toISOString().slice(0, 10)) {

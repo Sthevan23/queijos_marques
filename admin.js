@@ -89,9 +89,10 @@ async function mostrarApp() {
     const sync = await inicializarRotasServidor();
     const syncPrecos = await sincronizarPrecosDoServidor(produtos, { migrarLocal: true });
     await syncDespesasDoServidor();
+    const syncAprazo = await syncAprazoDoServidor();
     precosAtuais = loadPrecos();
     custosAtuais = loadCustos();
-    if (sync.ok && syncPrecos.ok && syncProdutos.ok) {
+    if (sync.ok && syncPrecos.ok && syncProdutos.ok && syncAprazo.ok) {
         setSyncStatus(`No site · ${sync.total} viagens`);
     } else if (sync.ok) {
         setSyncStatus("Parcial · checar sync");
@@ -1122,10 +1123,18 @@ async function confirmarBaixa() {
 
 let aprazoFiltro = "pendente";
 
-function diasVencimentoPadrao(dias = 7) {
+function dataLocalISO(offsetDias = 0) {
     const d = new Date();
-    d.setDate(d.getDate() + dias);
-    return d.toISOString().slice(0, 10);
+    d.setHours(12, 0, 0, 0);
+    d.setDate(d.getDate() + offsetDias);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+}
+
+function diasVencimentoPadrao(dias = 7) {
+    return dataLocalISO(dias);
 }
 
 function prepararFormAprazo() {
@@ -1263,21 +1272,26 @@ function renderAprazo() {
         .join("");
 
     box.querySelectorAll("[data-pagar-aprazo]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            marcarAprazoPago(Number(btn.dataset.pagarAprazo));
-            renderAprazo();
-            renderStats();
+        btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            try {
+                await marcarAprazoPago(Number(btn.dataset.pagarAprazo));
+                renderAprazo();
+                renderStats();
+            } finally {
+                btn.disabled = false;
+            }
         });
     });
 
     box.querySelectorAll("[data-parcial-aprazo]").forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
             const id = Number(btn.dataset.parcialAprazo);
-            const item = loadAprazo().find((i) => i.id === id);
+            const item = loadAprazo().find((i) => Number(i.id) === id);
             if (!item) return;
             const raw = prompt(
                 `Quanto ${item.cliente || "o cliente"} pagou agora?\nValor atual: ${formatBRLAdmin(item.valor)}`,
-                String(item.valor)
+                String(item.valor).replace(".", ",")
             );
             if (raw == null) return;
             const valor = Number(String(raw).replace(",", ".")) || 0;
@@ -1285,18 +1299,28 @@ function renderAprazo() {
                 alert("Informe um valor válido.");
                 return;
             }
-            receberAprazoParcial(id, valor);
-            renderAprazo();
-            renderStats();
+            btn.disabled = true;
+            try {
+                await receberAprazoParcial(id, valor);
+                renderAprazo();
+                renderStats();
+            } finally {
+                btn.disabled = false;
+            }
         });
     });
 
     box.querySelectorAll("[data-del-aprazo]").forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
             if (!confirm("Excluir este fiado?")) return;
-            removerAprazo(Number(btn.dataset.delAprazo));
-            renderAprazo();
-            renderStats();
+            btn.disabled = true;
+            try {
+                await removerAprazo(Number(btn.dataset.delAprazo));
+                renderAprazo();
+                renderStats();
+            } finally {
+                btn.disabled = false;
+            }
         });
     });
 }
@@ -1715,6 +1739,10 @@ function showTab(tab) {
     if (target === "aprazo") {
         fillCidadeSelects();
         prepararFormAprazo();
+        syncAprazoDoServidor().then(() => {
+            renderAprazo();
+            renderStats();
+        });
         renderAprazo();
         document.getElementById("aprazo-cliente")?.focus();
     }
@@ -1895,40 +1923,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.getElementById("btn-salvar-aprazo").addEventListener("click", () => {
+    document.getElementById("btn-salvar-aprazo").addEventListener("click", async () => {
+        const btn = document.getElementById("btn-salvar-aprazo");
         const cliente = document.getElementById("aprazo-cliente").value.trim();
         const valor = Number(document.getElementById("aprazo-valor").value) || 0;
         if (!cliente || valor <= 0) {
             alert("Informe o cliente e um valor válido.");
             return;
         }
-        criarAprazo({
-            cliente,
-            telefone: document.getElementById("aprazo-telefone").value.trim(),
-            cidade: document.getElementById("aprazo-cidade").value,
-            valor,
-            data: document.getElementById("aprazo-data").value || hojeISO(),
-            vencimento: document.getElementById("aprazo-vencimento").value || diasVencimentoPadrao(7),
-            observacao: document.getElementById("aprazo-obs").value.trim()
-        });
-        document.getElementById("aprazo-cliente").value = "";
-        document.getElementById("aprazo-telefone").value = "";
-        document.getElementById("aprazo-valor").value = "";
-        document.getElementById("aprazo-obs").value = "";
-        document.getElementById("aprazo-vencimento").value = diasVencimentoPadrao(7);
-        aprazoFiltro = "pendente";
-        document.querySelectorAll("[data-aprazo-filtro]").forEach((b) => {
-            b.classList.toggle("is-active", b.dataset.aprazoFiltro === "pendente");
-        });
-        renderAprazo();
-        renderStats();
-        const feedback = document.getElementById("aprazo-feedback");
-        if (feedback) {
-            feedback.textContent = "Fiado anotado!";
-            feedback.classList.remove("hidden");
-            setTimeout(() => feedback.classList.add("hidden"), 2200);
+        if (btn) btn.disabled = true;
+        try {
+            const res = await criarAprazo({
+                cliente,
+                telefone: document.getElementById("aprazo-telefone").value.trim(),
+                cidade: document.getElementById("aprazo-cidade").value,
+                valor,
+                data: document.getElementById("aprazo-data").value || hojeISO(),
+                vencimento: document.getElementById("aprazo-vencimento").value || diasVencimentoPadrao(7),
+                observacao: document.getElementById("aprazo-obs").value.trim()
+            });
+            document.getElementById("aprazo-cliente").value = "";
+            document.getElementById("aprazo-telefone").value = "";
+            document.getElementById("aprazo-valor").value = "";
+            document.getElementById("aprazo-obs").value = "";
+            document.getElementById("aprazo-vencimento").value = diasVencimentoPadrao(7);
+            aprazoFiltro = "pendente";
+            document.querySelectorAll("[data-aprazo-filtro]").forEach((b) => {
+                b.classList.toggle("is-active", b.dataset.aprazoFiltro === "pendente");
+            });
+            renderAprazo();
+            renderStats();
+            const feedback = document.getElementById("aprazo-feedback");
+            if (feedback) {
+                feedback.textContent = res.salvaNoSite
+                    ? "Fiado anotado e salvo no site!"
+                    : "Fiado anotado neste celular (sem internet).";
+                feedback.classList.remove("hidden");
+                setTimeout(() => feedback.classList.add("hidden"), 2500);
+            }
+            document.getElementById("aprazo-cliente")?.focus();
+        } finally {
+            if (btn) btn.disabled = false;
         }
-        document.getElementById("aprazo-cliente")?.focus();
     });
 
     document.querySelectorAll("[data-aprazo-filtro]").forEach((btn) => {
