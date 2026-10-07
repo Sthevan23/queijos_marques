@@ -410,11 +410,19 @@ function renderProdutos() {
         .map((p) => {
             const custo = getCusto(p.id, custosAtuais);
             const preco = Number(precosAtuais[p.id] ?? p.preco);
+            const foto = p.imagem
+                ? `<img class="prod-thumb" src="${p.imagem}" alt="" loading="lazy" width="40" height="40" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'prod-thumb prod-thumb--empty'}))">`
+                : `<span class="prod-thumb prod-thumb--empty" aria-hidden="true"></span>`;
             return `
                 <tr data-id="${p.id}">
                     <td>
-                        <div class="prod-nome">${p.nome}</div>
-                        <div class="prod-detalhe">${p.categoria}</div>
+                        <div class="prod-cell">
+                            ${foto}
+                            <div class="prod-cell__text">
+                                <div class="prod-nome">${p.nome}</div>
+                                <div class="prod-detalhe">${p.categoria}</div>
+                            </div>
+                        </div>
                     </td>
                     <td>
                         <label class="custo-input">

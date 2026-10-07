@@ -628,6 +628,27 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
     letter-spacing: 0.03em;
     color: var(--texto-claro);
 }
+.prod-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+.prod-cell__text { min-width: 0; }
+.prod-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--cream, #f5f2eb);
+    border: 1px solid var(--border);
+}
+.prod-thumb--empty {
+    display: inline-block;
+    background: linear-gradient(135deg, #eee 25%, #f7f7f7 25%, #f7f7f7 50%, #eee 50%, #eee 75%, #f7f7f7 75%);
+    background-size: 8px 8px;
+}
 .prod-nome { font-weight: 700; }
 .prod-detalhe { font-size: 0.8rem; color: var(--texto-claro); }
 .custo-input, .preco-input {
