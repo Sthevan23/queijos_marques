@@ -183,7 +183,7 @@ class Desidratado extends Produto {
             categoria: "Desidratados",
             nome: "Chips de provolone recheado com goiabada",
             detalhes: "180g – Goiabada e queijo",
-            preco: 45.00,
+            preco: 50.00,
             imagem: "assets/imagens/chips_queijo/chips3.png"
         },
         {
@@ -604,7 +604,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta biquinho",
             detalhes: "200g – Defumado artesanal, toque suave da pimenta biquinho",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto1.png"
         },
         {
@@ -612,7 +612,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ alho",
             detalhes: "200g – Sabor marcante com o toque especial do alho",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto2.png"
         },
         {
@@ -620,7 +620,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame italiano fatiado",
             detalhes: "200g – Receita clássica italiana, sabor intenso e equilibrado",
-            preco: 75.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto3.png"
         },
         {
@@ -628,7 +628,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salaminho c/ azeitona",
             detalhes: "200g – Combinação saborosa de salame com azeitonas selecionadas",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto4.png"
         },
         {
@@ -636,7 +636,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado c/ pimenta calabresa",
             detalhes: "200g – Defumado intenso com o toque picante da calabresa",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto5.png"
         },
         {
@@ -644,7 +644,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame frango c/ azeitona",
             detalhes: "200g – Leve, saboroso e realçado com azeitonas selecionadas",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto6.png"
         },
         {
@@ -652,7 +652,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Salame frango c/ provolone",
             detalhes: "200g – Combinação única de frango suave e queijo provolone",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto7.png"
         },
         {
@@ -660,7 +660,7 @@ class Salaminho extends Produto {
             categoria: "Salaminhos",
             nome: "Lombo nobre defumado",
             detalhes: "200g – Clássico e saboroso, defumado artesanalmente",
-            preco: 45.00,
+            preco: 48.00,
             imagem: "assets/imagens/salaminhos/foto8.png"
         }
     ];
